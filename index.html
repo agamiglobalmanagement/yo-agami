@@ -1074,6 +1074,17 @@ body.ssshake main{animation:ishake .5s 3}
 .feature i{font-style:italic;font-family:"Libre Caslon Text",Georgia,serif;font-size:clamp(15px,2.2vw,22px);color:#efe6cf;animation:fadeIn 1s 2s both}
 .sp-player{margin-top:36px;border-radius:14px;overflow:hidden;box-shadow:0 0 50px rgba(226,178,74,.3);border:1px solid rgba(226,178,74,.45)}
 .sp-player iframe{display:block;width:100%;height:352px;border:0}
+
+.g-pass{display:grid;gap:6px;justify-items:center;margin-top:14px;width:min(300px,100%)}
+.g-pass label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8a8270}
+.gp-row{display:flex;width:100%}
+.gp-row input{flex:1;min-width:0;padding:9px 12px;font:600 14px var(--body);color:var(--ivory);background:rgba(0,0,0,.45);border:1px solid rgba(255,218,126,.35);border-right:0;letter-spacing:.06em}
+.gp-row input:focus{outline:none;border-color:var(--gold-hi)}
+.gp-row button{padding:9px 14px;background:rgba(255,218,126,.15);color:var(--gold-hi);border:1px solid rgba(255,218,126,.35);cursor:pointer;font-family:var(--caps);font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+.gp-row button:hover{background:rgba(255,218,126,.3)}
+.gp-msg{min-height:1.2em;font-family:var(--mono);font-size:11px;color:#ff8a95;letter-spacing:.04em}
+.g-pass.bad .gp-row{animation:ishake .4s}
+.g-pass.ok .gp-msg{color:#9dffb0}
 </style>
 <style>img{max-width:100%}</style>
 </head>
@@ -1103,6 +1114,11 @@ body.ssshake main{animation:ishake .5s 3}
       <div class="g-sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>Turn your sound all the way up</div>
       <button type="button" id="enterBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>Enter the Kingdom</button>
       <div class="g-run">No skip button · Rated A for Agami</div>
+      <form class="g-pass" id="passForm" autocomplete="off">
+        <label for="passIn">Royal pass</label>
+        <div class="gp-row"><input id="passIn" type="password" placeholder="Enter the code" autocomplete="off" spellcheck="false"><button type="submit">Pass</button></div>
+        <div class="gp-msg" id="passMsg" aria-live="polite"></div>
+      </form>
     </div>
   </div>
   <div class="curtain l" aria-hidden="true"></div>
@@ -2938,6 +2954,24 @@ body.ssshake main{animation:ishake .5s 3}
     if (!AG.showDone){ AG.showDone = true; window.dispatchEvent(new Event('agami:showdone')); }
   }
   AG.playShow = start;
+
+  /* ---------- royal pass: skip the whole show ---------- */
+  function hashPass(t){ t = t.toLowerCase().replace(/\s+/g, ' ').trim(); var h = 5381; for (var i=0;i<t.length;i++){ h = ((h << 5) + h + t.charCodeAt(i)) | 0; } return h; }
+  var PASS = hashPass('yo agami the king');
+  function skipShow(){
+    stop(); frozen = false; intro.classList.remove('freeze'); musicStop(.1); sub(''); slug(''); lcap('');
+    try{ speechSynthesis.cancel(); }catch(e){}
+    intro.classList.add('opened', 'out'); document.documentElement.style.overflow = '';
+    setTimeout(function(){ if (!running) intro.style.display = 'none'; }, 900);
+    if (!AG.showDone){ AG.showDone = true; window.dispatchEvent(new Event('agami:showdone')); }
+  }
+  $('passForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = this, inp = $('passIn'), msg = $('passMsg');
+    f.classList.remove('bad', 'ok'); void f.offsetWidth;
+    if (hashPass(inp.value) === PASS){ f.classList.add('ok'); msg.textContent = 'Welcome back, Your Majesty.'; inp.blur(); setTimeout(skipShow, 500); }
+    else { f.classList.add('bad'); msg.textContent = inp.value.trim() ? 'Wrong code. Only the King may pass.' : 'Type the code first.'; }
+  });
 
   $('enterBtn').addEventListener('click', function(){ ctxOk(); say(' ', {volume:0}); start(); });
   $('replayIntro').addEventListener('click', function(){ window.scrollTo(0,0); ctxOk(); say(' ', {volume:0}); start(); });
