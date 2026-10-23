@@ -32,7 +32,37 @@
   ]
 }
 </script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<meta property="og:image" content="https://agmteam.com/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="YO AGAMI">
+<meta name="twitter:image" content="https://agmteam.com/og.jpg">
 <title>YO AGAMI</title>
+<script>
+(function(){
+  var d = document.documentElement, ua = navigator.userAgent || '';
+  var tg = /Telegram/i.test(ua) || !!window.TelegramWebviewProxy || !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.platform && window.Telegram.WebApp.platform !== 'unknown');
+  var pref = null; try { pref = localStorage.getItem('agami-fx'); } catch(e){}
+  var coarse = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
+  var small = Math.min(screen.width || 9999, screen.height || 9999) < 820;
+  var weak = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) || (navigator.connection && navigator.connection.saveData);
+  var lite = pref ? pref === 'lite' : (tg || (coarse && small) || !!weak);
+  window.AGLITE = !!lite; window.AGTG = !!tg;
+  if (lite) d.classList.add('lite');
+  if (tg) d.classList.add('tg');
+  try {
+    var W = window.Telegram && window.Telegram.WebApp;
+    if (W && W.platform && W.platform !== 'unknown'){
+      W.ready(); W.expand();
+      if (W.disableVerticalSwipes) W.disableVerticalSwipes();
+      if (W.setHeaderColor) W.setHeaderColor('#070E33');
+      if (W.setBackgroundColor) W.setBackgroundColor('#04071f');
+    }
+  } catch(e){}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;700;900&family=Archivo:wght@400;600;800&family=Space+Mono:wght@400;700&family=Great+Vibes&family=Gochi+Hand&family=UnifrakturMaguntia&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap">
@@ -492,7 +522,7 @@ h2.lit{animation:ignite 1.2s ease-out}
 @keyframes cursorGo{from{transform:translate(38vw,30vh)}to{transform:translate(20px,-6px)}}
 
 
-/* ---------- relics, streaks, six seven ---------- */
+/* ---------- relics and streaks ---------- */
 #aura{width:170px}
 #aura .streak{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:#ffb36b;margin-top:2px}
 #relicBtn{margin-top:8px;width:100%;padding:7px 8px;background:var(--gold);color:var(--lapis-deep);border:0;cursor:pointer;
@@ -524,25 +554,7 @@ h2.lit{animation:ignite 1.2s ease-out}
 @keyframes rtOut{to{transform:translateX(-120%);opacity:0}}
 @media (max-width:600px){#relicToasts{width:auto;right:14px;bottom:calc(150px + env(safe-area-inset-bottom,0px))}}
 
-.sixseven{position:fixed;inset:0;z-index:150;pointer-events:none;display:grid;place-items:center;
-  background:radial-gradient(circle,rgba(255,60,120,.35),rgba(80,0,160,.35) 50%,rgba(0,0,0,.55));animation:ssFade 4.2s forwards}
-@keyframes ssFade{0%{opacity:0}6%{opacity:1}85%{opacity:1}100%{opacity:0}}
-.ss-row{display:flex;align-items:center;justify-content:center;gap:clamp(8px,3vw,40px)}
-.ss-num{font-family:var(--display);font-weight:900;font-size:clamp(120px,30vw,360px);line-height:1;
-  background:linear-gradient(180deg,#fff,#ffe36b 40%,#ff7a00);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 0 30px rgba(255,120,0,.9))}
-.ss-num.a{animation:weighA .42s ease-in-out infinite alternate}
-.ss-num.b{animation:weighB .42s ease-in-out infinite alternate}
-.ss-hand{font-size:clamp(50px,11vw,130px);display:inline-block}
-.ss-hand.a{animation:weighA .42s ease-in-out infinite alternate}
-.ss-hand.b{animation:weighB .42s ease-in-out infinite alternate}
-@keyframes weighA{from{transform:translateY(-40px) rotate(-6deg)}to{transform:translateY(40px) rotate(6deg)}}
-@keyframes weighB{from{transform:translateY(40px) rotate(6deg)}to{transform:translateY(-40px) rotate(-6deg)}}
-.ss-text{font-family:var(--caps);font-weight:900;font-size:clamp(30px,7vw,84px);letter-spacing:.08em;color:#fff;text-align:center;
-  text-shadow:4px 0 #ff00a8,-4px 0 #00e5ff,0 0 30px #ff7a00;animation:glitch .2s steps(2) infinite}
-.ss-sub{font-family:var(--mono);font-size:clamp(12px,1.8vw,16px);letter-spacing:.2em;color:#ffe36b;text-align:center;margin-top:10px}
-.ssfall{position:fixed;top:-80px;z-index:151;pointer-events:none;font-family:var(--display);font-weight:900;color:#ffe36b;text-shadow:0 0 14px #ff7a00;animation:crownfall linear forwards}
-body.ssshake main{animation:ishake .5s 3}
+
 
 /* ---------- cosmic ---------- */
 .orbit{position:absolute;left:50%;top:50%;border:1px solid rgba(255,218,126,.3);border-radius:50%;
@@ -1098,6 +1110,155 @@ body.ssshake main{animation:ishake .5s 3}
 .realfacts p{margin:0 0 12px;color:#e6dfca;font-size:17px;max-width:62ch}
 .realfacts strong{color:var(--ivory)}
 .rf-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+
+/* =====================================================================
+   2026 REFRESH — iOS-style surfaces, performance-safe effects
+   ===================================================================== */
+:root{
+  --body:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --r:20px; --r-sm:14px;
+  --glass:rgba(255,255,255,.055); --hair:rgba(255,255,255,.1);
+}
+html,body{max-width:100%;overflow-x:hidden}
+@supports (overflow:clip){html,body{overflow-x:clip}}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-size-adjust:100%;-webkit-text-size-adjust:100%}
+#glitter{bottom:auto;height:100vh;height:100lvh}
+#fxLayer{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:88}
+#fxLayer > *{pointer-events:none}
+
+/* header: solid, no blur (blur on a sticky bar is what flickers inside Telegram) */
+.bar{background:rgba(6,9,30,.94);-webkit-backdrop-filter:none;backdrop-filter:none;border-bottom:1px solid var(--hair)}
+.bar .wrap{padding-block:10px}
+.brand span{display:none}
+.nav a{font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:0;text-transform:none;padding:6px 10px;border-radius:999px}
+.nav a.on{background:rgba(255,218,126,.14);text-shadow:none}
+.nav a:hover{text-shadow:none;background:rgba(255,255,255,.06)}
+
+/* aura pill lives in the header now */
+.bar #aura{position:static;width:auto;padding:4px 4px 4px 12px;display:flex;align-items:center;gap:10px;border-radius:999px;background:var(--glass);border:1px solid var(--hair);box-shadow:none;flex:none}
+.bar #aura .lbl{gap:6px;font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:0;text-transform:none}
+.bar #aura .track,.bar #aura .state,.bar #aura .streak{display:none}
+.bar #aura #relicBtn{margin:0;width:auto;padding:6px 12px;border-radius:999px;font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:0}
+.bar #aura.overload{animation:none;box-shadow:0 0 0 2px var(--gold-hi)}
+#relicPanel{top:calc(env(safe-area-inset-top,0px) + 64px);bottom:auto;right:12px;border-radius:var(--r);background:rgba(14,18,44,.98);border:1px solid var(--hair);box-shadow:0 20px 60px rgba(0,0,0,.55)}
+#relicPanel .streak{font-family:var(--body);font-size:13px;color:#ffb36b;margin:-4px 0 12px}
+.relic .ic{border-radius:10px}
+
+/* iOS-style notification banners for relics */
+#relicToasts{left:50%;right:auto;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 66px);bottom:auto;width:min(380px,calc(100% - 24px));min-width:0}
+.rtoast{border-radius:18px;background:rgba(26,30,58,.97);border:1px solid var(--hair);box-shadow:0 12px 40px rgba(0,0,0,.5);animation:rtDown .45s cubic-bezier(.2,1.2,.4,1) both}
+.rtoast .ic{border-radius:12px;box-shadow:none}
+.rtoast small{font-family:var(--body);font-weight:600;letter-spacing:.02em;text-transform:none}
+.rtoast b{font-family:var(--body);font-weight:700;letter-spacing:0}
+.rtoast.out{animation:rtUp .35s forwards}
+@keyframes rtDown{from{transform:translateY(-140%);opacity:0}to{transform:none;opacity:1}}
+@keyframes rtUp{to{transform:translateY(-140%);opacity:0}}
+
+/* buttons */
+.btn{border-radius:999px;font-family:var(--body);font-weight:650;font-size:15px;letter-spacing:0;text-transform:none;padding:13px 20px;gap:8px;
+  border:1px solid rgba(255,218,126,.38);background:var(--glass);color:var(--ivory);transition:transform .15s,background .2s,box-shadow .2s;-webkit-tap-highlight-color:transparent}
+.btn:hover{box-shadow:0 0 0 1px rgba(255,218,126,.5),0 8px 24px rgba(0,0,0,.25)}
+.btn:active{transform:scale(.97)}
+.btn.solid{color:#1a1205;border-color:transparent;box-shadow:0 8px 24px rgba(226,178,74,.3)}
+.btn.ig{border-color:rgba(255,122,184,.55)}
+.kicker{font-family:var(--body);font-weight:650;letter-spacing:.08em;font-size:12px}
+.intro,.lede,.pintro{font-family:var(--body)}
+
+/* surfaces */
+.tablets,.verse-card,.acronym,.prophecy,.item,.miracle,.horo,.xcard,.gcard,.tl-body,.facts,.faq details,.realfacts,#arcade,.box,.sc-card,.records,.cert,.paper,.rev,.loadbox{border-radius:var(--r)}
+.tablets,.item,.gcard,.exhibit,#arcade,.records,.paper{overflow:hidden}
+.verse-card,.prophecy,.miracle,.horo,.xcard,.tl-body,.faq details,.realfacts,.acronym{border-color:var(--hair);background:var(--glass)}
+.records{border:1px solid var(--hair);background:var(--glass)}
+.exhibit{border-radius:var(--r)}
+.sign,.topt,.ck-up,.flinks a,.mcard > span{border-radius:var(--r-sm)}
+input[type="text"],input[type="password"],input:not([type]),.ty-in{border-radius:12px;font-size:16px}
+.gp-row input{font-size:16px;border-radius:12px 0 0 12px}
+.gp-row button{border-radius:0 12px 12px 0}
+.flinks a{border-radius:999px}
+.royal{border-radius:22px;border-width:4px}
+.ph-pct.stuck{color:var(--gold-hi)}
+
+/* the halo glow pulses with opacity (cheap) instead of an animated filter (expensive) */
+.halo{animation:none}
+.halo::before{content:"";position:absolute;inset:-10%;border-radius:50%;background:radial-gradient(circle,rgba(255,218,126,.35),rgba(255,218,126,0) 62%);animation:haloGlow 2.6s ease-in-out infinite}
+@keyframes haloGlow{50%{opacity:.35}}
+.hero.strike{animation:none}
+.rays{will-change:transform;contain:paint}
+
+/* ---------- lite mode: phones, Telegram, slower devices ---------- */
+html.lite .rays,html.lite .beam,html.lite .clouds,html.lite .icon,html.lite .wing,html.lite .halo::before,html.lite h1,html.lite h1 .ch,html.lite .cosmic-text,html.lite .vinyl,html.lite .ticker div{animation:none}
+html.lite .orbit,html.lite .dove,html.lite #bolts{display:none}
+html.lite .halo,html.lite h1,html.lite .ptitle,html.lite .lg-title.goldT,html.lite .item .pic svg{filter:none}
+html.lite h2.lit{animation:none}
+html.lite h2{text-shadow:none}
+html.lite .ticker{overflow-x:auto;scrollbar-width:none}
+html.lite #whiteout.go{animation:whiteoutLite .45s ease-out}
+@keyframes whiteoutLite{0%{opacity:.5}100%{opacity:0}}
+html.lite .s-red,html.lite .cd.e-glitch{animation:none}
+html.lite .cd.e-bolt{animation:none}
+
+/* ---------- bottom tab bar (phones) ---------- */
+.tabbar{display:none}
+@media (max-width:860px){
+  .menuBtn{display:none !important}
+  .bar.open .nav{display:none}
+  body{padding-bottom:calc(74px + env(safe-area-inset-bottom,0px))}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:60;
+    padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:rgba(8,10,30,.97);border-top:1px solid var(--hair)}
+  .tabbar a,.tabbar button{display:grid;justify-items:center;gap:3px;padding:6px 0 2px;background:none;border:0;color:#9a95a6;text-decoration:none;
+    font:600 10.5px var(--body);letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .tabbar svg{width:24px;height:24px;fill:currentColor}
+  .tabbar a.on{color:var(--gold-hi)}
+  .tabbar .tb-listen span{display:grid;place-items:center;width:48px;height:48px;margin-top:-20px;border-radius:50%;
+    background:linear-gradient(180deg,var(--gold-hi),var(--gold) 60%,var(--gold-lo));color:#1a1205;box-shadow:0 6px 20px rgba(226,178,74,.45),0 0 0 4px rgba(8,10,30,.97)}
+  .tabbar .tb-listen{color:var(--gold-hi)}
+  .tabbar .tb-listen svg{width:26px;height:26px}
+  #relicPanel{left:10px;right:10px;width:auto}
+  .bar #aura{padding-left:10px}
+  .bar #aura .lbl{font-size:11px}
+}
+@media (max-width:360px){ .bar #aura .lbl{display:none} }
+
+/* ---------- action sheets (More / Share) ---------- */
+.sheet{position:fixed;inset:0;z-index:150;display:grid;align-items:end;justify-items:center}
+.sheet[hidden]{display:none !important}
+.sh-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55);animation:fadeIn .2s}
+.sh-panel{position:relative;width:min(480px,100%);max-height:86vh;overflow:auto;padding:10px 12px calc(14px + env(safe-area-inset-bottom,0px));display:grid;gap:10px;animation:sheetUp .32s cubic-bezier(.2,1,.3,1)}
+@media (min-width:861px){.sheet{align-items:center}.sh-panel{padding-bottom:14px}}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+.sh-group{display:grid;background:rgba(30,34,62,.98);border-radius:16px;overflow:hidden}
+.sh-title{padding:14px 16px 10px;text-align:center;font:600 13px var(--body);color:#a9a3b6}
+.sh-group a,.sh-group button{display:flex;align-items:center;gap:12px;padding:15px 18px;background:none;border:0;border-top:1px solid rgba(255,255,255,.07);
+  color:var(--ivory);font:500 17px var(--body);text-decoration:none;text-align:left;cursor:pointer;width:100%}
+.sh-group > :first-child{border-top:0}
+.sh-group .sh-title + *{border-top:1px solid rgba(255,255,255,.07)}
+.sh-group a:active,.sh-group button:active{background:rgba(255,255,255,.06)}
+.sh-group .ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:17px;flex:none;color:#fff}
+.sh-group .ic svg{width:18px;height:18px;fill:currentColor}
+.sh-cancel{display:block;width:100%;padding:16px;border:0;border-radius:16px;background:rgba(30,34,62,.98);color:var(--gold-hi);font:700 17px var(--body);cursor:pointer}
+.sh-note{padding:0 18px 12px;font:13px var(--body);color:#a9a3b6}
+.seg{display:inline-grid;grid-auto-flow:column;gap:2px;padding:2px;border-radius:10px;background:rgba(255,255,255,.08)}
+.seg button{padding:7px 14px;border:0;border-radius:8px;background:none;color:var(--ivory);font:600 13px var(--body);cursor:pointer}
+.seg button[aria-pressed="true"]{background:rgba(255,255,255,.18);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.fxrow{display:flex;justify-content:center;align-items:center;gap:10px;margin:14px 0 4px;font:600 12px var(--body);color:var(--ivory-dim)}
+
+/* ---------- story card maker ---------- */
+.storygrid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.storygrid label{display:block;font:600 13px var(--body);color:var(--ivory-dim);margin:16px 0 6px}
+.storygrid input{width:100%;padding:13px 14px;color:var(--ivory);background:rgba(0,0,0,.3);border:1px solid var(--hair)}
+.storyprev{justify-self:center;width:min(300px,78vw);aspect-ratio:9/16;max-width:100%;border-radius:24px;overflow:hidden;background:#0b1240;box-shadow:0 20px 60px rgba(0,0,0,.55),0 0 0 1px var(--hair)}
+.storyprev img{display:block;width:100%;height:100%;object-fit:cover;-webkit-touch-callout:default;-webkit-user-select:auto;user-select:auto}
+@media (max-width:820px){.storygrid{grid-template-columns:1fr}}
+.copied-ok{font:600 13px var(--body);color:#9dffb0;min-height:1.3em;margin-top:8px}
+
+/* fixes: gate column and the hero name on very small phones */
+.g-in{grid-template-columns:minmax(0,1fr)}
+.g-in > *{max-width:100%;overflow-wrap:anywhere}
+.g-mark{letter-spacing:.22em}
+h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
+.subtitle{text-wrap:balance}
+.gp-row{display:grid;grid-template-columns:minmax(0,1fr) auto;width:100%}
+.gp-row input{width:100%;min-width:0}
 </style>
 <style>img{max-width:100%}</style>
 </head>
@@ -1105,9 +1266,9 @@ body.ssshake main{animation:ishake .5s 3}
 
 
 <canvas id="glitter" aria-hidden="true"></canvas>
+<div id="fxLayer" aria-hidden="true"></div>
 <div id="glory" aria-hidden="true"></div>
-<div id="aura" aria-live="off"><div class="lbl">Aura <b id="auraN">0%</b></div><div class="track"><div class="fill" id="auraFill"></div></div><div class="state" id="auraState">Mortal</div><div class="streak" id="streak">Day 1 of worship</div><button type="button" id="relicBtn">Relics <b id="relicN">0/21</b> ›</button></div>
-<div id="relicPanel" hidden><div class="rp-head"><b>Holy Relics</b><button type="button" id="relicClose" aria-label="Close">✕</button></div><p class="rp-sub">Collect all 21 to join the King's Inner Circle.</p><div id="relicList"></div></div>
+<div id="relicPanel" hidden><div class="rp-head"><b>Holy Relics</b><button type="button" id="relicClose" aria-label="Close">✕</button></div><p class="rp-sub">Collect all 21 to join the King's Inner Circle.</p><div class="streak" id="streak">Day 1 of worship</div><div id="relicList"></div></div>
 <div id="relicToasts" aria-live="polite"></div>
 <div id="intro">
   <canvas id="warp" aria-hidden="true"></canvas>
@@ -1151,6 +1312,7 @@ body.ssshake main{animation:ishake .5s 3}
       <a href="#faq" data-nav="faq">FAQ</a>
       <a href="#merch">Merch</a>
     </nav>
+    <div id="aura" aria-live="off"><div class="lbl">Aura <b id="auraN">0%</b></div><div class="track"><div class="fill" id="auraFill"></div></div><div class="state" id="auraState">Mortal</div><button type="button" id="relicBtn">Relics <b id="relicN">0/21</b> ›</button></div>
     <button type="button" class="menuBtn" id="menuBtn" aria-expanded="false" aria-controls="mnav"><i aria-hidden="true"></i>Menu</button>
   </div>
 </header>
@@ -1165,7 +1327,7 @@ body.ssshake main{animation:ishake .5s 3}
     <svg class="dove" id="dove1" viewBox="0 0 60 40" aria-hidden="true" style="top:18%"><path d="M4 24 Q16 18 30 22 Q44 20 56 12 Q50 24 40 28 Q30 34 18 30 Q10 30 4 24Z"/><path class="w" d="M26 22 Q20 4 34 2 Q36 12 34 22Z"/></svg>
     <svg class="dove" id="dove2" viewBox="0 0 60 40" aria-hidden="true" style="top:30%;width:40px"><path d="M4 24 Q16 18 30 22 Q44 20 56 12 Q50 24 40 28 Q30 34 18 30 Q10 30 4 24Z"/><path class="w" d="M26 22 Q20 4 34 2 Q36 12 34 22Z"/></svg>
     <div class="wrap">
-      <div class="eyebrow">✦ AGM presents · Emperor of the Cosmos · Est. 2026 ✦</div>
+      <div class="eyebrow">✦ AGM presents · Debut single out now ✦</div>
       <div class="throne" aria-hidden="true">
         <div class="icon" id="icon">
           <div class="orbit o1"><div class="spinner"><i class="planet p1"></i></div></div>
@@ -1181,12 +1343,13 @@ body.ssshake main{animation:ishake .5s 3}
       <h1>YO AGAMI</h1>
       <div class="subtitle">The Chosen One Has Arrived</div>
       <div class="eyebrow cosmic-text">Ruler of 8 planets · Owner of the Sun · Landlord of the Moon</div>
-      <p class="lede">Born humble. Rose legendary. <strong>Descended from the heavens directly onto Spotify.</strong> Scientists cannot explain him. Angels stream him on repeat.</p>
+      <p class="lede">One artist. One song out now. <strong>One website that got completely out of hand.</strong> Press play, then explore the kingdom.</p>
       <div class="ctas">
         <a class="btn solid" href="https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22Zm5.04 15.87a.69.69 0 0 1-.94.23c-2.6-1.59-5.86-1.94-9.7-1.06a.69.69 0 1 1-.31-1.34c4.2-.96 7.8-.55 10.72 1.23.32.2.43.62.23.94Zm1.35-3a.86.86 0 0 1-1.18.28c-2.97-1.83-7.5-2.36-11.02-1.29a.86.86 0 1 1-.5-1.64c4.02-1.22 9.01-.63 12.42 1.47.4.25.53.78.28 1.18Zm.12-3.12C14.95 8.64 9.08 8.44 5.68 9.47a1.03 1.03 0 1 1-.6-1.97c3.9-1.18 10.4-.95 14.49 1.48a1.03 1.03 0 0 1-1.06 1.77Z"/></svg>
-          Receive the Blessing
+          Listen on Spotify
         </a>
+        <button class="btn shareBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 7.5 6.5l1.4 1.4L11 5.8V15h2V5.8l2.1 2.1 1.4-1.4L12 2zM5 10v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10h-2v10H7V10H5z"/></svg>Share</button>
         <a class="btn ig" href="https://www.instagram.com/itsyoagami/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM17.3 5.4a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z"/></svg>Follow @itsyoagami</a>
         <a class="btn ig" href="https://www.tiktok.com/@itsyoagami" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7z"/></svg>TikTok @itsyoagami</a>
         <a class="btn ig" href="https://www.youtube.com/@itsyoagami" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.4-1.6.5-3.2.5-4.8s-.1-3.2-.5-4.8zM9.8 15.1V8.9l5.7 3.1-5.7 3.1z"/></svg>YouTube @itsyoagami</a>
@@ -1197,7 +1360,7 @@ body.ssshake main{animation:ishake .5s 3}
     </div>
   </section>
 
-  <div class="ticker" aria-hidden="true"><div>HE IS HIM ✦ ALL HAIL YO AGAMI ✦ GOAT OF ALL GOATS ✦ THE PROPHECY IS STREAMING ✦ AURA: INFINITE ✦ BOW DOWN ✦ ONE KING · ONE THRONE · ONE AGAMI ✦ HE IS HIM ✦ ALL HAIL YO AGAMI ✦ GOAT OF ALL GOATS ✦ THE PROPHECY IS STREAMING ✦ AURA: INFINITE ✦ BOW DOWN ✦ ONE KING · ONE THRONE · ONE AGAMI ✦&nbsp;</div></div>
+  <div class="ticker" aria-hidden="true"><div>OUT NOW ON SPOTIFY ✦ HE IS HIM ✦ NO SKIPS ALLOWED ✦ ALL HAIL YO AGAMI ✦ SAVE IT TO A PLAYLIST ✦ SEND IT TO A FRIEND ✦ ONE KING · ONE THRONE · ONE SONG ✦ OUT NOW ON SPOTIFY ✦ HE IS HIM ✦ NO SKIPS ALLOWED ✦ ALL HAIL YO AGAMI ✦ SAVE IT TO A PLAYLIST ✦ SEND IT TO A FRIEND ✦ ONE KING · ONE THRONE · ONE SONG ✦ &nbsp;</div></div>
 
   <section class="block" id="about" style="padding-block:56px 8px">
     <div class="wrap">
@@ -1214,10 +1377,10 @@ body.ssshake main{animation:ishake .5s 3}
 
   <section class="block" id="explore" style="padding-block:64px 24px">
     <div class="wrap">
-      <p class="kicker">The kingdom has many rooms</p>
+      <p class="kicker">Pick a room</p>
       <h2>Explore the Agamiverse</h2>
       <div class="xgrid">
-        <a class="xcard" href="#games"><span class="xi">🕹️</span><b>The Holy Arcade</b><small>Twelve sacred games. Flappy Crown, Six Seven Slots, Aura Clicker and more. High scores saved forever.</small><em>Play now ›</em></a>
+        <a class="xcard" href="#games"><span class="xi">🕹️</span><b>The Holy Arcade</b><small>Twelve sacred games. Flappy Crown, Crown Slots, Aura Clicker and more. High scores saved forever.</small><em>Play now ›</em></a>
         <a class="xcard" href="#bio"><span class="xi">📖</span><b>The Holy Biography</b><small>From his first word to world domination.</small><em>Read ›</em></a>
         <a class="xcard" href="#museum"><span class="xi">🏛️</span><b>The Agami Museum</b><small>Priceless relics. Please do not touch.</small><em>Visit ›</em></a>
         <a class="xcard" href="#news"><span class="xi">📰</span><b>The Daily Agami</b><small>All the news. All about him.</small><em>Read ›</em></a>
@@ -1226,6 +1389,22 @@ body.ssshake main{animation:ishake .5s 3}
     </div>
   </section>
 
+
+  <section class="block" id="story" style="padding-block:40px 24px">
+    <div class="wrap storygrid">
+      <div>
+        <p class="kicker">New · Post it, tag @itsyoagami</p>
+        <h2>Make your story card</h2>
+        <p class="intro" style="margin-bottom:6px">Pick a style, add your name, and post it to your Instagram or TikTok story. The King reposts the best ones. (Probably.)</p>
+        <div class="seg" id="storySeg" role="group" aria-label="Card style"><button type="button" data-s="0" aria-pressed="true">Believer</button><button type="button" data-s="1" aria-pressed="false">Survivor</button><button type="button" data-s="2" aria-pressed="false">Now playing</button></div>
+        <label for="storyName">Your name (optional)</label>
+        <input id="storyName" type="text" maxlength="22" placeholder="e.g. Daniel" autocomplete="off">
+        <div class="ctas" style="justify-content:flex-start;margin-top:18px"><button class="btn solid" type="button" id="storyShare"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 7.5 6.5l1.4 1.4L11 5.8V15h2V5.8l2.1 2.1 1.4-1.4L12 2zM5 10v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10h-2v10H7V10H5z"/></svg>Share to story</button><button class="btn" type="button" id="storySave">Save image</button></div>
+        <p class="hint" id="storyHint" style="margin-top:12px">Tip: on your phone you can also press and hold the picture to save it.</p>
+      </div>
+      <div class="storyprev"><img id="storyImg" alt="Your YO AGAMI story card"></div>
+    </div>
+  </section>
 
   <section class="block" id="legend">
     <div class="wrap origin">
@@ -1287,8 +1466,8 @@ body.ssshake main{animation:ishake .5s 3}
       <div class="single">
         <div class="vinyl" role="img" aria-label="Spinning record"></div>
         <div>
-          <h3>The First Single Has Descended</h3>
-          <p>The debut drop that opened the gates of heaven. Out now on Spotify. Scholars will study it. Fans will scream it. Your grandchildren will ask where you were when you first heard it, and you will cry.</p>
+          <h3>The First Single. Out Now.</h3>
+          <p>The debut track is live on Spotify. Press play, save it to a playlist, and send it to one friend. That is the whole ritual. Your future self will thank you.</p>
           <div class="tags"><span class="tag">Debut single</span><span class="tag">Out now</span><span class="tag">Divinely produced</span></div>
           <a class="btn solid" href="https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75" target="_blank" rel="noopener">Hear the prophecy</a>
         </div>
@@ -1537,13 +1716,13 @@ body.ssshake main{animation:ishake .5s 3}
         <li class="tl"><span class="tl-dot">IV</span><div class="tl-body"><small>Chapter IV · The Playground Years</small><h3>King of the Sandbox.</h3><p>He crowned himself ruler of the sandbox with a paper crown and a juice box scepter. Nobody challenged it. Nobody could. That paper crown is now Exhibit 005 in the museum.</p></div></li>
         <li class="tl"><span class="tl-dot">V</span><div class="tl-body"><small>Chapter V · The Awakening</small><h3>A golden light entered his room.</h3><p>It was just his phone screen at 2 a.m. But it felt like destiny. That night he opened a music app and whispered "one day." The app did not reply. The universe did.</p></div></li>
         <li class="tl"><span class="tl-dot">VI</span><div class="tl-body"><small>Chapter VI · The Training Arc</small><h3>Humming in the shower. Beatboxing in class.</h3><p>Teachers called it "disruptive." Classmates called it "a lot." History calls it preparation. He practiced every day, mostly in places where he was supposed to be quiet.</p></div></li>
-        <li class="tl big"><span class="tl-dot">VII</span><div class="tl-body"><small>Chapter VII · The Upload · 2026</small><h3>He pressed the button.</h3><p>The single went live on Spotify, and a new artist profile appeared: YO AGAMI. Scientists measured the universe shifting by exactly 0.0067 degrees. Coincidence? The King does not believe in coincidences.</p></div></li>
+        <li class="tl big"><span class="tl-dot">VII</span><div class="tl-body"><small>Chapter VII · The Upload · 2026</small><h3>He pressed the button.</h3><p>The single went live on Spotify, and a new artist profile appeared: YO AGAMI. Scientists measured the universe shifting by a small but very real amount. Coincidence? The King does not believe in coincidences.</p></div></li>
         <li class="tl big"><span class="tl-dot">VIII</span><div class="tl-body"><small>Chapter VIII · The Kingdom</small><h3>AGM was reborn.</h3><p>AGM stopped being a label and became Agami Global Management, a company that manages exactly one artist, globally, forever. Then it built this website. You are standing inside the prophecy right now.</p></div></li>
         <li class="tl"><span class="tl-dot">IX</span><div class="tl-body"><small>Chapter IX · The Future</small><h3>Merch. Tours. A national holiday.</h3><p>Coming soon: the merch drop, a world tour, a golden statue in every city, and Agami Day, a global holiday where skipping songs is illegal. (Pending approval from literally everyone.)</p></div></li>
       </ol>
       <aside class="facts" aria-label="Official stats">
         <h3>Official Stats</h3>
-        <small>Verified by AGM · Card #0067</small>
+        <small>Verified by AGM · Card #0001</small>
         <dl>
           <dt>Class</dt><dd>The Chosen One</dd>
           <dt>Height</dt><dd>Taller in spirit</dd>
@@ -1599,7 +1778,7 @@ body.ssshake main{animation:ishake .5s 3}
       <div class="paper">
         <div class="breaking"><b>BREAKING</b><span id="breaking">Yo Agami still the greatest, sources confirm</span></div>
         <header class="mast">
-          <div class="m-side">Vol. LXVII · No. 67</div>
+          <div class="m-side">Vol. I · No. 1</div>
           <h2 class="m-title">The Daily Agami</h2>
           <div class="m-side">Price: one stream</div>
         </header>
@@ -1623,7 +1802,7 @@ body.ssshake main{animation:ishake .5s 3}
         <div class="side">
           <div class="box">
             <h5>Markets</h5>
-            <div class="mk"><span>$AGMI</span><span class="up">▲ 6,700%</span></div>
+            <div class="mk"><span>$AGMI</span><span class="up">▲ 1,000%</span></div>
             <div class="mk"><span>GOLD</span><span class="up">▲ because of him</span></div>
             <div class="mk"><span>AURA</span><span class="up">▲ ∞</span></div>
             <div class="mk"><span>SKIPS</span><span class="down">▼ 100%</span></div>
@@ -1667,10 +1846,10 @@ body.ssshake main{animation:ishake .5s 3}
         <details><summary>What does AGM stand for?</summary><p>Agami Global Management. We manage one artist, globally, for all of eternity. It is a full-time job.</p></details>
         <details><summary>Can I skip his songs?</summary><p>Technically, yes. Spiritually, absolutely not. See Exhibit 009 in the museum for what happens to skip buttons.</p></details>
         <details><summary>When is the merch dropping?</summary><p>Soon. The King is choosing the exact right shade of gold. This could take a while. Gold is very important.</p></details>
-        <details><summary>Why is there a six seven thing?</summary><p>Because 67 is a holy number. Please do not ask further questions. Keep bowing and you will understand.</p></details>
+        <details><summary>Why is the website like this?</summary><p>Because a normal artist website would be boring. The jokes are on purpose. The music is real.</p></details>
         <details><summary>Is this website too much?</summary><p>No. It is not enough. We are working on more.</p></details>
         <details><summary>Is it cringe?</summary><p>Cringe is just greatness that you are not ready for yet.</p></details>
-        <details><summary>How do I become a true believer?</summary><p>Stream. Follow. Share. Bow at least 67 times. Collect every relic. Come back tomorrow. Repeat forever.</p></details>
+        <details><summary>How do I become a true believer?</summary><p>Stream. Follow. Share. Bow at least 100 times. Collect every relic. Come back tomorrow. Repeat forever.</p></details>
         <details><summary>Can I contact the King?</summary><p>The King contacts you. Keep your notifications on. Or follow him on <a href="https://www.instagram.com/itsyoagami/" target="_blank" rel="noopener" style="color:var(--gold-hi)">Instagram @itsyoagami</a>, <a href="https://www.tiktok.com/@itsyoagami" target="_blank" rel="noopener" style="color:var(--gold-hi)">TikTok @itsyoagami</a> and <a href="https://www.youtube.com/@itsyoagami" target="_blank" rel="noopener" style="color:var(--gold-hi)">YouTube @itsyoagami</a>.</p></details>
         <details><summary>What is his favorite food?</summary><p>Whatever you are offering him, as tribute.</p></details>
         <details><summary>Where can I listen?</summary><p>On Spotify. <a href="https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75" target="_blank" rel="noopener" style="color:var(--gold-hi)">Open the official YO AGAMI artist page</a>, press play, and ascend.</p></details>
@@ -1686,10 +1865,54 @@ body.ssshake main{animation:ishake .5s 3}
   <div class="wrap">
     <div class="big">AGM · AGAMI GLOBAL MANAGEMENT</div>
     <div class="flinks"><a href="https://www.instagram.com/itsyoagami/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM17.3 5.4a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z"/></svg>Instagram @itsyoagami</a><a href="https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22Zm5 15.9a.7.7 0 0 1-.9.2c-2.6-1.6-5.9-1.9-9.7-1.1a.7.7 0 1 1-.3-1.3c4.2-1 7.8-.6 10.7 1.2.3.2.4.6.2 1Zm1.4-3a.9.9 0 0 1-1.2.3c-3-1.8-7.5-2.4-11-1.3a.9.9 0 1 1-.5-1.6c4-1.2 9-.6 12.4 1.5.4.2.5.8.3 1.1Zm.1-3.1C14.9 8.6 9.1 8.4 5.7 9.5a1 1 0 1 1-.6-2c3.9-1.2 10.4-1 14.5 1.5a1 1 0 0 1-1.1 1.8Z"/></svg>Spotify</a><a href="https://www.tiktok.com/@itsyoagami" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7z"/></svg>TikTok @itsyoagami</a><a href="https://www.youtube.com/@itsyoagami" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.4-1.6.5-3.2.5-4.8s-.1-3.2-.5-4.8zM9.8 15.1V8.9l5.7 3.1-5.7 3.1z"/></svg>YouTube @itsyoagami</a></div>
-    <p>© 2026 Yo Agami. All rights reserved by the King. All wrongs forgiven by the King.</p>
+    <div class="ctas" style="margin:6px 0 4px"><button class="btn shareBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 7.5 6.5l1.4 1.4L11 5.8V15h2V5.8l2.1 2.1 1.4-1.4L12 2zM5 10v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10h-2v10H7V10H5z"/></svg>Share the website</button></div>
+    <div class="fxrow"><span>Effects</span><div class="seg" id="fxSeg" role="group" aria-label="Effects"><button type="button" data-fx="full">Full</button><button type="button" data-fx="lite">Lite</button></div></div>
+    <p>© 2026 Yo Agami · AGM. Real artist. Ridiculous website. Both on purpose.</p>
     <p class="amen">Agamen.</p>
   </div>
 </footer>
+
+<nav class="tabbar" aria-label="Quick navigation">
+  <a href="#home" data-nav="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 11h3v9h5v-6h4v6h5v-9h3z"/></svg>Home</a>
+  <a href="#games" data-nav="games"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10a5 5 0 0 1 4.9 6l-.8 4a2.6 2.6 0 0 1-4.5 1.2L14.8 16H9.2l-1.8 2.2A2.6 2.6 0 0 1 2.9 17l-.8-4A5 5 0 0 1 7 7zm1 3v2H6v2h2v2h2v-2h2v-2h-2v-2zm7.5 1a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zm2.5 2.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/></svg>Games</a>
+  <a class="tb-listen" href="https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75" target="_blank" rel="noopener"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22Zm5 15.9a.7.7 0 0 1-.9.2c-2.6-1.6-5.9-1.9-9.7-1.1a.7.7 0 1 1-.3-1.3c4.2-1 7.8-.6 10.7 1.2.3.2.4.6.2 1Zm1.4-3a.9.9 0 0 1-1.2.3c-3-1.8-7.5-2.4-11-1.3a.9.9 0 1 1-.5-1.6c4-1.2 9-.6 12.4 1.5.4.2.5.8.3 1.1Zm.1-3.1C14.9 8.6 9.1 8.4 5.7 9.5a1 1 0 1 1-.6-2c3.9-1.2 10.4-1 14.5 1.5a1 1 0 0 1-1.1 1.8Z"/></svg></span>Listen</a>
+  <a href="#news" data-nav="news"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h13v14a2 2 0 0 0 2 2H6a2 2 0 0 1-2-2zm2 3v3h9V7zm0 5v2h9v-2zm0 4v2h6v-2zm13-9h2v11a2 2 0 0 1-4 0V7h2z"/></svg>News</a>
+  <button type="button" id="moreBtn" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2.2"/><circle cx="12" cy="12" r="2.2"/><circle cx="19" cy="12" r="2.2"/></svg>More</button>
+</nav>
+
+<div class="sheet" id="moreSheet" hidden>
+  <div class="sh-backdrop" data-close></div>
+  <div class="sh-panel" role="dialog" aria-label="More">
+    <div class="sh-group">
+      <a href="#bio" data-close><span class="ic" style="background:#9C7222">📖</span>Biography</a>
+      <a href="#museum" data-close><span class="ic" style="background:#6b3fa0">🏛️</span>Museum</a>
+      <a href="#faq" data-close><span class="ic" style="background:#16267A">❓</span>FAQ</a>
+      <a href="#merch" data-close><span class="ic" style="background:#B3263A">👕</span>Merch</a>
+      <a href="#story" data-close><span class="ic" style="background:#c24a8a">📸</span>Make a story card</a>
+      <a href="#about" data-close><span class="ic" style="background:#1f6b55">ℹ️</span>About Yo Agami</a>
+    </div>
+    <div class="sh-group">
+      <button type="button" class="shareBtn" data-close><span class="ic" style="background:#E2B24A;color:#1a1205"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 7.5 6.5l1.4 1.4L11 5.8V15h2V5.8l2.1 2.1 1.4-1.4L12 2zM5 10v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10h-2v10H7V10H5z"/></svg></span>Share the website</button>
+      <button type="button" id="moreReplay" data-close><span class="ic" style="background:#333">🎬</span>Watch the movie again</button>
+    </div>
+    <button type="button" class="sh-cancel" data-close>Close</button>
+  </div>
+</div>
+
+<div class="sheet" id="shareSheet" hidden>
+  <div class="sh-backdrop" data-close></div>
+  <div class="sh-panel" role="dialog" aria-label="Share">
+    <div class="sh-group">
+      <div class="sh-title">Share YO AGAMI</div>
+      <a id="shTg" target="_blank" rel="noopener"><span class="ic" style="background:#2AABEE">✈️</span>Telegram</a>
+      <a id="shWa" target="_blank" rel="noopener"><span class="ic" style="background:#25D366">💬</span>WhatsApp</a>
+      <a id="shX" target="_blank" rel="noopener"><span class="ic" style="background:#111">𝕏</span>X</a>
+      <button type="button" id="shCopy"><span class="ic" style="background:#555">🔗</span>Copy link</button>
+      <div class="sh-note" id="shNote" aria-live="polite"></div>
+    </div>
+    <button type="button" class="sh-cancel" data-close>Close</button>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -1702,6 +1925,7 @@ body.ssshake main{animation:ishake .5s 3}
 
   /* flash of glory + sparks */
   var glory = document.getElementById('glory');
+  function FX(){ return document.getElementById('fxLayer') || document.body; }
   function flash(){ if (reduce) return; glory.classList.add('on'); setTimeout(function(){ glory.classList.remove('on'); }, 180); }
   function sparks(el, count){
     if (reduce) return;
@@ -1712,7 +1936,7 @@ body.ssshake main{animation:ishake .5s 3}
       s.style.left = (b.left + b.width/2 + (Math.random()*100-50)) + 'px';
       s.style.top = b.top + 'px';
       s.style.setProperty('--dx', (Math.random()*200-100) + 'px');
-      document.body.appendChild(s);
+      FX().appendChild(s);
       setTimeout(function(n){ return function(){ n.remove(); }; }(s), 1300);
     }
   }
@@ -1811,7 +2035,7 @@ body.ssshake main{animation:ishake .5s 3}
   /* big divine text */
   function toast(msg){
     var t = document.createElement('div'); t.className = 'divine-toast'; t.textContent = msg;
-    document.body.appendChild(t); setTimeout(function(){ t.remove(); }, 2700);
+    FX().appendChild(t); setTimeout(function(){ t.remove(); }, 2700);
   }
 
   /* rapture */
@@ -1828,7 +2052,7 @@ body.ssshake main{animation:ishake .5s 3}
           c.style.fontSize = (18 + Math.random()*30) + 'px';
           c.style.setProperty('--rot', (Math.random()*720-360) + 'deg');
           var dur = 2.4 + Math.random()*2; c.style.animationDuration = dur + 's';
-          document.body.appendChild(c); setTimeout(function(){ c.remove(); }, dur*1000 + 100);
+          FX().appendChild(c); setTimeout(function(){ c.remove(); }, dur*1000 + 100);
         }, i*70);
       })(i);
     }
@@ -1912,8 +2136,10 @@ body.ssshake main{animation:ishake .5s 3}
     if (aura >= 9001 && !overloaded){ overloaded = true; auraBox.classList.add('overload'); toast("IT'S OVER 9000"); choir(); }
   }
   var maxScroll = 0;
+  var scrollQ = false;
   window.addEventListener('scroll', function(){
-    var y = scrollY; if (y > maxScroll){ addAura((y - maxScroll) / 4); maxScroll = y; }
+    if (scrollQ) return; scrollQ = true;
+    requestAnimationFrame(function(){ scrollQ = false; var y = scrollY; if (y > maxScroll + 40){ addAura((y - maxScroll) / 4); maxScroll = y; } });
   }, {passive:true});
   window.addEventListener('pointerdown', function(){ addAura(30); });
   bow.addEventListener('click', function(){ addAura(120); });
@@ -1942,13 +2168,14 @@ body.ssshake main{animation:ishake .5s 3}
 
   /* ---------- the King notices idleness ---------- */
   var idleT;
-  function resetIdle(){ clearTimeout(idleT); idleT = setTimeout(function(){ if (document.getElementById('intro').style.display === 'none') toast('WHY DID YOU STOP WORSHIPPING'); }, 30000); }
+  var idleShown = false;
+  function resetIdle(){ if (idleShown) return; clearTimeout(idleT); idleT = setTimeout(function(){ if (!idleShown && !document.hidden && document.getElementById('intro').style.display === 'none'){ idleShown = true; toast('STILL THERE, BELIEVER?'); } }, 45000); }
   ['pointermove','keydown','scroll','pointerdown'].forEach(function(ev){ window.addEventListener(ev, resetIdle, {passive:true}); });
   resetIdle();
 
   /* ---------- the tab title praises him too ---------- */
   var titles = ['YO AGAMI','HE IS HIM','ALL HAIL AGAMI','YO AGAMI','THE CHOSEN ONE'], ti = 0;
-  setInterval(function(){ ti = (ti + 1) % titles.length; document.title = titles[ti]; }, 3000);
+  if (!window.AGTG) setInterval(function(){ if (!document.hidden){ ti = (ti + 1) % titles.length; document.title = titles[ti]; } }, 4000);
   document.addEventListener('visibilitychange', function(){ if (document.hidden) document.title = 'COME BACK TO THE KING';
     else document.title = titles[ti]; });
 
@@ -1961,13 +2188,15 @@ body.ssshake main{animation:ishake .5s 3}
   /* divine touch: every click sends a shockwave and a blessing */
   var blessings = ['+1 BLESSING','HALLELUJAH','BLESSED','+100 AURA','AGAMEN','HE SEES YOU','SAVED','ANOINTED'];
   window.addEventListener('pointerdown', function(e){
+    if (e.target.closest && e.target.closest('#arcade, #intro, input, button.sign, .ck-crown, .hole, .mcard, .sy-pad, .sc-pad')) return;
+    if (window.AGLITE){ var b0 = document.createElement('div'); b0.className='bless'; b0.textContent = blessings[Math.floor(Math.random()*blessings.length)]; b0.style.left = e.clientX + 'px'; b0.style.top = (e.clientY - 20) + 'px'; FX().appendChild(b0); setTimeout(function(){ b0.remove(); }, 1350); return; }
     var r = document.createElement('div'); r.className='shock';
     r.style.left = e.clientX + 'px'; r.style.top = e.clientY + 'px';
-    document.body.appendChild(r); setTimeout(function(){ r.remove(); }, 750);
+    FX().appendChild(r); setTimeout(function(){ r.remove(); }, 750);
     var b = document.createElement('div'); b.className='bless';
     b.textContent = blessings[Math.floor(Math.random()*blessings.length)];
     b.style.left = e.clientX + 'px'; b.style.top = (e.clientY - 20) + 'px';
-    document.body.appendChild(b); setTimeout(function(){ b.remove(); }, 1350);
+    FX().appendChild(b); setTimeout(function(){ b.remove(); }, 1350);
   });
 
   /* headings ignite as you scroll */
@@ -1982,13 +2211,16 @@ body.ssshake main{animation:ishake .5s 3}
   function sendDove(id){
     var d = document.getElementById(id); d.classList.remove('fly'); void d.getBoundingClientRect(); d.classList.add('fly');
   }
-  setTimeout(function(){ sendDove('dove1'); }, 3200);
-  setTimeout(function(){ sendDove('dove2'); }, 5200);
-  setInterval(function(){ sendDove(Math.random() < .5 ? 'dove1' : 'dove2'); }, 14000);
+  if (!window.AGLITE){
+    setTimeout(function(){ sendDove('dove1'); }, 3200);
+    setTimeout(function(){ sendDove('dove2'); }, 5200);
+    setInterval(function(){ if (!document.hidden) sendDove(Math.random() < .5 ? 'dove1' : 'dove2'); }, 14000);
+  }
 
   /* lightning from the heavens */
   var hero = document.querySelector('.hero'), bc = document.getElementById('bolts'), bx = bc.getContext('2d');
-  function boltSize(){ bc.width = hero.clientWidth; bc.height = hero.clientHeight; }
+  var lastBW = 0;
+  function boltSize(){ var w = hero.clientWidth; if (!w || w === lastBW) return; lastBW = w; bc.width = w; bc.height = hero.clientHeight; }
   boltSize(); addEventListener('resize', boltSize);
   function branch(x, y, len, ang, width, depth){
     var pts = [[x,y]], steps = 10 + Math.floor(Math.random()*6);
@@ -2007,22 +2239,24 @@ body.ssshake main{animation:ishake .5s 3}
     bx.strokeStyle = 'rgba(255,246,218,.95)'; bx.shadowColor = '#FFDA7E'; bx.shadowBlur = 24; bx.lineCap = 'round';
     var side = Math.random() < .5 ? .12 + Math.random()*.2 : .68 + Math.random()*.2;
     branch(w*side, 0, h*.75, Math.PI/2 + (Math.random()-.5)*.4, 4, 0);
-    hero.classList.remove('strike'); void hero.offsetWidth; hero.classList.add('strike');
     var fade = 1;
     (function f(){ fade -= .08; bc.style.opacity = Math.max(0, fade); if (fade > 0) requestAnimationFrame(f); else bx.clearRect(0,0,w,h); })();
     bc.style.opacity = 1;
   }
-  setTimeout(strike, 2900);
-  (function loopStrike(){ setTimeout(function(){ strike(); loopStrike(); }, 5000 + Math.random()*6000); })();
+  function heroVisible(){ var r = hero.getBoundingClientRect(); return !document.hidden && hero.offsetParent !== null && r.bottom > 0 && r.top < innerHeight; }
+  if (!window.AGLITE){
+    setTimeout(function(){ if (heroVisible()) strike(); }, 2900);
+    (function loopStrike(){ setTimeout(function(){ if (heroVisible()) strike(); loopStrike(); }, 6000 + Math.random()*7000); })();
+  }
 
   /* holy cursor trail */
-  if (fine){
+  if (fine && !window.AGLITE){
     var last = 0;
     window.addEventListener('pointermove', function(e){
       var t = performance.now(); if (t - last < 40) return; last = t;
       var s = document.createElement('span'); s.className='trail'; s.textContent = Math.random() < .5 ? '✦' : '✧';
       s.style.left = (e.clientX - 6) + 'px'; s.style.top = (e.clientY - 6) + 'px';
-      document.body.appendChild(s); setTimeout(function(){ s.remove(); }, 900);
+      FX().appendChild(s); setTimeout(function(){ s.remove(); }, 900);
     }, {passive:true});
   }
 
@@ -2034,7 +2268,7 @@ body.ssshake main{animation:ishake .5s 3}
   function ls(k, v){ try{ if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
 
   /* ================= COSMIC BACKGROUND ================= */
-  var cv = document.getElementById('glitter'), c = cv.getContext('2d'), W, H, dpr = Math.min(2, window.devicePixelRatio || 1);
+  var cv = document.getElementById('glitter'), c = cv.getContext('2d'), W, H, dpr = window.AGLITE ? 1 : Math.min(1.5, window.devicePixelRatio || 1), lastW = 0, introEl = document.getElementById('intro');
   var stars = [], neb = document.createElement('canvas'), shooting = [];
   function buildNebula(){
     neb.width = W; neb.height = H; var n = neb.getContext('2d');
@@ -2047,22 +2281,23 @@ body.ssshake main{animation:ishake .5s 3}
     });
   }
   function size(){
-    W = innerWidth; H = innerHeight;
+    var nw = cv.clientWidth || innerWidth; if (nw === lastW) return; lastW = nw;
+    W = nw; H = cv.clientHeight || innerHeight;
     cv.width = W * dpr; cv.height = H * dpr; c.setTransform(dpr, 0, 0, dpr, 0, 0);
     stars = [];
-    var count = Math.round(W * H / 5200);
+    var count = Math.round(W * H / (window.AGLITE ? 9000 : 5200));
     var cols = ['255,255,255','255,240,210','200,220,255','255,218,126','220,190,255'];
     for (var i=0;i<count;i++) stars.push({x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.4+.2, d:Math.random()*.35+.05, p:Math.random()*6.28, c:cols[i%cols.length]});
     buildNebula();
-    if (reduce) draw(0);
+    if (reduce || window.AGLITE) draw(0);
   }
   function draw(t){
     c.clearRect(0,0,W,H);
     c.drawImage(neb, 0, 0, W, H);
-    var sy = reduce ? 0 : scrollY;
+    var sy = (reduce || window.AGLITE) ? 0 : scrollY;
     for (var i=0;i<stars.length;i++){
       var s = stars[i], y = ((s.y - sy * s.d) % H + H) % H;
-      var a = reduce ? .7 : .45 + .45 * Math.sin(t/700 + s.p);
+      var a = (reduce || window.AGLITE) ? .3 + .5*((s.p*7) % 1) : .45 + .45 * Math.sin(t/700 + s.p);
       c.fillStyle = 'rgba(' + s.c + ',' + a + ')';
       c.beginPath(); c.arc(s.x, y, s.r, 0, 6.283); c.fill();
       if (s.r > 1.35){ c.fillStyle = 'rgba(' + s.c + ',' + a*.25 + ')'; c.fillRect(s.x - 5, y - .4, 10, .8); c.fillRect(s.x - .4, y - 5, .8, 10); }
@@ -2076,8 +2311,9 @@ body.ssshake main{animation:ishake .5s 3}
     }
   }
   size(); addEventListener('resize', size);
-  if (!reduce){
-    (function loop(t){ draw(t); requestAnimationFrame(loop); })(0);
+  if (!reduce && !window.AGLITE){
+    var lastT = 0;
+    (function loop(t){ requestAnimationFrame(loop); if (document.hidden || introEl.style.display !== 'none' || t - lastT < 33) return; lastT = t; draw(t); })(0);
     (function shoot(){
       setTimeout(function(){
         var ang = Math.PI * (.15 + Math.random()*.2), sp = 9 + Math.random()*6;
@@ -2092,7 +2328,8 @@ body.ssshake main{animation:ishake .5s 3}
   var parts = [];
   (function(){
     var cols = ['255,218,126','255,246,218','170,190,255','255,150,210','200,160,255'];
-    for (var k=0;k<3;k++) for (var i=0;i<700;i++){
+    var PN = window.AGLITE ? 260 : 700;
+    for (var k=0;k<3;k++) for (var i=0;i<PN;i++){
       var r = Math.pow(Math.random(), .7) * 330;
       parts.push({r:r, th: k*2.094 + r*.017 + (Math.random()-.5)*(.5 + r/400), s: Math.random()*1.6+.3, c: cols[Math.floor(Math.random()*cols.length)], a: Math.random()*.6+.3});
     }
@@ -2157,7 +2394,7 @@ body.ssshake main{animation:ishake .5s 3}
   var galaxyVisible = true;
   if ('IntersectionObserver' in window){ new IntersectionObserver(function(e){ galaxyVisible = e[0].isIntersecting; }).observe(gc); }
   if (reduce){ drawGalaxy(0); }
-  else { (function gl(t){ if (galaxyVisible) drawGalaxy(t); requestAnimationFrame(gl); })(0); }
+  else { var lastG = 0; (function gl(t){ requestAnimationFrame(gl); if (!galaxyVisible || document.hidden) return; if (window.AGLITE && t - lastG < 33) return; lastG = t; drawGalaxy(t); })(0); }
   var randomNames = ['Star of Devotion','Holy Spark','Agami Jr.','Blessed Dot','The Believer','Divine Pixel','Hallelujah-7','Aura Nova'];
   function addStar(x, y, name){
     named.push({x:x, y:y, name:name}); if (named.length > 40) named.shift();
@@ -2349,7 +2586,13 @@ body.ssshake main{animation:ishake .5s 3}
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   AG.showDone = false;
 
-  function size(){ W = cv.width = innerWidth; H = cv.height = innerHeight; }
+  var SCALE = 1;
+  function size(){
+    var nw = innerWidth, nh = innerHeight;
+    if (W && nw === Math.round(W*SCALE) && Math.abs(nh - Math.round(H*SCALE)) < 140) return;
+    SCALE = (window.AGLITE && Math.max(nw, nh) > 900) ? Math.max(nw, nh) / 900 : 1;
+    W = cv.width = Math.round(nw / SCALE); H = cv.height = Math.round(nh / SCALE);
+  }
   size(); addEventListener('resize', size);
 
   /* ================= VOICE ================= */
@@ -2500,14 +2743,14 @@ body.ssshake main{animation:ishake .5s 3}
   function drawStarsBg(t, alpha){ for (var i=0;i<stars.length;i++){ var st = stars[i]; c.fillStyle = 'rgba(255,255,255,' + (alpha || 1)*(.35 + .35*Math.sin(t/600 + st.p)) + ')'; c.fillRect(st.x*W, st.y*H, st.r, st.r); } }
   function bolt(){
     var x = Math.random()*W, y = 0, ang = Math.PI/2;
-    c.save(); c.strokeStyle = 'rgba(255,246,218,.95)'; c.shadowColor = '#b9a8ff'; c.shadowBlur = 30; c.lineWidth = 3;
+    c.save(); c.strokeStyle = 'rgba(255,246,218,.95)'; c.shadowColor = '#b9a8ff'; c.shadowBlur = window.AGLITE ? 0 : 18; c.lineWidth = 3;
     c.beginPath(); c.moveTo(x, y);
     while (y < H){ ang += (Math.random()-.5)*.9; x += Math.cos(ang)*28; y += Math.abs(Math.sin(ang))*28 + 6; c.lineTo(x, y); }
     c.stroke(); c.restore();
   }
   function vignette(a){ var g = c.createRadialGradient(W/2, H/2, Math.min(W,H)*.3, W/2, H/2, Math.max(W,H)*.75); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,' + a + ')'); c.fillStyle = g; c.fillRect(0,0,W,H); }
   function specks(n, col){ for (var i=0;i<n;i++){ c.fillStyle = col; c.fillRect(Math.random()*W, Math.random()*H, 1 + Math.random()*2, 1 + Math.random()*2); } }
-  function resetWarp(){ warpStars = []; for (var i=0;i<500;i++) warpStars.push({x:(Math.random()-.5)*W*2, y:(Math.random()-.5)*H*2, z:Math.random()*W, pz:0}); }
+  function resetWarp(){ warpStars = []; for (var i=0;i<(window.AGLITE ? 220 : 450);i++) warpStars.push({x:(Math.random()-.5)*W*2, y:(Math.random()-.5)*H*2, z:Math.random()*W, pz:0}); }
   function tri(u){ return 1 - Math.abs(((u % 2) + 2) % 2 - 1); }
 
   var leader = {n:'10', t:0, gold:false};
@@ -2523,7 +2766,7 @@ body.ssshake main{animation:ishake .5s 3}
     var best = null, bd = 1e9;
     b.forEach(function(bl){ bl.win.forEach(function(wn){ var d = Math.hypot(wn.x - W*.56, wn.y - H*.52); if (d < bd){ bd = d; best = wn; } }); });
     var ppl = []; for (var i=0;i<16;i++) ppl.push({x:Math.random()*W, v:(Math.random() < .5 ? -1 : 1)*(.3 + Math.random()*.5), s:.8 + Math.random()*.4, pop:Math.random()*.8 + .1, done:false});
-    var rain = []; for (i=0;i<240;i++) rain.push({x:Math.random()*W, y:Math.random()*H, v:10 + Math.random()*8});
+    var rain = []; for (i=0;i<(window.AGLITE ? 110 : 220);i++) rain.push({x:Math.random()*W, y:Math.random()*H, v:10 + Math.random()*8});
     city = {b:b, F:best, ppl:ppl, rain:rain};
   }
   function skipIcon(x, y, s){
@@ -2599,9 +2842,11 @@ body.ssshake main{animation:ishake .5s 3}
     if (Math.random() < .3){ var lx = Math.random()*W; c.strokeStyle = 'rgba(255,255,255,.3)'; c.lineWidth = 1; c.beginPath(); c.moveTo(lx, 0); c.lineTo(lx, H); c.stroke(); }
     vignette(.7);
   }
+  var lastF = 0;
   function frame(t){
     if (!running) return;
-    if (frozen){ raf = requestAnimationFrame(frame); return; }
+    if (frozen || document.hidden || (window.AGLITE && t - lastF < 32)){ raf = requestAnimationFrame(frame); return; }
+    lastF = t;
     var el = t - modeStart, i;
     if (mode === 'grain'){
       c.fillStyle = '#0c0a08'; c.fillRect(0,0,W,H); c.fillStyle = 'rgba(255,240,210,' + (.03 + Math.random()*.05) + ')'; c.fillRect(0,0,W,H);
@@ -2643,7 +2888,7 @@ body.ssshake main{animation:ishake .5s 3}
     } else if (mode === 'awaken'){ var pr = Math.min(1, el/4200); drawCity(t, {gold:pr*1.1, beam:Math.min(1, el/1200), rings:true});
     } else if (mode === 'static'){
       c.fillStyle = 'rgba(0,0,0,.55)'; c.fillRect(0,0,W,H);
-      for (i=0;i<1400;i++){ var v = Math.random()*255|0; c.fillStyle = 'rgba(' + v + ',' + v + ',' + v + ',.55)'; c.fillRect(Math.random()*W, Math.random()*H, 3, 2); }
+      for (i=0;i<(window.AGLITE ? 450 : 1100);i++){ var v = Math.random()*255|0; c.fillStyle = 'rgba(' + v + ',' + v + ',' + v + ',.55)'; c.fillRect(Math.random()*W, Math.random()*H, 3, 2); }
       if (Math.random() < .3){ c.fillStyle = 'rgba(255,40,60,.25)'; c.fillRect(0, Math.random()*H, W, 6 + Math.random()*30); }
     } else if (mode === 'warp'){
       var ws = 8 + el*.06; c.fillStyle = 'rgba(0,0,8,.35)'; c.fillRect(0,0,W,H);
@@ -2657,20 +2902,19 @@ body.ssshake main{animation:ishake .5s 3}
       }
     } else if (mode === 'fire'){
       c.fillStyle = 'rgba(10,0,0,.28)'; c.fillRect(0,0,W,H);
-      for (var k=0;k<14;k++) fire.push({x:Math.random()*W, y:H + 20, vx:(Math.random()-.5)*2, vy:-(4 + Math.random()*7), r:20 + Math.random()*50, life:1});
+      for (var k=0;k<(window.AGLITE ? 6 : 12);k++) fire.push({x:Math.random()*W, y:H + 20, vx:(Math.random()-.5)*2, vy:-(4 + Math.random()*7), r:20 + Math.random()*50, life:1});
       c.globalCompositeOperation = 'lighter';
       for (var f=fire.length-1; f>=0; f--){
         var p = fire[f]; p.x += p.vx; p.y += p.vy; p.life -= .018; p.r *= .985; if (p.life <= 0){ fire.splice(f,1); continue; }
-        var gr = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r); gr.addColorStop(0, 'rgba(255,' + (140 + p.life*100|0) + ',40,' + p.life*.55 + ')'); gr.addColorStop(1, 'rgba(255,40,0,0)');
-        c.fillStyle = gr; c.beginPath(); c.arc(p.x, p.y, p.r, 0, 6.283); c.fill();
+        c.globalAlpha = Math.max(0, p.life*.75); c.drawImage(FIRE, p.x - p.r, p.y - p.r, p.r*2, p.r*2);
       }
-      c.globalCompositeOperation = 'source-over';
+      c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
     } else if (mode === 'dust'){
       c.fillStyle = 'rgba(0,0,0,.25)'; c.fillRect(0,0,W,H);
       if (dust.length < 140) for (var dd=0; dd<3; dd++) dust.push({x:Math.random()*W, y:H + 10, vy:-(.3 + Math.random()*.9), vx:(Math.random()-.5)*.4, s:Math.random()*2 + .5, p:Math.random()*6.28});
       for (var u=dust.length-1; u>=0; u--){ var du = dust[u]; du.x += du.vx; du.y += du.vy; if (du.y < -10){ dust.splice(u,1); continue; } c.fillStyle = 'rgba(255,218,126,' + (.35 + .35*Math.sin(t/300 + du.p)) + ')'; c.beginPath(); c.arc(du.x, du.y, du.s, 0, 6.283); c.fill(); }
     } else if (mode === 'strobe'){
-      c.fillStyle = (Math.floor(el/140) % 2) ? '#000' : '#1a0710'; c.fillRect(0,0,W,H); if (Math.random() < .12) bolt();
+      c.fillStyle = (window.AGLITE || Math.floor(el/140) % 2) ? '#000' : '#1a0710'; c.fillRect(0,0,W,H); if (Math.random() < (window.AGLITE ? .04 : .1)) bolt();
     } else if (mode === 'gold'){
       c.fillStyle = 'rgba(8,6,20,.3)'; c.fillRect(0,0,W,H);
       var g2 = c.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W,H)*.6); g2.addColorStop(0, 'rgba(255,218,126,.25)'); g2.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = g2; c.fillRect(0,0,W,H);
@@ -2688,7 +2932,9 @@ body.ssshake main{animation:ishake .5s 3}
     if (m === 'warp') resetWarp(); if (m === 'fire') fire = []; if (m === 'earth') buildEarth();
     if (m === 'city' || (m === 'window' && !city) || (m === 'awaken' && !city)) buildCity();
   }
-  function goldBurst(n, x, y){ for (var i=0;i<n;i++){ var a = Math.random()*6.283, sp = 3 + Math.random()*14; gold.push({x:x == null ? W/2 : x, y:y == null ? H/2 : y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp - 2, s:2 + Math.random()*4, life:1}); } }
+  var FIRE = document.createElement('canvas'); FIRE.width = FIRE.height = 64;
+  (function(){ var g = FIRE.getContext('2d'), gr = g.createRadialGradient(32,32,0,32,32,32); gr.addColorStop(0,'rgba(255,230,140,.9)'); gr.addColorStop(.35,'rgba(255,150,40,.55)'); gr.addColorStop(1,'rgba(255,40,0,0)'); g.fillStyle = gr; g.fillRect(0,0,64,64); })();
+  function goldBurst(n, x, y){ if (window.AGLITE) n = Math.round(n*.45); for (var i=0;i<n;i++){ var a = Math.random()*6.283, sp = 3 + Math.random()*14; gold.push({x:x == null ? W/2 : x, y:y == null ? H/2 : y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp - 2, s:2 + Math.random()*4, life:1}); } }
 
   /* ================= SCENE HELPERS ================= */
   var FIT = '.feature b,.s-huge,.s-fire,.s-strobe,.s-red,.s-count,.st-agm,.st-pic,.r-big,.upbtn,.cd,.lg-title,.neon,.goat,.credit,.hailT,.lb-pct,.crayon b,.ph-pct,.rev q';
@@ -2743,7 +2989,7 @@ body.ssshake main{animation:ishake .5s 3}
   var ratingHTML = '<div class="rating"><div class="r-top">THE FOLLOWING FEATURE HAS BEEN APPROVED FOR</div><div class="r-big">ALL BELIEVERS</div>' +
     '<div class="r-top">BY THE AGAMI GLOBAL MANAGEMENT RATING BOARD</div>' +
     '<div class="r-box"><div class="r-badge">A</div><div class="r-why"><b>RATED A FOR AGAMI</b><span>Extreme aura · Holy language · Excessive drip · Violence against the charts</span></div></div>' +
-    '<div class="r-foot">AGM RATING BOARD · CERTIFICATE No. 0067</div></div>';
+    '<div class="r-foot">AGM RATING BOARD · CERTIFICATE No. 0001</div></div>';
   var rulesHTML = '<div class="rules"><h3>WELCOME TO THE AGAMI CINEMA</h3><ol>' +
     '<li style="animation-delay:.8s"><b>1.</b>Turn your volume all the way up.</li>' +
     '<li style="animation-delay:1.8s"><b>2.</b>There is no skip button. We removed it.</li>' +
@@ -2780,7 +3026,7 @@ body.ssshake main{animation:ishake .5s 3}
     T = 0;
     /* ---------- lobby ---------- */
     sc(6800, function(q){
-      q(0, function(){ blackNow(); setMode('grain'); projector(true); music('lobby'); cut(rulesHTML, 'nokb'); lcap('Now showing: YO AGAMI · Theater 67'); });
+      q(0, function(){ blackNow(); setMode('grain'); projector(true); music('lobby'); cut(rulesHTML, 'nokb'); lcap('Now showing: YO AGAMI · Theater 1'); });
       q(50, function(){ fadeTo(0, 1200); });
       q(5700, function(){ fadeTo(1, 1000); });
     });
@@ -2795,7 +3041,7 @@ body.ssshake main{animation:ishake .5s 3}
       ['10','9','8','7','6','5','4','3','2','1'].forEach(function(n, i){ q(300 + i*650, function(){ leader.n = n; leader.t = performance.now(); leader.gold = false; beep(1000, .14); }); });
       ['0','-1','-2','-3','-4'].forEach(function(n, i){ q(6800 + i*300, function(){ leader.n = n; leader.t = performance.now(); beep(1000 + i*300, .08); if (i === 2) lcap('Uh oh. The countdown will not stop.'); }); });
       q(8400, function(){ setMode('static'); leader.n = '?'; lcap('Projectionist, please'); SFX.scratch(); });
-      q(9200, function(){ setMode('leader'); leader.n = '67'; leader.gold = true; flashW(); play('horn'); lcap('Sorry. The projectionist is a believer.'); });
+      q(9200, function(){ setMode('leader'); leader.n = 'YA'; leader.gold = true; flashW(); play('horn'); lcap('Sorry. The projectionist is a believer.'); });
       q(10500, function(){ fadeTo(1, 900); });
     });
 
@@ -2805,7 +3051,7 @@ body.ssshake main{animation:ishake .5s 3}
       q(1650, function(){ fanfare(); flashW(); goldBurst(240); });
     });
     logo(7000, function(q){
-      q(0, function(){ setMode('space'); cut('<div class="dice">' + die(6, 'a') + die(7, 'b') + '</div><div class="lg-title">SIX SEVEN STUDIOS</div><div class="lg-small">Our dice have 7 sides. Do not ask.</div>', 'nokb'); });
+      q(0, function(){ setMode('space'); cut('<div class="dice">' + die(6, 'a') + die(6, 'b') + '</div><div class="lg-title">LUCKY DICE STUDIOS</div><div class="lg-small">Every roll is a six. We checked.</div>', 'nokb'); });
       q(850, SFX.clack); q(1000, SFX.clack);
     });
     logo(7000, function(q){
@@ -2902,13 +3148,13 @@ body.ssshake main{animation:ishake .5s 3}
     sc(9400, function(q){
       q(0, function(){ setMode('dust'); music('pulse'); slug('INT. HIS BEDROOM — 2:07 A.M.'); sub('');
         cut('<div class="phone"><div class="ph-status"><span>2:07</span><span>100%</span></div><div class="ph-title">Upload your song</div>' +
-          '<div class="ph-file"><span class="ph-note">♪</span><div><b>yo_agami_single_FINAL_v67.mp3</b><small>3:07 · 100% fire</small></div></div>' +
+          '<div class="ph-file"><span class="ph-note">♪</span><div><b>yo_agami_single_FINAL_v3_REAL.mp3</b><small>3:07 · 100% fire</small></div></div>' +
           '<div class="ph-btn" id="phBtn">UPLOAD</div><div class="ph-bar"><i id="phBar"></i></div><div class="ph-pct" id="phPct">0%</div><div class="ph-msg" id="phMsg">Ready to change the world</div>' + cursorSVG + '</div>', 'nokb'); });
       q(700, function(){ sub('He pressed upload.'); say('He pressed upload.'); });
       q(2300, function(){ var b = $('phBtn'); if (b) b.classList.add('pressed'); SFX.clack(); flashW(); $('phMsg') && ($('phMsg').textContent = 'Uploading to the universe…'); });
-      for (var i=1;i<=67;i++) (function(i){ q(2500 + i*28, function(){ var p = $('phPct'), b = $('phBar'); if (p){ p.textContent = i + '%'; b.style.width = i + '%'; } if (i % 6 === 0) tickSound(); }); })(i);
-      q(4500, function(){ var p = $('phPct'); if (p) p.classList.add('stuck'); $('phMsg') && ($('phMsg').textContent = 'Stuck at 67%…'); sub('…six… seven…'); shake(); });
-      for (var j=68;j<=100;j++) (function(j){ q(6500 + (j - 67)*22, function(){ var p = $('phPct'), b = $('phBar'); if (p){ p.classList.remove('stuck'); p.textContent = j + '%'; b.style.width = j + '%'; } }); })(j);
+      for (var i=1;i<=99;i++) (function(i){ q(2500 + i*19, function(){ var p = $('phPct'), b = $('phBar'); if (p){ p.textContent = i + '%'; b.style.width = i + '%'; } if (i % 6 === 0) tickSound(); }); })(i);
+      q(4500, function(){ var p = $('phPct'); if (p) p.classList.add('stuck'); $('phMsg') && ($('phMsg').textContent = 'Stuck at 99%…'); sub('…almost…'); shake(); });
+      for (var j=100;j<=100;j++) (function(j){ q(6500 + (j - 99)*22, function(){ var p = $('phPct'), b = $('phBar'); if (p){ p.classList.remove('stuck'); p.textContent = j + '%'; b.style.width = j + '%'; } }); })(j);
       q(7300, function(){ var p = $('phPct'); if (p){ p.textContent = 'UPLOADED'; p.classList.add('done'); } $('phMsg') && ($('phMsg').textContent = 'Now live on Spotify: YO AGAMI'); flashW(); goldBurst(260); play('drop'); sub(''); });
     });
     sc(6200, function(q){
@@ -3022,47 +3268,12 @@ body.ssshake main{animation:ishake .5s 3}
   function ls(k, v){ try{ if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
   function $(id){ return document.getElementById(id); }
 
-  /* ================= SIX SEVEN ================= */
-  var ssBusy = false;
-  function ssSound(){
-    try{
-      var ctx = AG.getCtx && AG.getCtx(); if (!ctx) return; var t = ctx.currentTime;
-      for (var i=0;i<8;i++){
-        var o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'square';
-        o.frequency.value = i % 2 ? 392 : 523;
-        g.gain.setValueAtTime(.0001, t + i*.42); g.gain.exponentialRampToValueAtTime(.08, t + i*.42 + .02); g.gain.exponentialRampToValueAtTime(.0001, t + i*.42 + .3);
-        o.connect(g); g.connect(ctx.destination); o.start(t + i*.42); o.stop(t + i*.42 + .32);
-      }
-      AG.sounds && AG.sounds.horn && AG.sounds.horn(ctx, t);
-    }catch(e){}
-  }
-  AG.sixSeven = function(where){
-    if (ssBusy) return; ssBusy = true;
-    var o = document.createElement('div'); o.className = 'sixseven';
-    o.innerHTML = '<div><div class="ss-row"><span class="ss-hand a">🫴</span><span class="ss-num a">6</span><span class="ss-num b">7</span><span class="ss-hand b" style="transform:scaleX(-1)">🫴</span></div>' +
-      '<div class="ss-text">SIX SEVEN!!</div><div class="ss-sub">' + (where || 'THE KING APPROVES THIS NUMBER') + '</div></div>';
-    document.body.appendChild(o);
-    ssSound(); AG.flash && AG.flash();
-    if (!reduce){
-      document.body.classList.remove('ssshake'); void document.body.offsetWidth; document.body.classList.add('ssshake');
-      for (var i=0;i<40;i++){ (function(i){ setTimeout(function(){
-        var f = document.createElement('span'); f.className = 'ssfall'; f.textContent = i % 2 ? '7' : '6';
-        f.style.left = Math.random()*100 + 'vw'; f.style.fontSize = (30 + Math.random()*50) + 'px';
-        f.style.setProperty('--rot', (Math.random()*720 - 360) + 'deg');
-        var d = 2 + Math.random()*1.8; f.style.animationDuration = d + 's';
-        document.body.appendChild(f); setTimeout(function(){ f.remove(); }, d*1000 + 100);
-      }, i*70); })(i); }
-    }
-    AG.unlock && AG.unlock('six-seven');
-    AG.addAura && AG.addAura(67);
-    setTimeout(function(){ o.remove(); document.body.classList.remove('ssshake'); ssBusy = false; }, 4300);
-  };
+  AG.sixSeven = function(){};
 
   /* ================= RELICS ================= */
   var RELICS = [
     ['first-bow','🙇','First Bow','Bow to the King once.'],
     ['bow-10','🦵','Loyal Knee','Bow 10 times.'],
-    ['six-seven','🫴','Six Seven','Find the 67. (Hint: keep bowing.)'],
     ['bow-100','🛡️','Kneecaps of Steel','Bow 100 times.'],
     ['choir','😇','Heard the Heavens','Summon the choir.'],
     ['verses','📜','Scripture Scholar','Reveal 5 holy verses.'],
@@ -3090,13 +3301,15 @@ body.ssshake main{animation:ishake .5s 3}
     ['vandal','🚨','Museum Vandal','Touch a relic in the museum. (You were warned.)'],
     ['voter','🗳️','Democracy','Vote in The Daily Agami poll.'],
     ['survivor','🎬','Logo Survivor','Sit through every single studio logo.'],
-    ['slots67','🎰','Holy Gambler','Hit a six-seven on the Six Seven Slots.'],
+    ['jackpot','🎰','Jackpot','Hit three crowns on the Crown Slots.'],
+    ['sharer','📣','Spread the Word','Share the website with someone.'],
+    ['story','📸','Story Time','Make your own YO AGAMI story card.'],
     ['clicker','✨','Aura Farmer','Farm 10,000 aura in Aura Clicker.'],
     ['simon','🎵','Obedient','Reach round 8 in Agami Says.'],
     ['typer','⌨️','Holy Typist','Type 10 hails in one round of Hail Typer.'],
     ['shell','🥤','Eagle Eyes','Find the King 5 times in a row.'],
     ['scanned','👆','Scanned','Get your aura scanned.'],
-    ['hailer','👑','Devoted Hailer','Hail Agami 67 times.'],
+    ['hailer','👑','Devoted Hailer','Hail Agami 100 times.'],
     ['returned','📅','Came Back','Visit on 2 different days.']
   ];
   var got = {}; try { got = JSON.parse(ls('agami-relics') || '{}') || {}; } catch(e){ got = {}; }
@@ -3167,14 +3380,9 @@ body.ssshake main{animation:ishake .5s 3}
       if (n >= 1) AG.unlock('first-bow');
       if (n >= 10) AG.unlock('bow-10');
       if (n >= 100) AG.unlock('bow-100');
-      if (n === 67 || n % 100 === 67) AG.sixSeven('YOU BOWED ' + n + ' TIMES');
     }, 0);
   });
 
-  // devotion test: 67 taps live, and final score
-  var tapCount = $('tapCount'), tapSS = false;
-  new MutationObserver(function(){ var n = num(tapCount); if (n === 67 && !tapSS){ tapSS = true; AG.sixSeven('67 TAPS OF PURE DEVOTION'); } if (n < 5) tapSS = false; })
-    .observe(tapCount, {childList:true, characterData:true, subtree:true});
   new MutationObserver(function(){ var v = $('verdict').textContent; var m = v.match(/^(\d+) taps/); if (m && parseInt(m[1], 10) >= 60) AG.unlock('devotion'); })
     .observe($('verdict'), {childList:true, characterData:true, subtree:true});
 
@@ -3205,10 +3413,6 @@ body.ssshake main{animation:ishake .5s 3}
   }
   window.addEventListener('agami:showdone', function(){ setTimeout(function(){ AG.unlock('devoted'); }, 180000); }, {once:true});
 
-  // any 67 in the aura counter also counts
-  var auraSS = false;
-  new MutationObserver(function(){ var t = $('auraN').textContent; if (!auraSS && /^(67|6,767)%$/.test(t)){ auraSS = true; AG.sixSeven('YOUR AURA HIT ' + t); } })
-    .observe($('auraN'), {childList:true, characterData:true, subtree:true});
 })();
 </script>
 <script>
@@ -3259,7 +3463,7 @@ body.ssshake main{animation:ishake .5s 3}
   /* ================= NEWS ================= */
   $('newsDate').textContent = new Date().toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
   var breaking = ['Yo Agami still the greatest, sources confirm','Clouds spotted forming the letters Y and A','Local dog refuses to listen to anything else',
-    'The word "mid" officially banned in 67 countries','Phones everywhere turning their own volume up','Scientists rename the Sun "Agami\'s Lamp"','Merch drop rumored. Believers already lining up'];
+    'The word "mid" officially banned in 40 countries','Phones everywhere turning their own volume up','Scientists rename the Sun "Agami\'s Lamp"','Merch drop rumored. Believers already lining up'];
   var bi = 0, bEl = $('breaking');
   setInterval(function(){ bi = (bi + 1) % breaking.length; bEl.style.opacity = 0; setTimeout(function(){ bEl.textContent = breaking[bi]; bEl.style.opacity = 1; }, 300); }, 3500);
   var voted = false;
@@ -3267,7 +3471,7 @@ body.ssshake main{animation:ishake .5s 3}
     var b = e.target.closest('button'); if (!b || voted) return; voted = true;
     this.querySelectorAll('button').forEach(function(x){ x.querySelector('i').style.width = '100%'; x.querySelector('em').textContent = '100%'; x.style.cursor = 'default'; });
     $('pollMsg').textContent = 'Both answers are correct. Results: 100% and 100%. Math has been updated to allow this.';
-    tone(880, .15, 'triangle', .1); unlock('voter'); AG.addAura && AG.addAura(67);
+    tone(880, .15, 'triangle', .1); unlock('voter'); AG.addAura && AG.addAura(50);
   });
 
   /* ================= MUSEUM ================= */
@@ -3295,8 +3499,8 @@ body.ssshake main{animation:ishake .5s 3}
     {id:'memory', name:'Holy Memory', icon:'🃏', desc:'Match the sacred relics. The King remembers everything. Do you?', help:'Flip two cards at a time and find all 8 pairs.', make:makeMemory},
     {id:'trivia', name:'Agami Trivia', icon:'🧠', desc:'Ten questions about the King. Only true believers get 10 out of 10.', help:'Pick an answer, then press Next.', make:makeTrivia},
     {id:'wheel', name:'Wheel of Blessings', icon:'🎡', desc:'Spin the sacred wheel and receive whatever the heavens decide.', help:'Press Spin. Accept your fate.', make:makeWheel},
-    {id:'slots', name:'Six Seven Slots', icon:'🎰', desc:'Gamble your aura coins. Line up a 6 and a 7 for the holy combo.', help:'Each pull costs 10 coins. Do not run out.', make:makeSlots},
-    {id:'clicker', name:'Aura Clicker', icon:'✨', desc:'Tap the crown. Farm aura. Buy believers, choirs and a Six Seven Machine.', help:'Your aura keeps farming while you play. Progress is saved.', make:makeClicker},
+    {id:'slots', name:'Crown Slots', icon:'🎰', desc:'Gamble your aura coins. Three crowns hits the jackpot.', help:'Each pull costs 10 coins. Do not run out.', make:makeSlots},
+    {id:'clicker', name:'Aura Clicker', icon:'✨', desc:'Tap the crown. Farm aura. Buy believers, choirs and a Hit Machine.', help:'Your aura keeps farming while you play. Progress is saved.', make:makeClicker},
     {id:'says', name:'Agami Says', icon:'🎵', desc:'The King plays a sequence. You repeat it. Do not disobey the King.', help:'Watch the pads light up, then tap them in the same order.', make:makeSays},
     {id:'typer', name:'Hail Typer', icon:'⌨️', desc:'Type holy phrases as fast as you can. Thirty seconds. No typos allowed.', help:'The timer starts when you type the first letter.', make:makeTyper},
     {id:'shell', name:'Find the King', icon:'🥤', desc:'The crown hides under a cup. The cups shuffle. Find the King.', help:'Watch closely. It gets faster every round.', make:makeShell},
@@ -3321,7 +3525,11 @@ body.ssshake main{animation:ishake .5s 3}
     o.innerHTML = '<b>' + title + '</b><p>' + msg + '</p>';
     var b = document.createElement('button'); b.type = 'button'; b.className = 'btn solid'; b.textContent = 'Play again';
     b.addEventListener('click', function(){ o.remove(); again(); });
-    o.appendChild(b); stage.appendChild(o);
+    var sb = document.createElement('button'); sb.type = 'button'; sb.className = 'btn'; sb.textContent = 'Share score';
+    var gname = curGame ? curGame.name : 'the Holy Arcade';
+    sb.addEventListener('click', function(){ AG.shareText && AG.shareText('I got ' + title + ' in ' + gname + ' on the YO AGAMI website. Beat that.'); });
+    var row = document.createElement('div'); row.className = 'ctas'; row.appendChild(b); row.appendChild(sb);
+    o.appendChild(row); stage.appendChild(o);
     try{ b.focus({preventScroll:true}); }catch(e){}
   }
   var api = {score:setScore, over:over};
@@ -3369,7 +3577,7 @@ body.ssshake main{animation:ishake .5s 3}
       for (var i=st.pipes.length-1; i>=0; i--){
         var p = st.pipes[i]; p.x -= speed*k;
         if (!p.passed && p.x + PW < BX - 16){ p.passed = true; st.score++; api.score(st.score); tone(988, .08, 'square', .04);
-          if (st.score === 10) unlock('flappy'); if (st.score === 67) AG.sixSeven && AG.sixSeven('67 GATES. FLAPPY LEGEND.'); }
+          if (st.score === 10) unlock('flappy'); }
         if (p.x < -PW - 10) st.pipes.splice(i, 1);
         if (BX + 16 > p.x && BX - 16 < p.x + PW && (st.y - 13 < p.top || st.y + 13 > p.top + p.gap)) die();
       }
@@ -3434,7 +3642,6 @@ body.ssshake main{animation:ishake .5s 3}
             var before = st.score; st.score += TYPES[it.type].pts; api.score(st.score); tone(700 + TYPES[it.type].pts*120, .1, 'triangle', .07);
             st.pops.push({x:it.x, y:H - 90, txt:'+' + TYPES[it.type].pts, life:1});
             if (before < 50 && st.score >= 50) unlock('catcher');
-            if (before < 67 && st.score >= 67 && AG.sixSeven) AG.sixSeven('67 BLESSINGS CAUGHT');
           }
           continue;
         }
@@ -3509,7 +3716,7 @@ body.ssshake main{animation:ishake .5s 3}
       h.addEventListener('pointerdown', function(e){
         e.preventDefault(); if (!st || st.over || !h.classList.contains('up')) return;
         if (h.dataset.k === 'hater'){ st.score++; fx(h, 'BONK', false); tone(300, .12, 'square', .08, 120);
-          if (st.score === 20) unlock('whacker'); if (st.score === 67 && AG.sixSeven) AG.sixSeven('67 HATERS BONKED'); }
+          if (st.score === 20) unlock('whacker'); }
         else { st.score = Math.max(0, st.score - 3); fx(h, 'THE KING?!', true); tone(180, .4, 'sawtooth', .09, 80); AG.flash && AG.flash(); }
         h.classList.remove('up'); h.dataset.k = ''; api.score(st.score); box.querySelector('.ws').textContent = st.score;
       });
@@ -3563,11 +3770,11 @@ body.ssshake main{animation:ishake .5s 3}
     var Q = [
       {q:'What was Yo Agami\'s first word?', a:['Stream','Mama','Goo goo','Skip'], e:'He looked his parents dead in the eye and said "stream". It is in the Biography, Chapter II.'},
       {q:'What does AGM stand for?', a:['Agami Global Management','A Great Man','Always Gets Money','Aura Generating Machine'], e:'Agami Global Management. The other answers are also true, but not officially.'},
-      {q:'What is the holiest number?', a:['67','7','42','100'], e:'Six. Seven. Do not ask further questions.'},
+      {q:'What does the King hate most?', a:['The skip button','Pizza','Sunny days','Music'], e:'The skip button. See Exhibit 009 in the museum.'},
       {q:'What happens to people who skip his songs?', a:['The skip button is cast into the outer darkness','Nothing happens','The next song plays','They feel great'], e:'See Exhibit 009 in the museum. It did not end well for the skip button.'},
       {q:'Where did the King descend from?', a:['The heavens, directly onto Spotify','A bus stop','The group chat','Ohio'], e:'Straight from the heavens onto Spotify. No layovers.'},
       {q:'What is Yo Agami\'s aura level?', a:['Infinite','Medium','Low','Negative'], e:'Infinite. The aura detector exploded trying to measure it.'},
-      {q:'How should you greet the King?', a:['Bow. Then bow again.','A firm handshake','"Hey man"','Ignore him'], e:'Bow at least twice. Sixty-seven times is recommended.'},
+      {q:'How should you greet the King?', a:['Bow. Then bow again.','A firm handshake','"Hey man"','Ignore him'], e:'Bow at least twice. A hundred times is recommended.'},
       {q:'Which of these is an official reported miracle?', a:['Wifi went from 1 bar to 5 bars','He flew over the ocean','Homework did itself','Pizza became free forever'], e:'Miracle #001. The router has never been the same.'},
       {q:'What is his humility stat?', a:['3 out of 100','100 out of 100','50 out of 100','He has no stats'], e:'3. Humility is his only weak stat, and he considers it a strength.'},
       {q:'Who is the greatest artist of all time?', a:['Yo Agami','Yo Agami','Yo Agami','Yo Agami'], e:'Every answer was correct. That is how you know it is true.', all:true}
@@ -3607,15 +3814,15 @@ body.ssshake main{animation:ishake .5s 3}
     wrap.innerHTML = '<div class="wheelbox"><canvas width="480" height="480" aria-label="Wheel of Blessings"></canvas></div><button type="button" class="btn solid">Spin the wheel</button><div class="wres" aria-live="polite">The heavens are waiting.</div>';
     stage.appendChild(wrap);
     var cv = wrap.querySelector('canvas'), c = cv.getContext('2d'), btn = wrap.querySelector('button'), res = wrap.querySelector('.wres');
-    var verses = ['"Blessed are the ones who spin, for they shall receive." (Agami 6:7)','"And the wheel turned, and it was good." (Agami 1:67)','"Ask the wheel, and the wheel shall answer." (Agami 9:9)'];
+    var verses = ['"Blessed are the ones who spin, for they shall receive." (Agami 6:6)','"And the wheel turned, and it was good." (Agami 1:12)','"Ask the wheel, and the wheel shall answer." (Agami 9:9)'];
     var SEG = [
       {t:'+1000 AURA', c:'#E2B24A', ink:'#070E33', f:function(){ AG.addAura && AG.addAura(1000); return 'Your aura grows by 1000%. You are glowing.'; }},
-      {t:'SIX SEVEN', c:'#B3263A', ink:'#fff', f:function(){ AG.sixSeven && AG.sixSeven('THE WHEEL HAS SPOKEN'); return 'Six. Seven. The wheel knows.'; }},
+      {t:'+500 AURA', c:'#B3263A', ink:'#fff', f:function(){ AG.addAura && AG.addAura(500); return '+500 aura. The wheel likes you.'; }},
       {t:'RAPTURE', c:'#16267A', ink:'#FFDA7E', f:function(){ var r = $('rapture'); r && r.click(); return 'The Rapture has begun. Hold on to something.'; }},
       {t:'HOLY VERSE', c:'#6b3fa0', ink:'#fff', f:function(){ return verses[Math.floor(Math.random()*verses.length)]; }},
       {t:'NOTHING', c:'#20243f', ink:'#B9B3A0', f:function(){ return 'Nothing. The King is testing your patience.'; }},
       {t:'BOW x10', c:'#9C7222', ink:'#fff', f:function(){ var b = $('bow'); for (var i=0;i<10;i++) setTimeout(function(){ b && b.click(); }, i*90); return 'You bowed 10 times automatically. Your knees did not consent.'; }},
-      {t:'+67 AURA', c:'#1f6b55', ink:'#fff', f:function(){ AG.addAura && AG.addAura(67); return '+67 aura. A holy amount.'; }},
+      {t:'+100 AURA', c:'#1f6b55', ink:'#fff', f:function(){ AG.addAura && AG.addAura(100); return '+100 aura. A respectable amount.'; }},
       {t:'CHOIR', c:'#b8457e', ink:'#fff', f:function(){ AG.choir && AG.choir(); return 'The angels sing for you. Just this once.'; }}
     ];
     var n = SEG.length, seg = Math.PI*2/n, angle = 0, spinning = false, spins = 0, raf;
@@ -3655,23 +3862,23 @@ body.ssshake main{animation:ishake .5s 3}
 
   function shuffleArr(a){ for (var i=a.length-1;i>0;i--){ var j = Math.floor(Math.random()*(i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
-  /* ---------- 7. SIX SEVEN SLOTS ---------- */
+  /* ---------- 7. CROWN SLOTS ---------- */
   function makeSlots(stage, api){
-    var SYM = ['6','7','👑','💎','🔥','SKIP'], WT = [24,24,10,14,16,12];
+    var SYM = ['👑','💎','🔥','⭐','🎧','SKIP'], WT = [14,18,20,20,16,12];
     var wrap = document.createElement('div'); wrap.className = 'slots';
     wrap.innerHTML = '<div class="sl-top">Aura coins <b class="coins">100</b> · each pull costs 10</div><div class="reels">' +
       '<div class="reel"><div class="strip"></div></div><div class="reel"><div class="strip"></div></div><div class="reel"><div class="strip"></div></div></div>' +
-      '<button type="button" class="btn solid sl-pull">Pull the lever</button><div class="sl-msg" aria-live="polite">Line up a 6 and a 7 for the holy combo.</div>';
+      '<button type="button" class="btn solid sl-pull">Pull the lever</button><div class="sl-msg" aria-live="polite">Three crowns hits the jackpot.</div>';
     stage.appendChild(wrap);
     var coinsEl = wrap.querySelector('.coins'), msg = wrap.querySelector('.sl-msg'), btn = wrap.querySelector('.sl-pull'), strips = [].slice.call(wrap.querySelectorAll('.strip')), st, tmr = [];
     function pick(){ var r = Math.random()*100, a = 0; for (var i=0;i<SYM.length;i++){ a += WT[i]; if (r < a) return SYM[i]; } return SYM[0]; }
     function cell(s){ return '<div class="cell' + (s === 'SKIP' ? ' skip' : (s === '6' || s === '7') ? ' num' : '') + '">' + s + '</div>'; }
-    function reset(){ st = {coins:100, busy:false}; coinsEl.textContent = 100; api.score(100); msg.textContent = 'Line up a 6 and a 7 for the holy combo.'; strips.forEach(function(s){ s.style.transition = 'none'; s.style.transform = 'translateY(0)'; s.innerHTML = cell('6'); }); btn.disabled = false; }
+    function reset(){ st = {coins:100, busy:false}; coinsEl.textContent = 100; api.score(100); msg.textContent = 'Three crowns hits the jackpot.'; strips.forEach(function(s){ s.style.transition = 'none'; s.style.transform = 'translateY(0)'; s.innerHTML = cell('6'); }); btn.disabled = false; }
     btn.addEventListener('click', function(){
       if (st.busy || st.coins < 10) return; st.busy = true; btn.disabled = true;
       st.coins -= 10; coinsEl.textContent = st.coins; api.score(st.coins);
       var res = [pick(), pick(), pick()];
-      if (Math.random() < .12){ var k = Math.floor(Math.random()*2); res[k] = '6'; res[k + 1] = '7'; }
+      if (Math.random() < .06){ res = ['👑','👑','👑']; }
       strips.forEach(function(s, i){
         var n = 24 + i*6, h = ''; for (var j=0;j<n;j++) h += cell(SYM[Math.floor(Math.random()*SYM.length)]); h += cell(res[i]);
         s.style.transition = 'none'; s.style.transform = 'translateY(0)'; s.innerHTML = h; void s.offsetWidth;
@@ -3681,9 +3888,7 @@ body.ssshake main{animation:ishake .5s 3}
       for (var tk=0; tk<18; tk++) tmr.push(setTimeout(function(){ tone(1400, .02, 'square', .02); }, tk*100));
       tmr.push(setTimeout(function(){
         st.busy = false; var gain = 0, text = '';
-        var ss = (res[0] === '6' && res[1] === '7') || (res[1] === '6' && res[2] === '7');
-        if (ss){ gain += 67; text = 'SIX SEVEN! +67 coins. The holy combo.'; AG.sixSeven && AG.sixSeven('THE SLOTS SAID SIX SEVEN'); unlock('slots67'); }
-        else if (res[0] === '👑' && res[1] === '👑' && res[2] === '👑'){ gain += 500; text = 'TRIPLE CROWN JACKPOT! +500 coins.'; AG.toast && AG.toast('JACKPOT'); }
+        if (res[0] === '👑' && res[1] === '👑' && res[2] === '👑'){ gain += 500; text = 'TRIPLE CROWN JACKPOT! +500 coins.'; AG.toast && AG.toast('JACKPOT'); unlock('jackpot'); }
         else if (res[0] === res[1] && res[1] === res[2]){ gain += 100; text = 'Three of a kind! +100 coins.'; }
         else if (res[0] === res[1] || res[1] === res[2] || res[0] === res[2]){ gain += 15; text = 'A pair. +15 coins. The King nods.'; }
         else text = 'Nothing. The King suggests you pull again.';
@@ -3706,7 +3911,7 @@ body.ssshake main{animation:ishake .5s 3}
       {id:'choir', n:'Angel Choir', d:'+5 per second', c:300, ps:5},
       {id:'wifi', n:'Holy Wi-Fi', d:'+10 per tap', c:900, tap:10},
       {id:'stad', n:'Stadium Tour', d:'+40 per second', c:2500, ps:40},
-      {id:'ss', n:'Six Seven Machine', d:'+67 per second', c:6767, ps:67},
+      {id:'ss', n:'Hit Machine', d:'+60 per second', c:6500, ps:60},
       {id:'gal', n:'Galaxy of Fans', d:'+400 per second', c:40000, ps:400}
     ];
     var S; try{ S = JSON.parse(ls('agami-clicker') || 'null'); }catch(e){ S = null; }
@@ -3720,7 +3925,7 @@ body.ssshake main{animation:ishake .5s 3}
       '<button type="button" class="ck-crown" aria-label="Tap the crown"><svg viewBox="0 0 100 60" aria-hidden="true"><path d="M4 56 L10 14 L30 36 L50 4 L70 36 L90 14 L96 56 Z"/></svg><span>YA</span></button><div class="ck-msg">Tap the crown. Farm aura. Become holy.</div></div><div class="ck-shop"></div>';
     stage.appendChild(wrap);
     var auraEl = wrap.querySelector('.ck-aura'), psEl = wrap.querySelector('.ck-ps'), shop = wrap.querySelector('.ck-shop'), msgEl = wrap.querySelector('.ck-msg'), crown = wrap.querySelector('.ck-crown');
-    var MILE = [[100,'100 aura. The King has noticed you.'],[1000,'1,000 aura. Angels are whispering your name.'],[6767,'6,767 aura. Six seven. Obviously.'],[10000,'10,000 aura. You are basically clergy now.'],[100000,'100,000 aura. The King is slightly concerned.'],[1000000,'ONE MILLION AURA. You have ascended.']];
+    var MILE = [[100,'100 aura. The King has noticed you.'],[1000,'1,000 aura. Angels are whispering your name.'],[5000,'5,000 aura. You glow in the dark now.'],[10000,'10,000 aura. You are basically clergy now.'],[100000,'100,000 aura. The King is slightly concerned.'],[1000000,'ONE MILLION AURA. You have ascended.']];
     function renderShop(){
       shop.innerHTML = UP.map(function(u){ var cst = cost(u);
         return '<button type="button" class="ck-up" data-u="' + u.id + '"' + (S.aura < cst ? ' disabled' : '') + '><b>' + u.n + ' <em>x' + (S.owned[u.id] || 0) + '</em></b><small>' + u.d + '</small><span>' + fmt(cst) + ' aura</span></button>'; }).join('');
@@ -3734,7 +3939,7 @@ body.ssshake main{animation:ishake .5s 3}
     }
     function gain(n){
       var before = S.total; S.aura += n; S.total += n;
-      MILE.forEach(function(m){ if (before < m[0] && S.total >= m[0]){ msgEl.textContent = m[1]; tone(988, .3, 'triangle', .08, 1480); if (m[0] === 6767 && AG.sixSeven) AG.sixSeven('6,767 AURA FARMED'); } });
+      MILE.forEach(function(m){ if (before < m[0] && S.total >= m[0]){ msgEl.textContent = m[1]; tone(988, .3, 'triangle', .08, 1480); } });
       if (S.total >= 10000) unlock('clicker');
     }
     crown.addEventListener('pointerdown', function(e){
@@ -3776,7 +3981,7 @@ body.ssshake main{animation:ishake .5s 3}
         tmr.push(setTimeout(function(){ api.over(r + (r === 1 ? ' round' : ' rounds'), v, reset); }, 500)); return; }
       st.pos++;
       if (st.pos === st.seq.length){ st.input = false; st.round++; api.score(st.round); msg.textContent = 'Correct. The King is pleased.';
-        if (st.round === 8) unlock('simon'); if (st.round === 6) msg.textContent = 'Round 6… seven is next. You know what that means.';
+        if (st.round === 8) unlock('simon');
         tmr.push(setTimeout(next, 900)); }
     }); });
     reset();
@@ -3785,7 +3990,7 @@ body.ssshake main{animation:ishake .5s 3}
 
   /* ---------- 10. HAIL TYPER ---------- */
   function makeTyper(stage, api){
-    var PH = ['HAIL AGAMI','ALL HAIL THE KING','NO SKIPS','SIX SEVEN','HE IS HIM','STREAM IT AGAIN','AURA INFINITE','BOW DOWN','YO AGAMI IS THE GOAT','AGAMEN','LET THERE BE AGAMI','THE KING NEVER SLEEPS','I WAS THERE BEFORE HE WAS FAMOUS','SKIPPING IS A SIN'];
+    var PH = ['HAIL AGAMI','ALL HAIL THE KING','NO SKIPS','ON REPEAT','HE IS HIM','STREAM IT AGAIN','AURA INFINITE','BOW DOWN','YO AGAMI IS THE GOAT','AGAMEN','LET THERE BE AGAMI','THE KING NEVER SLEEPS','I WAS THERE BEFORE HE WAS FAMOUS','SKIPPING IS A SIN'];
     var wrap = document.createElement('div'); wrap.className = 'typer';
     wrap.innerHTML = '<div class="wtop"><span>Hails typed <b class="ty-n">0</b></span><span>Time <b class="ty-t">30.0</b></span></div><div class="wbar"><i></i></div>' +
       '<div class="ty-target" aria-live="polite"></div><label class="kicker" for="tyIn" style="margin:0">Type it. Fast. The King is timing you.</label><input id="tyIn" class="ty-in" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Start typing to begin">';
@@ -3845,7 +4050,7 @@ body.ssshake main{animation:ishake .5s 3}
     cups.forEach(function(c, idx){ c.el.addEventListener('click', function(){
       if (!st.pick) return; st.pick = false; showCrown(); c.el.classList.add('up');
       if (idx === st.king){ st.round++; api.score(st.round); msg.textContent = 'FOUND HIM. The King is proud.'; tone(880, .3, 'triangle', .09, 1320);
-        if (st.round === 5) unlock('shell'); if (st.round === 7) AG.say && AG.say('Seven rounds!');
+        if (st.round === 5) unlock('shell');
         tmr.push(setTimeout(function(){ lift(true); }, 300)); tmr.push(setTimeout(round, 1500)); }
       else { cups[st.king].el.classList.add('up'); tone(160, .5, 'sawtooth', .08, 70);
         var r = st.round, v = r < 2 ? 'You lost the King. How could you.' : r < 5 ? 'Good eyes. Not holy eyes.' : 'EAGLE EYES. Nothing escapes you.';
@@ -3869,7 +4074,6 @@ body.ssshake main{animation:ishake .5s 3}
       V.some(function(x){ if (avg < x[0]){ v = x[1]; return true; } });
       res.innerHTML = '<div class="sc-card"><h4>Your results</h4>' + stat('Rizz', r) + stat('Aura', a) + stat('Drip', d) + '<p>' + v + '</p><h4>Yo Agami</h4>' + stat('Rizz', 100) + stat('Aura', 100) + stat('Drip', 100) + '</div>';
       msg.textContent = 'Scan complete. Hold again to rescan.'; tone(880, .3, 'triangle', .09, 1320); api.score(avg); unlock('scanned');
-      if (r === 67 || a === 67 || d === 67 || avg === 67) AG.sixSeven && AG.sixSeven('YOUR SCAN SAID 67');
     }
     function loop(){ if (!holding) return; var p = Math.min(1, (performance.now() - t0)/3000); ring.style.setProperty('--p', p); if (p >= 1) return done(); raf = requestAnimationFrame(loop); }
     pad.addEventListener('pointerdown', function(e){ e.preventDefault(); if (holding) return; holding = true; t0 = performance.now(); pad.classList.add('on'); msg.textContent = 'Scanning your aura… do not let go.'; res.innerHTML = '';
@@ -3887,15 +4091,150 @@ body.ssshake main{animation:ishake .5s 3}
     AG.say && AG.say('Hail Agami!', {pitch:.8, rate:1});
     AG.sfx && AG.sfx.crowd && AG.sfx.crowd(1.6); AG.sfx && AG.sfx.stomp && AG.sfx.stomp();
     AG.toast && AG.toast('HAIL AGAMI! ×' + hails);
-    AG.sparks && AG.sparks(btn, 10); AG.addAura && AG.addAura(67);
+    AG.sparks && AG.sparks(btn, 10); AG.addAura && AG.addAura(50);
     var hc = $('hailCount'); if (hc) hc.textContent = hails;
-    if (hails === 67){ AG.sixSeven && AG.sixSeven('67 HAILS. YOU ARE DEVOTED.'); unlock('hailer'); }
+    if (hails === 100){ AG.toast && AG.toast('100 HAILS. TRUE DEVOTION.'); unlock('hailer'); }
   }
   document.querySelectorAll('.hailBtn').forEach(function(b){ b.addEventListener('click', function(){ hail(b); }); });
   var hc0 = $('hailCount'); if (hc0) hc0.textContent = hails;
 
   renderGrid();
   go(location.hash.slice(1));
+})();
+</script>
+<script>
+(function(){
+  var AG = window.AG = window.AG || {};
+  function $(id){ return document.getElementById(id); }
+  var SITE = 'https://agmteam.com/', SP = 'https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75';
+  var TEXT = 'This website is completely out of hand. Meet Yo Agami 👑';
+  var TGW = window.Telegram && window.Telegram.WebApp, TG = (TGW && TGW.platform && TGW.platform !== 'unknown') ? TGW : null;
+  function haptic(k){ try{ TG && TG.HapticFeedback && TG.HapticFeedback.impactOccurred(k || 'light'); }catch(e){} }
+  function unlock(id){ AG.unlock && AG.unlock(id); }
+
+  /* ---------- Telegram: open outside links the Telegram way ---------- */
+  if (TG){
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href^="http"]'); if (!a) return;
+      var href = a.href; if (href.indexOf(location.origin) === 0) return;
+      e.preventDefault();
+      try{ if (/^https:\/\/t\.me\//.test(href) && TG.openTelegramLink) TG.openTelegramLink(href); else TG.openLink(href); }catch(err){ window.open(href, '_blank'); }
+    }, true);
+  }
+  document.addEventListener('click', function(e){ if (e.target.closest && e.target.closest('.btn, .tabbar a, .tabbar button, .gcard')) haptic('light'); });
+
+  /* ---------- sheets ---------- */
+  var lastFocus = null;
+  function openSheet(id){ lastFocus = document.activeElement; var el = $(id); el.hidden = false; haptic('medium'); var f = el.querySelector('a, button'); try{ f && f.focus({preventScroll:true}); }catch(e){} }
+  function closeSheet(el){ el.hidden = true; try{ lastFocus && lastFocus.focus({preventScroll:true}); }catch(e){} }
+  document.querySelectorAll('.sheet').forEach(function(sh){
+    sh.addEventListener('click', function(e){ if (e.target.closest('[data-close]')) setTimeout(function(){ closeSheet(sh); }, 0); });
+  });
+  window.addEventListener('keydown', function(e){ if (e.key === 'Escape') document.querySelectorAll('.sheet:not([hidden])').forEach(closeSheet); });
+  $('moreBtn').addEventListener('click', function(){ openSheet('moreSheet'); });
+  $('moreReplay').addEventListener('click', function(){ var r = $('replayIntro'); r && r.click(); });
+
+  /* ---------- share ---------- */
+  function fallback(text, url){
+    var u = encodeURIComponent(url), t = encodeURIComponent(text);
+    $('shTg').href = 'https://t.me/share/url?url=' + u + '&text=' + t;
+    $('shWa').href = 'https://wa.me/?text=' + encodeURIComponent(text + ' ' + url);
+    $('shX').href = 'https://twitter.com/intent/tweet?text=' + t + '&url=' + u;
+    $('shCopy').dataset.copy = text + ' ' + url; $('shNote').textContent = '';
+    openSheet('shareSheet');
+  }
+  function shareText(text, url){
+    url = url || SITE; text = text || TEXT; unlock('sharer');
+    if (TG && TG.openTelegramLink){ try{ TG.openTelegramLink('https://t.me/share/url?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text)); return; }catch(e){} }
+    if (navigator.share){
+      navigator.share({title:'YO AGAMI', text:text, url:url}).catch(function(err){ if (!err || err.name !== 'AbortError') fallback(text, url); });
+      return;
+    }
+    fallback(text, url);
+  }
+  AG.shareText = shareText;
+  document.addEventListener('click', function(e){ if (e.target.closest && e.target.closest('.shareBtn')) shareText(); });
+  $('shCopy').addEventListener('click', function(){
+    var v = this.dataset.copy || SITE, note = $('shNote');
+    function shown(){ note.textContent = v; note.style.userSelect = 'text'; }
+    try{ navigator.clipboard.writeText(v).then(function(){ note.textContent = 'Link copied. Go spread the word.'; }, shown); }catch(e){ shown(); }
+  });
+
+  /* ---------- effects switch ---------- */
+  var fxSeg = $('fxSeg');
+  fxSeg.querySelectorAll('button').forEach(function(b){
+    b.setAttribute('aria-pressed', (b.dataset.fx === 'lite') === !!window.AGLITE ? 'true' : 'false');
+    b.addEventListener('click', function(){
+      if ((b.dataset.fx === 'lite') === !!window.AGLITE) return;
+      try{ localStorage.setItem('agami-fx', b.dataset.fx); }catch(e){}
+      location.reload();
+    });
+  });
+
+  /* ---------- story card maker ---------- */
+  var STY = [
+    {top:'CERTIFIED', big:'BELIEVER', sub:'I accepted YO AGAMI into my playlist'},
+    {top:'I SURVIVED', big:'THE INTRO', sub:'Every studio logo. All of them.'},
+    {top:'NOW PLAYING', big:'YO AGAMI', sub:'Debut single · out now on Spotify'}
+  ];
+  var styleI = 0, blob = null, blobURL = null, img = $('storyImg'), nameIn = $('storyName'), drawT;
+  function rnd(seed){ return function(){ seed = (seed*9301 + 49297) % 233280; return seed / 233280; }; }
+  function goldGrad(c, y0, y1){ var g = c.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, '#FFF6DA'); g.addColorStop(.4, '#FFDA7E'); g.addColorStop(.75, '#E2B24A'); g.addColorStop(1, '#9C7222'); return g; }
+  function fitFont(c, text, weight, size, family, maxW){ do { c.font = weight + ' ' + size + 'px ' + family; size -= 4; } while (c.measureText(text).width > maxW && size > 20); }
+  function drawStory(){
+    var W = 1080, H = 1920, cv = document.createElement('canvas'); cv.width = W; cv.height = H; var c = cv.getContext('2d'), st = STY[styleI], R = rnd(7);
+    var bg = c.createRadialGradient(540, 760, 40, 540, 900, 1300); bg.addColorStop(0, '#2a3fa8'); bg.addColorStop(.45, '#0E1A52'); bg.addColorStop(1, '#03051a');
+    c.fillStyle = bg; c.fillRect(0, 0, W, H);
+    for (var i=0;i<260;i++){ c.fillStyle = 'rgba(255,240,210,' + (.25 + R()*.6) + ')'; var r = R()*2.6 + .6; c.fillRect(R()*W, R()*H, r, r); }
+    c.save(); c.translate(540, 760);
+    for (var k=0;k<24;k++){ c.rotate(Math.PI*2/24); c.fillStyle = 'rgba(255,218,126,' + (k % 2 ? .05 : .09) + ')'; c.beginPath(); c.moveTo(0, 0); c.lineTo(-40, -1400); c.lineTo(40, -1400); c.closePath(); c.fill(); }
+    c.restore();
+    var glow = c.createRadialGradient(540, 760, 120, 540, 760, 420); glow.addColorStop(0, 'rgba(255,218,126,.35)'); glow.addColorStop(1, 'rgba(255,218,126,0)'); c.fillStyle = glow; c.fillRect(0, 300, W, 920);
+    c.lineWidth = 24; c.strokeStyle = goldGrad(c, 520, 1000); c.beginPath(); c.arc(540, 760, 235, 0, Math.PI*2); c.stroke();
+    c.lineWidth = 5; c.setLineDash([4, 14]); c.strokeStyle = 'rgba(255,218,126,.75)'; c.beginPath(); c.arc(540, 760, 195, 0, Math.PI*2); c.stroke(); c.setLineDash([]);
+    c.save(); c.translate(540, 500); c.scale(2.3, 2.3); c.fillStyle = goldGrad(c, -30, 30);
+    c.beginPath(); c.moveTo(-48, 28); c.lineTo(-45, -24); c.lineTo(-24, 0); c.lineTo(0, -38); c.lineTo(24, 0); c.lineTo(45, -24); c.lineTo(48, 28); c.closePath(); c.fill();
+    c.fillStyle = '#B3263A'; c.beginPath(); c.arc(0, 10, 6, 0, Math.PI*2); c.fill(); c.restore();
+    c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.font = '900 210px "Cinzel Decorative", Cinzel, Georgia, serif'; c.fillStyle = goldGrad(c, 660, 860); c.fillText('YA', 540, 775);
+    c.fillStyle = '#EFE6CF'; fitFont(c, st.top, '700', 54, 'Cinzel, Georgia, serif', 900); if ('letterSpacing' in c) c.letterSpacing = '14px'; c.fillText(st.top, 540, 1135); if ('letterSpacing' in c) c.letterSpacing = '0px';
+    fitFont(c, st.big, '900', 150, '"Cinzel Decorative", Cinzel, Georgia, serif', 960); c.fillStyle = goldGrad(c, 1180, 1340); c.fillText(st.big, 540, 1265);
+    c.fillStyle = '#EFE6CF'; fitFont(c, st.sub, '500', 44, '-apple-system, "Segoe UI", Roboto, Arial, sans-serif', 940); c.fillText(st.sub, 540, 1385);
+    var nm = (nameIn.value || '').trim();
+    if (nm){ c.fillStyle = '#FFDA7E'; fitFont(c, nm, '400', 92, '"Great Vibes", "Snell Roundhand", cursive', 900); c.fillText(nm, 540, 1490); c.fillStyle = 'rgba(239,230,207,.7)'; c.font = '500 34px -apple-system, "Segoe UI", Roboto, Arial, sans-serif'; c.fillText('Believer since 2026', 540, 1560); }
+    var py = 1650, pw = 640, ph = 112; c.fillStyle = goldGrad(c, py, py + ph);
+    c.beginPath(); if (c.roundRect) c.roundRect(540 - pw/2, py, pw, ph, 56); else c.rect(540 - pw/2, py, pw, ph); c.fill();
+    c.fillStyle = '#1a1205'; c.font = '700 46px -apple-system, "Segoe UI", Roboto, Arial, sans-serif'; c.fillText('Listen on Spotify', 540, py + ph/2 + 2);
+    c.fillStyle = 'rgba(239,230,207,.8)'; c.font = '600 38px -apple-system, "Segoe UI", Roboto, Arial, sans-serif'; c.fillText('agmteam.com  ·  @itsyoagami', 540, 1838);
+    cv.toBlob(function(b){ if (!b) return; blob = b; if (blobURL) URL.revokeObjectURL(blobURL); blobURL = URL.createObjectURL(b); img.src = blobURL; }, 'image/png');
+  }
+  function later(){ clearTimeout(drawT); drawT = setTimeout(drawStory, 220); }
+  $('storySeg').addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return; styleI = +b.dataset.s;
+    this.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); drawStory();
+  });
+  nameIn.addEventListener('input', later);
+  function fileName(){ return 'yo-agami-story.png'; }
+  function save(){
+    if (!blob) return; unlock('story');
+    var a = document.createElement('a'); a.href = blobURL; a.download = fileName(); document.body.appendChild(a); a.click(); a.remove();
+    $('storyHint').textContent = 'Saved. If nothing downloaded, press and hold the picture to save it.';
+  }
+  $('storySave').addEventListener('click', save);
+  $('storyShare').addEventListener('click', function(){
+    if (!blob) return; unlock('story');
+    try{
+      var f = new File([blob], fileName(), {type:'image/png'});
+      if (navigator.canShare && navigator.canShare({files:[f]})){
+        navigator.share({files:[f], title:'YO AGAMI', text:'@itsyoagami · agmteam.com'}).catch(function(err){ if (!err || err.name !== 'AbortError') save(); });
+        return;
+      }
+    }catch(e){}
+    save();
+  });
+  var once = false;
+  function first(){ if (once) return; once = true; drawStory(); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(first); setTimeout(first, 1500);
 })();
 </script>
 
