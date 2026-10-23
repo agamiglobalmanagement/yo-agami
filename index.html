@@ -44,11 +44,11 @@
 (function(){
   var d = document.documentElement, ua = navigator.userAgent || '';
   var tg = /Telegram/i.test(ua) || !!window.TelegramWebviewProxy || !!(window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.platform && window.Telegram.WebApp.platform !== 'unknown');
-  var pref = null; try { pref = localStorage.getItem('agami-fx'); } catch(e){}
+  try { localStorage.removeItem('agami-fx'); } catch(e){}
   var coarse = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
   var small = Math.min(screen.width || 9999, screen.height || 9999) < 820;
   var weak = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) || (navigator.connection && navigator.connection.saveData);
-  var lite = pref ? pref === 'lite' : (tg || (coarse && small) || !!weak);
+  var lite = (tg || (coarse && small) || !!weak);
   window.AGLITE = !!lite; window.AGTG = !!tg;
   if (lite) d.classList.add('lite');
   if (tg) d.classList.add('tg');
@@ -1259,6 +1259,92 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
 .subtitle{text-wrap:balance}
 .gp-row{display:grid;grid-template-columns:minmax(0,1fr) auto;width:100%}
 .gp-row input{width:100%;min-width:0}
+
+/* ===== intro: film burn, VHS, battery, phone dialog ===== */
+.burn{position:absolute;inset:0;pointer-events:none}
+.burn i{position:absolute;width:30vmin;height:30vmin;border-radius:50%;transform:scale(0);background:radial-gradient(circle,#fff 0 30%,#ffe9a8 40%,#ff8a1e 55%,#7a1d00 68%,transparent 72%);animation:burnGrow 1.6s ease-in forwards}
+.burn i:nth-child(1){left:30%;top:28%}
+.burn i:nth-child(2){left:56%;top:50%;animation-delay:.35s}
+.burn i:nth-child(3){left:18%;top:58%;animation-delay:.7s}
+@keyframes burnGrow{to{transform:scale(6)}}
+.vhs{font-family:var(--mono);color:#fff;text-shadow:3px 0 0 rgba(255,0,80,.6),-3px 0 0 rgba(0,200,255,.6);display:grid;gap:10px;justify-items:center;text-align:center;width:min(560px,86vw)}
+.vhs-top{display:flex;justify-content:space-between;width:100%;font-size:clamp(14px,3vw,20px)}
+.vhs b{font-size:clamp(40px,10vw,84px);letter-spacing:.06em;animation:vhsJit .18s steps(2) infinite}
+.vhs small{font-size:clamp(13px,2.6vw,18px);opacity:.85}
+.vhs-label{margin-top:10px;padding:8px 14px;background:#f4efe2;color:#222;text-shadow:none;font-family:var(--caps);font-weight:900;font-size:clamp(12px,2.6vw,18px);transform:rotate(-2deg)}
+@keyframes vhsJit{50%{transform:translateX(3px)}}
+.batt{position:relative;width:min(260px,62vw);height:min(110px,26vw);border:6px solid #fff;border-radius:18px;padding:8px;margin:0 auto 22px;box-sizing:border-box}
+.batt::after{content:"";position:absolute;right:-20px;top:30%;width:12px;height:40%;background:#fff;border-radius:0 6px 6px 0}
+.batt i{display:block;height:100%;border-radius:8px;background:#4cd964;transition:width .12s linear}
+.batt span{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:clamp(24px,6vw,40px);color:#fff;text-shadow:0 2px 8px #000}
+.batt em{position:absolute;left:50%;top:-46px;transform:translateX(-50%);font-style:normal;font-size:34px;opacity:0;transition:opacity .2s}
+.batt.low i{background:#ff3b30}
+.batt.low{animation:battBlink .5s steps(2) infinite}
+.batt.chg em{opacity:1}
+@keyframes battBlink{50%{border-color:#ff3b30}}
+.ph-dlg{position:absolute;inset:0;border-radius:31px;background:rgba(0,0,0,.55);display:grid;place-items:center;animation:pdIn .25s ease-out}
+.pd-box{width:82%;border-radius:16px;background:rgba(40,40,48,.98);text-align:center;overflow:hidden}
+.pd-box b{display:block;padding:16px 12px 4px;font-family:var(--body);font-size:16px;color:#fff}
+.pd-box small{display:block;padding:0 12px 14px;font-family:var(--body);font-size:13px;color:#ccc}
+.pd-row{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.15)}
+.pd-row span{padding:12px;font-family:var(--body);font-size:15px;color:#4aa3ff}
+.pd-row span + span{border-left:1px solid rgba(255,255,255,.15);font-weight:700;color:var(--gold-hi)}
+.pd-row span.pressed{background:rgba(255,218,126,.25)}
+.phone .cursor.pdc{left:66%;top:56%;animation:cursorGo3 1.1s .2s ease-in-out both}
+@keyframes cursorGo3{from{transform:translate(-120px,140px)}to{transform:translate(0,0)}}
+@keyframes pdIn{from{opacity:0}}
+
+/* ===== new pages ===== */
+.pg-head{text-align:center;max-width:720px;margin:0 auto 28px}
+.pg-head h2{margin:0 0 8px}
+.pg-head p{margin:0;color:var(--ivory-dim)}
+.dgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:900px;margin:0 auto}
+.dcard{padding:22px;border:1px solid var(--hair);background:var(--glass);border-radius:var(--r);display:grid;gap:10px;align-content:start}
+.dcard.wide{grid-column:1/-1}
+.dcard small.l{font-family:var(--body);font-weight:650;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.dcard .big{font-family:var(--display);font-weight:900;font-size:clamp(22px,4vw,30px);line-height:1.2;color:var(--gold-hi)}
+.dcard p{margin:0}
+.dcard .btn{justify-self:start}
+.dnum{font-family:var(--display);font-weight:900;font-size:56px;line-height:1;color:var(--gold-hi)}
+.dtimer{font-family:var(--mono);font-size:clamp(26px,6vw,40px);color:var(--gold-hi);font-variant-numeric:tabular-nums}
+.btn.done{background:#1f6b55;border-color:transparent}
+.dweek{display:flex;gap:6px;flex-wrap:wrap}
+.dweek span{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-family:var(--body);font-size:12px;font-weight:700;border:1px solid var(--hair);color:var(--ivory-dim)}
+.dweek span.on{background:var(--gold);color:#1a1205;border-color:transparent}
+.quiz{max-width:640px;margin:0 auto;padding:24px;border:1px solid var(--hair);background:var(--glass);border-radius:var(--r)}
+.qz-prog{height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin-bottom:16px}
+.qz-prog i{display:block;height:100%;background:var(--gold-hi);transition:width .3s}
+.qz-step{font-family:var(--body);font-size:13px;color:var(--ivory-dim);margin:0 0 6px}
+.qz-q{font-family:var(--display);font-weight:900;font-size:clamp(22px,4.4vw,30px);line-height:1.2;margin:0 0 16px}
+.qz-opts{display:grid;gap:10px}
+.qz-opts button{text-align:left;padding:14px 16px;border-radius:var(--r-sm);border:1px solid var(--hair);background:rgba(7,14,51,.6);color:var(--ivory);font:600 16px var(--body);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.qz-opts button:hover{border-color:var(--gold)}
+.qz-opts button:active{transform:scale(.98)}
+.qz-res{text-align:center;display:grid;gap:12px;justify-items:center}
+.qz-res .ic{font-size:64px;line-height:1}
+.qz-res h3{margin:0;font-family:var(--display);font-weight:900;font-size:clamp(26px,5vw,38px);color:var(--gold-hi)}
+.qz-res .ctas{justify-content:center}
+.tour{max-width:860px;margin:0 auto;display:grid;gap:10px}
+.trow{display:grid;grid-template-columns:78px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;border:1px solid var(--hair);background:var(--glass);border-radius:var(--r-sm)}
+.trow .td{font-family:var(--display);font-weight:900;line-height:1;text-align:center;color:var(--gold-hi)}
+.trow .td small{display:block;font-family:var(--body);font-size:12px;letter-spacing:.1em;color:var(--ivory-dim);margin-bottom:4px}
+.trow .td b{font-size:28px}
+.trow .tp b{display:block;font-family:var(--body);font-weight:700;font-size:16px}
+.trow .tp small{font-size:13px;color:var(--ivory-dim)}
+.tpill{padding:8px 12px;border-radius:999px;font:700 12px var(--body);white-space:nowrap;border:0;cursor:pointer;color:#1a1205;background:var(--gold)}
+.tpill.out{background:#ff3b30;color:#fff}.tpill.wait{background:#8e8e93;color:#fff}.tpill.live{background:#4cd964}
+.treq{max-width:860px;margin:22px auto 0;padding:22px;border:1px solid rgba(226,178,74,.5);background:rgba(7,14,51,.82);border-radius:var(--r);display:grid;gap:12px}
+.treq h3{margin:0;font-family:var(--display);font-weight:900}
+.treq .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.treq input{width:100%;padding:13px 14px;border:1px solid var(--hair);background:#070E33;color:var(--ivory);font:16px var(--body);border-radius:12px;box-sizing:border-box}
+.tlist{display:flex;flex-wrap:wrap;gap:8px}
+.tlist span{padding:6px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--hair);font:600 13px var(--body)}
+.tlist span b{color:var(--gold-hi);margin-left:6px}
+.tnote{max-width:860px;margin:16px auto 0;text-align:center;font-size:13px;color:var(--ivory-dim)}
+.xgrid{grid-template-columns:repeat(4,1fr)}
+@media (max-width:980px){.xgrid{grid-template-columns:1fr 1fr}.xcard:first-child{grid-column:auto}}
+@media (max-width:640px){.dgrid{grid-template-columns:minmax(0,1fr)}.trow{grid-template-columns:62px minmax(0,1fr)}.trow .tpill{grid-column:2;justify-self:start}}
+@media (max-width:420px){.xgrid{grid-template-columns:1fr}}
 </style>
 <style>img{max-width:100%}</style>
 </head>
@@ -1309,6 +1395,9 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
       <a href="#bio" data-nav="bio">Biography</a>
       <a href="#museum" data-nav="museum">Museum</a>
       <a href="#news" data-nav="news">News</a>
+      <a href="#daily" data-nav="daily">Daily</a>
+      <a href="#quiz" data-nav="quiz">Quiz</a>
+      <a href="#tour" data-nav="tour">Tour</a>
       <a href="#faq" data-nav="faq">FAQ</a>
       <a href="#merch">Merch</a>
     </nav>
@@ -1384,6 +1473,9 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
         <a class="xcard" href="#bio"><span class="xi">📖</span><b>The Holy Biography</b><small>From his first word to world domination.</small><em>Read ›</em></a>
         <a class="xcard" href="#museum"><span class="xi">🏛️</span><b>The Agami Museum</b><small>Priceless relics. Please do not touch.</small><em>Visit ›</em></a>
         <a class="xcard" href="#news"><span class="xi">📰</span><b>The Daily Agami</b><small>All the news. All about him.</small><em>Read ›</em></a>
+        <a class="xcard" href="#daily"><span class="xi">☀️</span><b>Today in the Kingdom</b><small>A new verse, fortune and mission every single day.</small><em>Check in ›</em></a>
+        <a class="xcard" href="#quiz"><span class="xi">🧩</span><b>Which Believer Are You?</b><small>Six questions. Five kinds of fan. Share your result.</small><em>Take the quiz ›</em></a>
+        <a class="xcard" href="#tour"><span class="xi">🎤</span><b>World Tour 2027</b><small>The Moon, Mars, your group chat. Request your city.</small><em>See dates ›</em></a>
         <a class="xcard" href="#faq"><span class="xi">❓</span><b>Holy FAQ</b><small>Every question. One answer.</small><em>Ask ›</em></a>
       </div>
     </div>
@@ -1859,6 +1951,47 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
   </section>
 </div>
 
+<div class="page" data-page="daily" hidden>
+  <section class="block" style="padding-top:48px">
+    <div class="wrap">
+      <div class="pg-head"><p class="kicker">New every day</p><h2>Today in the Kingdom</h2><p id="dDate">Today</p></div>
+      <div class="dgrid">
+        <div class="dcard wide"><small class="l">Verse of the day</small><div class="big" id="dVerse">…</div></div>
+        <div class="dcard"><small class="l">Your fortune</small><p id="dFortune">…</p></div>
+        <div class="dcard"><small class="l">Lucky number</small><div class="dnum" id="dLucky">7</div><p id="dLuckyTxt">Use it wisely.</p></div>
+        <div class="dcard"><small class="l">Today's mission</small><p id="dMission">…</p><button class="btn" type="button" id="dMissionBtn">Mark as done</button></div>
+        <div class="dcard"><small class="l">Daily check-in</small><p id="dStreak">Day 1 of worship</p><div class="dweek" id="dWeek"></div><button class="btn solid" type="button" id="dCheck">Check in (+300 aura)</button></div>
+        <div class="dcard wide"><small class="l">Next blessing in</small><div class="dtimer" id="dTimer">00:00:00</div><p>New verse, new fortune and a new mission every day at midnight. Come back.</p><button class="btn shareBtn" type="button">Send this to a friend</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="page" data-page="quiz" hidden>
+  <section class="block" style="padding-top:48px">
+    <div class="wrap">
+      <div class="pg-head"><p class="kicker">Six questions. One truth.</p><h2>Which Believer Are You?</h2><p>Every kingdom needs all kinds of fans. Find out which one you are.</p></div>
+      <div class="quiz" id="quiz"></div>
+    </div>
+  </section>
+</div>
+
+<div class="page" data-page="tour" hidden>
+  <section class="block" style="padding-top:48px">
+    <div class="wrap">
+      <div class="pg-head"><p class="kicker">Coming to a planet near you</p><h2>The No Skip World Tour 2027</h2><p>Ten dates. Eight planets. One King.</p></div>
+      <div class="tour" id="tourList"></div>
+      <div class="treq">
+        <h3>Request your city</h3>
+        <p style="margin:0">If enough believers ask, the King has to come. That is the law.</p>
+        <div class="row"><input type="text" id="tCity" maxlength="40" placeholder="Your city" autocomplete="off"><button class="btn solid" type="button" id="tReq">Request</button></div>
+        <div class="tlist" id="tList"></div>
+      </div>
+      <p class="tnote">This tour is a joke (for now). Real shows will be announced on Instagram <a href="https://www.instagram.com/itsyoagami/" target="_blank" rel="noopener" style="color:var(--gold-hi)">@itsyoagami</a>.</p>
+    </div>
+  </section>
+</div>
+
 </main>
 
 <footer>
@@ -1866,7 +1999,6 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
     <div class="big">AGM · AGAMI GLOBAL MANAGEMENT</div>
     <div class="flinks"><a href="https://www.instagram.com/itsyoagami/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM17.3 5.4a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z"/></svg>Instagram @itsyoagami</a><a href="https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22Zm5 15.9a.7.7 0 0 1-.9.2c-2.6-1.6-5.9-1.9-9.7-1.1a.7.7 0 1 1-.3-1.3c4.2-1 7.8-.6 10.7 1.2.3.2.4.6.2 1Zm1.4-3a.9.9 0 0 1-1.2.3c-3-1.8-7.5-2.4-11-1.3a.9.9 0 1 1-.5-1.6c4-1.2 9-.6 12.4 1.5.4.2.5.8.3 1.1Zm.1-3.1C14.9 8.6 9.1 8.4 5.7 9.5a1 1 0 1 1-.6-2c3.9-1.2 10.4-1 14.5 1.5a1 1 0 0 1-1.1 1.8Z"/></svg>Spotify</a><a href="https://www.tiktok.com/@itsyoagami" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7z"/></svg>TikTok @itsyoagami</a><a href="https://www.youtube.com/@itsyoagami" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.4-1.6.5-3.2.5-4.8s-.1-3.2-.5-4.8zM9.8 15.1V8.9l5.7 3.1-5.7 3.1z"/></svg>YouTube @itsyoagami</a></div>
     <div class="ctas" style="margin:6px 0 4px"><button class="btn shareBtn" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 7.5 6.5l1.4 1.4L11 5.8V15h2V5.8l2.1 2.1 1.4-1.4L12 2zM5 10v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V10h-2v10H7V10H5z"/></svg>Share the website</button></div>
-    <div class="fxrow"><span>Effects</span><div class="seg" id="fxSeg" role="group" aria-label="Effects"><button type="button" data-fx="full">Full</button><button type="button" data-fx="lite">Lite</button></div></div>
     <p>© 2026 Yo Agami · AGM. Real artist. Ridiculous website. Both on purpose.</p>
     <p class="amen">Agamen.</p>
   </div>
@@ -1884,6 +2016,9 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
   <div class="sh-backdrop" data-close></div>
   <div class="sh-panel" role="dialog" aria-label="More">
     <div class="sh-group">
+      <a href="#daily" data-close><span class="ic" style="background:#E2B24A">☀️</span>Today in the Kingdom</a>
+      <a href="#quiz" data-close><span class="ic" style="background:#5856d6">🧩</span>Which Believer Are You?</a>
+      <a href="#tour" data-close><span class="ic" style="background:#ff3b30">🎤</span>World Tour 2027</a>
       <a href="#bio" data-close><span class="ic" style="background:#9C7222">📖</span>Biography</a>
       <a href="#museum" data-close><span class="ic" style="background:#6b3fa0">🏛️</span>Museum</a>
       <a href="#faq" data-close><span class="ic" style="background:#16267A">❓</span>FAQ</a>
@@ -2141,7 +2276,6 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
     if (scrollQ) return; scrollQ = true;
     requestAnimationFrame(function(){ scrollQ = false; var y = scrollY; if (y > maxScroll + 40){ addAura((y - maxScroll) / 4); maxScroll = y; } });
   }, {passive:true});
-  window.addEventListener('pointerdown', function(){ addAura(30); });
   bow.addEventListener('click', function(){ addAura(120); });
   document.getElementById('rapture').addEventListener('click', function(){ addAura(900); });
   choirBtn.addEventListener('click', function(){ addAura(250); });
@@ -2185,19 +2319,6 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
 
   if (reduce) return;
 
-  /* divine touch: every click sends a shockwave and a blessing */
-  var blessings = ['+1 BLESSING','HALLELUJAH','BLESSED','+100 AURA','AGAMEN','HE SEES YOU','SAVED','ANOINTED'];
-  window.addEventListener('pointerdown', function(e){
-    if (e.target.closest && e.target.closest('#arcade, #intro, input, button.sign, .ck-crown, .hole, .mcard, .sy-pad, .sc-pad')) return;
-    if (window.AGLITE){ var b0 = document.createElement('div'); b0.className='bless'; b0.textContent = blessings[Math.floor(Math.random()*blessings.length)]; b0.style.left = e.clientX + 'px'; b0.style.top = (e.clientY - 20) + 'px'; FX().appendChild(b0); setTimeout(function(){ b0.remove(); }, 1350); return; }
-    var r = document.createElement('div'); r.className='shock';
-    r.style.left = e.clientX + 'px'; r.style.top = e.clientY + 'px';
-    FX().appendChild(r); setTimeout(function(){ r.remove(); }, 750);
-    var b = document.createElement('div'); b.className='bless';
-    b.textContent = blessings[Math.floor(Math.random()*blessings.length)];
-    b.style.left = e.clientX + 'px'; b.style.top = (e.clientY - 20) + 'px';
-    FX().appendChild(b); setTimeout(function(){ b.remove(); }, 1350);
-  });
 
   /* headings ignite as you scroll */
   if ('IntersectionObserver' in window){
@@ -3035,14 +3156,16 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
       q(50, function(){ fadeTo(0, 900); play('bell'); });
       q(5000, function(){ fadeTo(1, 900); });
     });
-    /* ---------- the countdown that won't stop ---------- */
-    sc(11600, function(q){
+    /* ---------- the countdown… then the film melts, then the backup VHS ---------- */
+    sc(13000, function(q){
       q(0, function(){ setMode('leader'); cut('', 'nokb'); leader.n = '10'; fadeTo(0, 300); });
       ['10','9','8','7','6','5','4','3','2','1'].forEach(function(n, i){ q(300 + i*650, function(){ leader.n = n; leader.t = performance.now(); leader.gold = false; beep(1000, .14); }); });
-      ['0','-1','-2','-3','-4'].forEach(function(n, i){ q(6800 + i*300, function(){ leader.n = n; leader.t = performance.now(); beep(1000 + i*300, .08); if (i === 2) lcap('Uh oh. The countdown will not stop.'); }); });
-      q(8400, function(){ setMode('static'); leader.n = '?'; lcap('Projectionist, please'); SFX.scratch(); });
-      q(9200, function(){ setMode('leader'); leader.n = 'YA'; leader.gold = true; flashW(); play('horn'); lcap('Sorry. The projectionist is a believer.'); });
-      q(10500, function(){ fadeTo(1, 900); });
+      q(6700, function(){ cut('<div class="burn"><i></i><i></i><i></i></div>', 'nokb'); SFX.scratch(); lcap('Uh oh. The film is melting.'); });
+      q(7300, function(){ SFX.scratch(); shake(); });
+      q(8300, function(){ setMode('static'); cut('<div class="vhs"><div class="vhs-top"><span>BACKUP TAPE</span><span id="vhsClock">12:00</span></div><b id="vhsPlay">&#9654; PLAY</b><small>SP · TAPE 2 OF 1</small><div class="vhs-label">YO AGAMI — DO NOT TAPE OVER</div></div>', 'nokb'); lcap('Switching to the backup tape.'); SFX.clack(); });
+      q(9400, function(){ var e = $('vhsPlay'); if (e) e.textContent = 'TRACKING…'; SFX.scratch(); });
+      q(10300, function(){ var e = $('vhsPlay'); if (e) e.innerHTML = '&#9654; PLAY'; lcap('Who taped the movie on a cassette? Exactly.'); play('bell'); });
+      q(11900, function(){ fadeTo(1, 900); });
     });
 
     /* ---------- STUDIO LOGOS ---------- */
@@ -3050,9 +3173,13 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
       q(0, function(){ projector(false); lcap(''); setMode('searchlights'); music('silent'); cut(studioHTML, 'nokb'); drumRoll(1.6); });
       q(1650, function(){ fanfare(); flashW(); goldBurst(240); });
     });
-    logo(7000, function(q){
-      q(0, function(){ setMode('space'); cut('<div class="dice">' + die(6, 'a') + die(6, 'b') + '</div><div class="lg-title">LUCKY DICE STUDIOS</div><div class="lg-small">Every roll is a six. We checked.</div>', 'nokb'); });
-      q(850, SFX.clack); q(1000, SFX.clack);
+    logo(7400, function(q){
+      q(0, function(){ setMode('space'); cut('<div class="batt" id="batt"><i id="battFill" style="width:12%"></i><span id="battPct">12%</span><em id="battBolt">&#9889;</em></div><div class="lg-title">LOW BATTERY STUDIOS</div><div class="lg-small" id="battMsg">We make movies at 1%.</div>', 'nokb'); });
+      for (var k=11;k>=1;k--) (function(k){ q(700 + (11-k)*150, function(){ var f = $('battFill'), p = $('battPct'); if (f){ f.style.width = k + '%'; p.textContent = k + '%'; } if (k <= 3) beep(700, .06); }); })(k);
+      q(2400, function(){ var b = $('batt'), m = $('battMsg'); if (b) b.classList.add('low'); if (m) m.textContent = 'Please connect a charger.'; beep(500, .25); });
+      q(3500, function(){ var b = $('batt'), m = $('battMsg'); if (b){ b.classList.remove('low'); b.classList.add('chg'); } if (m) m.textContent = 'Charger connected: pure aura.'; SFX.clack(); flashW(); });
+      for (var c=2;c<=100;c+=2) (function(c){ q(3600 + c*14, function(){ var f = $('battFill'), p = $('battPct'); if (f){ f.style.width = c + '%'; p.textContent = c + '%'; } if (c % 20 === 0) SFX.blip(c/20 - 1); }); })(c);
+      q(5200, function(){ goldBurst(180); });
     });
     logo(7000, function(q){
       q(0, function(){ setMode('none'); cut('<div class="drip"><span class="drop"></span><span class="ripple" style="animation-delay:.7s"></span><span class="ripple" style="animation-delay:.9s"></span><span class="ripple" style="animation-delay:1.1s"></span></div><div class="lg-title goldT">ROYAL DRIP</div><div class="lg-small">F · I · L · M · S</div>', 'nokb'); });
@@ -3153,8 +3280,10 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
       q(700, function(){ sub('He pressed upload.'); say('He pressed upload.'); });
       q(2300, function(){ var b = $('phBtn'); if (b) b.classList.add('pressed'); SFX.clack(); flashW(); $('phMsg') && ($('phMsg').textContent = 'Uploading to the universe…'); });
       for (var i=1;i<=99;i++) (function(i){ q(2500 + i*19, function(){ var p = $('phPct'), b = $('phBar'); if (p){ p.textContent = i + '%'; b.style.width = i + '%'; } if (i % 6 === 0) tickSound(); }); })(i);
-      q(4500, function(){ var p = $('phPct'); if (p) p.classList.add('stuck'); $('phMsg') && ($('phMsg').textContent = 'Stuck at 99%…'); sub('…almost…'); shake(); });
-      for (var j=100;j<=100;j++) (function(j){ q(6500 + (j - 99)*22, function(){ var p = $('phPct'), b = $('phBar'); if (p){ p.classList.remove('stuck'); p.textContent = j + '%'; b.style.width = j + '%'; } }); })(j);
+      q(4500, function(){ var ph = document.querySelector('#scene .phone'); if (!ph) return; var d = document.createElement('div'); d.className = 'ph-dlg'; d.id = 'phDlg';
+        d.innerHTML = '<div class="pd-box"><b>Are you sure?</b><small>This will change music forever.</small><div class="pd-row"><span>Cancel</span><span id="phDo">Do it</span></div></div>' + cursorSVG.replace('class="cursor"', 'class="cursor pdc"'); ph.appendChild(d); SFX.blip(0); sub('Are you sure?'); });
+      q(5900, function(){ var b = $('phDo'); if (b) b.classList.add('pressed'); SFX.clack(); sub('He was sure.'); });
+      q(6300, function(){ var d = $('phDlg'); if (d) d.remove(); var p = $('phPct'), b = $('phBar'); if (p){ p.textContent = '100%'; b.style.width = '100%'; } });
       q(7300, function(){ var p = $('phPct'); if (p){ p.textContent = 'UPLOADED'; p.classList.add('done'); } $('phMsg') && ($('phMsg').textContent = 'Now live on Spotify: YO AGAMI'); flashW(); goldBurst(260); play('drop'); sub(''); });
     });
     sc(6200, function(q){
@@ -3291,7 +3420,7 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
     ['pilgrim','🥾','Pilgrim','Reach the Altar at the bottom of the home page.'],
     ['aura','💥','Over 9000','Reach 9001% aura.'],
     ['devoted','⏳','Devoted','Stay in the kingdom for 3 minutes.'],
-    ['tourist','🗺️','Tourist of the Kingdom','Visit all 6 pages.'],
+    ['tourist','🗺️','Tourist of the Kingdom','Visit every page.'],
     ['flappy','🕊️','Flappy Legend','Fly through 10 gates in Flappy Crown.'],
     ['catcher','🏆','Blessing Magnet','Catch 50 points in Blessing Catcher.'],
     ['whacker','🔨','Hater Destroyer','Bonk 20 haters in one round.'],
@@ -3310,7 +3439,11 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
     ['shell','🥤','Eagle Eyes','Find the King 5 times in a row.'],
     ['scanned','👆','Scanned','Get your aura scanned.'],
     ['hailer','👑','Devoted Hailer','Hail Agami 100 times.'],
-    ['returned','📅','Came Back','Visit on 2 different days.']
+    ['returned','📅','Came Back','Visit on 2 different days.'],
+    ['daily','☀️','Daily Worshipper','Check in on Today in the Kingdom.'],
+    ['missioned','✅','Mission Complete','Finish a daily mission.'],
+    ['quizzed','🧩','Know Thyself','Find out which believer you are.'],
+    ['tour','🎤','Bring Him Here','Request the tour in your city.']
   ];
   var got = {}; try { got = JSON.parse(ls('agami-relics') || '{}') || {}; } catch(e){ got = {}; }
   var relicN = $('relicN'), relicBtn = $('relicBtn'), panel = $('relicPanel'), list = $('relicList'), toasts = $('relicToasts');
@@ -3430,7 +3563,7 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
   }
 
   /* ================= ROUTER ================= */
-  var PAGES = ['home','games','bio','museum','news','faq'];
+  var PAGES = ['home','games','bio','museum','news','daily','quiz','tour','faq'];
   var pageEls = {}; document.querySelectorAll('[data-page]').forEach(function(el){ pageEls[el.dataset.page] = el; });
   var bar = document.querySelector('.bar'), visited = {};
   function showPage(p){
@@ -4160,16 +4293,6 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
     try{ navigator.clipboard.writeText(v).then(function(){ note.textContent = 'Link copied. Go spread the word.'; }, shown); }catch(e){ shown(); }
   });
 
-  /* ---------- effects switch ---------- */
-  var fxSeg = $('fxSeg');
-  fxSeg.querySelectorAll('button').forEach(function(b){
-    b.setAttribute('aria-pressed', (b.dataset.fx === 'lite') === !!window.AGLITE ? 'true' : 'false');
-    b.addEventListener('click', function(){
-      if ((b.dataset.fx === 'lite') === !!window.AGLITE) return;
-      try{ localStorage.setItem('agami-fx', b.dataset.fx); }catch(e){}
-      location.reload();
-    });
-  });
 
   /* ---------- story card maker ---------- */
   var STY = [
@@ -4236,6 +4359,195 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
   function first(){ if (once) return; once = true; drawStory(); }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(first); setTimeout(first, 1500);
 })();
+</script>
+<script>
+/* ================= NEW PAGES: Daily · Quiz · Tour ================= */
+(function(){
+  var AG = window.AG = window.AG || {};
+  function $(id){ return document.getElementById(id); }
+  function ls(k, v){ try{ if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
+  function unlock(id){ AG.unlock && AG.unlock(id); }
+  function aura(n){ AG.addAura && AG.addAura(n); }
+  function toast(m){ AG.toast && AG.toast(m); }
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  /* ---------- DAILY ---------- */
+  var d = new Date(), key = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+  var seed = 0; for (var i=0;i<key.length;i++) seed = (seed * 31 + key.charCodeAt(i)) >>> 0;
+  function pick(arr, salt){ var x = (seed ^ (salt * 2654435761)) >>> 0; x = (x ^ (x >>> 15)) * 2246822519 >>> 0; return arr[x % arr.length]; }
+  var VERSES = [
+    'Blessed are those who do not skip, for they shall hear the whole song.',
+    'And on the eighth day, he pressed upload. And it was good.',
+    'Thou shalt add it to thy playlist, and thy playlist shall be blessed.',
+    'The King does not wake up early. The sun waits for him.',
+    'Seek, and ye shall find. Search "Yo Agami" on Spotify.',
+    'Let there be bass. And there was bass.',
+    'A true believer shares the link with at least one friend.',
+    'The skip button was cast out, and it was never seen again.',
+    'Blessed are the headphones, for they carry the word.',
+    'He who streams on repeat shall never know a bad day.',
+    'The volume goes to ten. For him, it goes to eleven.',
+    'Thou shalt not leave the King on read.',
+    'In the beginning there was silence. Then he dropped a single.',
+    'Do not worry about tomorrow. Tomorrow he will still be him.',
+    'The aura cannot be bought. It can only be farmed.',
+    'Every crown was once a hat that believed in itself.',
+    'Turn it up, and the haters shall turn down.',
+    'His playlist is long and his patience is short. Press play.'
+  ];
+  var FORTUNES = [
+    'Someone will ask what you are listening to. Tell them.',
+    'Your next shower thought will be a lyric. Write it down.',
+    'A stranger will compliment your taste in music today.',
+    'Good news arrives in a group chat. Probably yours.',
+    'You will find money in a pocket. Spend it on snacks, not regrets.',
+    'Your aura is at an all-time high. Do not waste it on homework.',
+    'Today you will be the main character for at least four minutes.',
+    'Your phone battery will last the whole day. Miracles happen.',
+    'Someone is about to text you "did you hear this song?"',
+    'A great idea is coming. It will come right before you fall asleep.',
+    'You will hit every green light. Okay, most of them.',
+    'Today is a great day to start something. Even if it is a playlist.',
+    'Your next meal will be the best one this week.',
+    'The King has noticed you. Act natural.'
+  ];
+  var MISSIONS = [
+    'Play the song once with headphones. No skipping.',
+    'Send this website to one friend who needs it.',
+    'Hail Agami 10 times. Out loud is extra credit.',
+    'Add the song to a playlist you actually listen to.',
+    'Beat your best score in any game in the Holy Arcade.',
+    'Make a story card and post it.',
+    'Follow @itsyoagami on one app you have not followed yet.',
+    'Tell someone a fact from the Holy Biography. Keep a straight face.',
+    'Visit the Museum and do NOT touch anything.',
+    'Take the quiz and send your result to the group chat.',
+    'Request the tour in your city.',
+    'Stay in the kingdom for three whole minutes.'
+  ];
+  var LUCKY_TXT = ['Use it wisely.', 'Bet on it. (Do not bet on it.)', 'The King picked it himself.', 'It is lucky because he said so.'];
+  function initDaily(){
+    $('dDate').textContent = d.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+    $('dVerse').textContent = '“' + pick(VERSES, 1) + '”';
+    $('dFortune').textContent = pick(FORTUNES, 2);
+    $('dMission').textContent = pick(MISSIONS, 3);
+    var n = (pick([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50], 4) * 2 - 1) % 100; // odd numbers only, under 100
+    $('dLucky').textContent = n; $('dLuckyTxt').textContent = pick(LUCKY_TXT, 5);
+    var mBtn = $('dMissionBtn');
+    function mState(){ var done = ls('agami-mission') === key; mBtn.textContent = done ? 'Done ✓' : 'Mark as done'; mBtn.classList.toggle('done', done); }
+    mBtn.addEventListener('click', function(){ if (ls('agami-mission') === key) return; ls('agami-mission', key); mState(); aura(200); toast('MISSION COMPLETE'); unlock('missioned'); });
+    mState();
+    var cBtn = $('dCheck');
+    var hist = []; try{ hist = JSON.parse(ls('agami-checkins') || '[]') || []; }catch(e){ hist = []; }
+    function cState(){
+      var done = hist.indexOf(key) >= 0;
+      cBtn.textContent = done ? 'Checked in today ✓' : 'Check in (+300 aura)'; cBtn.classList.toggle('done', done);
+      var st = parseInt(ls('agami-streak') || '1', 10) || 1;
+      $('dStreak').textContent = 'Streak: ' + st + (st === 1 ? ' day' : ' days') + ' · Check-ins: ' + hist.length;
+      var w = '', names = ['S','M','T','W','T','F','S'];
+      for (var k=6;k>=0;k--){ var x = new Date(d.getFullYear(), d.getMonth(), d.getDate() - k); var kk = x.getFullYear() + '-' + (x.getMonth() + 1) + '-' + x.getDate();
+        w += '<span class="' + (hist.indexOf(kk) >= 0 ? 'on' : '') + '">' + names[x.getDay()] + '</span>'; }
+      $('dWeek').innerHTML = w;
+    }
+    cBtn.addEventListener('click', function(){
+      if (hist.indexOf(key) >= 0){ toast('COME BACK TOMORROW'); return; }
+      hist.push(key); if (hist.length > 400) hist = hist.slice(-400); ls('agami-checkins', JSON.stringify(hist));
+      cState(); aura(300); AG.flash && AG.flash(); AG.sparks && AG.sparks(cBtn, 10); toast('CHECKED IN. THE KING SAW THAT.'); unlock('daily');
+    });
+    cState();
+    function tick(){
+      var t = new Date(), mid = new Date(t.getFullYear(), t.getMonth(), t.getDate() + 1), s = Math.max(0, Math.floor((mid - t) / 1000));
+      function p(v){ return (v < 10 ? '0' : '') + v; }
+      $('dTimer').textContent = p(Math.floor(s / 3600)) + ':' + p(Math.floor(s % 3600 / 60)) + ':' + p(s % 60);
+    }
+    tick(); setInterval(function(){ if (!$('dTimer').closest('[data-page]').hidden) tick(); }, 1000);
+  }
+
+  /* ---------- QUIZ ---------- */
+  var TYPES = {
+    day1:  ['🥇', 'The Day One', 'You were here before it was cool. You will remind everyone of that forever, and honestly, you earned it.', 'I\'m a Day One. I was here first.'],
+    hype:  ['📣', 'The Hype Priest', 'You do not listen to music, you announce it. Every group chat you are in has heard this song at least twice.', 'I\'m the Hype Priest. Everyone will hear this song.'],
+    quiet: ['🎧', 'The Quiet Streamer', 'You never post about it. You just have it on repeat at 2 A.M. The King knows. The King is grateful.', 'I\'m the Quiet Streamer. On repeat, no comment.'],
+    chaos: ['🌀', 'The Chaos Disciple', 'You found this website at 3 A.M., played every game and touched a museum relic on purpose. Iconic behavior.', 'I\'m the Chaos Disciple. I touched the relic.'],
+    advisor:['🧠', 'The Royal Advisor', 'You have opinions about the mix, the cover and the next single. The King should probably hire you.', 'I\'m the Royal Advisor. The King should listen to me.']
+  };
+  var QS = [
+    ['A new song drops. What do you do first?', [['Listen alone with headphones, lights off', 'quiet'], ['Send it to every group chat', 'hype'], ['Say "I knew this would happen"', 'day1'], ['Rate the mix out of ten', 'advisor']]],
+    ['Pick a superpower.', [['Never skip a good song by accident', 'quiet'], ['Make anything go viral', 'hype'], ['Teleport. Anywhere. Randomly.', 'chaos'], ['See the future of music', 'advisor']]],
+    ['Your group chat is quiet. You…', [['Drop a link and say "LISTEN"', 'hype'], ['Send a meme from 2019', 'chaos'], ['Leave it. Peace is nice.', 'quiet'], ['Remind everyone who found the artist first', 'day1']]],
+    ['What is your role at a party?', [['Aux cord. Obviously.', 'hype'], ['In the kitchen, talking about life', 'advisor'], ['Leaves early, no one notices', 'quiet'], ['Started a conga line nobody asked for', 'chaos']]],
+    ['The King asks you for advice. You say:', [['"Drop another one. Now."', 'day1'], ['"Here is a 12-step plan"', 'advisor'], ['"Do something nobody expects"', 'chaos'], ['"Whatever you do, I\'ll be there"', 'quiet']]],
+    ['Pick a relic for the museum.', [['The first ticket stub, framed', 'day1'], ['A golden megaphone', 'hype'], ['A broken skip button', 'chaos'], ['The original notes for the next album', 'advisor']]]
+  ];
+  var qi = 0, score = {};
+  function renderQ(){
+    var box = $('quiz');
+    if (qi >= QS.length){ return renderResult(); }
+    var q = QS[qi], h = '<div class="qz-prog"><i style="width:' + (qi / QS.length * 100) + '%"></i></div><p class="qz-step">Question ' + (qi + 1) + ' of ' + QS.length + '</p><h3 class="qz-q">' + esc(q[0]) + '</h3><div class="qz-opts">';
+    q[1].forEach(function(o, i){ h += '<button type="button" data-t="' + o[1] + '">' + esc(o[0]) + '</button>'; });
+    box.innerHTML = h + '</div>';
+  }
+  function renderResult(){
+    var best = 'day1', bv = -1; Object.keys(TYPES).forEach(function(k){ var v = score[k] || 0; if (v > bv){ bv = v; best = k; } });
+    var t = TYPES[best]; ls('agami-believer', best);
+    $('quiz').innerHTML = '<div class="qz-prog"><i style="width:100%"></i></div><div class="qz-res"><div class="ic">' + t[0] + '</div><p class="qz-step">You are</p><h3>' + t[1] + '</h3><p>' + t[2] + '</p>' +
+      '<div class="ctas"><button class="btn solid" type="button" id="qzShare">Share my result</button><button class="btn" type="button" id="qzAgain">Take it again</button></div></div>';
+    $('qzShare').addEventListener('click', function(){ AG.shareText && AG.shareText(t[3] + ' Which YO AGAMI believer are you?', location.origin && location.origin !== 'null' ? location.origin + location.pathname + '#quiz' : undefined); });
+    $('qzAgain').addEventListener('click', function(){ qi = 0; score = {}; renderQ(); });
+    unlock('quizzed'); aura(250); AG.flash && AG.flash();
+  }
+  $('quiz').addEventListener('click', function(e){
+    var b = e.target.closest('button[data-t]'); if (!b) return;
+    score[b.dataset.t] = (score[b.dataset.t] || 0) + 1; qi++; renderQ();
+  });
+
+  /* ---------- TOUR ---------- */
+  var DATES = [
+    ['JAN', '14', 'The Moon', 'Crater Arena · bring your own oxygen', 'Sold out', 'out', 'Sold out. To one guy. He bought all of them.'],
+    ['FEB', '02', 'Your Group Chat', 'Online · front row is whoever replies first', 'Live now', 'live', 'You are already there. Send the link.'],
+    ['MAR', '09', 'Mars', 'Red Dome · very hot crowd, literally', 'Postponed', 'wait', 'Postponed. The rover took the stage first.'],
+    ['APR', '01', 'Your Mom\'s Kitchen', 'Front row: the fridge', 'Tickets', '', 'Ticket price: you do the dishes.'],
+    ['MAY', '20', 'Saturn', 'Ring Amphitheater · 360° seating', 'Waitlist', 'wait', 'You are number 1,000,001 on the waitlist.'],
+    ['JUN', '06', 'Heaven', 'Cloud 9 · guest list only', 'Guest list', '', 'You are on the list. You were always on the list.'],
+    ['JUL', '17', 'Your Bedroom, 2 A.M.', 'Headphones · intimate show', 'Tickets', '', 'Free entry. Just press play.'],
+    ['AUG', '30', 'The Sun', 'Main stage · SPF 1000 required', 'Sold out', 'out', 'Sold out. Also, it is the sun. Please reconsider.'],
+    ['OCT', '31', 'A Haunted House', 'Halloween special · even the ghosts are fans', 'Tickets', '', 'Costume required: dress as the King.'],
+    ['DEC', '31', 'Everywhere', 'New Year\'s Eve · on Spotify', 'Listen', 'live', 'spotify']
+  ];
+  function initTour(){
+    var h = '';
+    DATES.forEach(function(r, i){ h += '<div class="trow"><div class="td"><small>' + r[0] + '</small><b>' + r[1] + '</b></div><div class="tp"><b>' + esc(r[2]) + '</b><small>' + esc(r[3]) + '</small></div><button type="button" class="tpill ' + r[5] + '" data-i="' + i + '">' + r[4] + '</button></div>'; });
+    $('tourList').innerHTML = h;
+    $('tourList').addEventListener('click', function(e){
+      var b = e.target.closest('.tpill'); if (!b) return; var r = DATES[+b.dataset.i];
+      if (r[6] === 'spotify'){ window.open('https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75', '_blank', 'noopener'); return; }
+      toast(r[6].toUpperCase()); AG.sparks && AG.sparks(b, 6);
+    });
+    var base = [['Tel Aviv', 1204], ['New York', 988], ['London', 871], ['Paris', 640], ['Tokyo', 533], ['The Moon', 402]];
+    var mine = []; try{ mine = JSON.parse(ls('agami-cities') || '[]') || []; }catch(e){ mine = []; }
+    function renderList(){
+      var all = base.map(function(c){ return [c[0], c[1]]; });
+      mine.forEach(function(m){ var f = all.filter(function(c){ return c[0].toLowerCase() === m.toLowerCase(); })[0]; if (f) f[1] += 1; else all.push([m, 1]); });
+      all.sort(function(a, b){ return b[1] - a[1]; });
+      $('tList').innerHTML = all.slice(0, 12).map(function(c){ return '<span>' + esc(c[0]) + '<b>' + c[1].toLocaleString('en-US') + '</b></span>'; }).join('');
+    }
+    renderList();
+    function req(){
+      var c = $('tCity').value.trim().replace(/\s+/g, ' '); if (!c){ $('tCity').focus(); return; }
+      c = c.replace(/\b\w/g, function(x){ return x.toUpperCase(); });
+      if (mine.map(function(m){ return m.toLowerCase(); }).indexOf(c.toLowerCase()) < 0){ mine.push(c); if (mine.length > 20) mine = mine.slice(-20); ls('agami-cities', JSON.stringify(mine)); }
+      renderList(); $('tCity').value = ''; aura(150); unlock('tour'); toast('REQUEST SENT TO THE KING');
+      setTimeout(function(){ AG.shareText && AG.shareText('Yo Agami needs to come to ' + c + '. Add your vote:', location.origin && location.origin !== 'null' ? location.origin + location.pathname + '#tour' : undefined); }, 700);
+    }
+    $('tReq').addEventListener('click', req);
+    $('tCity').addEventListener('keydown', function(e){ if (e.key === 'Enter') req(); });
+  }
+
+  try{ initDaily(); }catch(e){}
+  try{ renderQ(); }catch(e){}
+  try{ initTour(); }catch(e){}
+})();
+
 </script>
 
 </body>
