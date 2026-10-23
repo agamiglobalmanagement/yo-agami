@@ -1186,12 +1186,12 @@ input[type="text"],input[type="password"],input:not([type]),.ty-in{border-radius
 .rays{will-change:transform;contain:paint}
 
 /* ---------- lite mode: phones, Telegram, slower devices ---------- */
-html.lite .rays,html.lite .beam,html.lite .clouds,html.lite .icon,html.lite .wing,html.lite .halo::before,html.lite h1,html.lite h1 .ch,html.lite .cosmic-text,html.lite .vinyl,html.lite .ticker div{animation:none}
-html.lite .orbit,html.lite .dove,html.lite #bolts{display:none}
+html.lite .halo::before,html.lite h1,html.lite h1 .ch,html.lite .cosmic-text,html.lite .vinyl{animation:none}
+html.lite .rays,html.lite .clouds,html.lite .icon,html.lite .dove,html.lite .ticker div{will-change:transform}
+html.lite .orbit{display:none}
 html.lite .halo,html.lite h1,html.lite .ptitle,html.lite .lg-title.goldT,html.lite .item .pic svg{filter:none}
 html.lite h2.lit{animation:none}
 html.lite h2{text-shadow:none}
-html.lite .ticker{overflow-x:auto;scrollbar-width:none}
 html.lite #whiteout.go{animation:whiteoutLite .45s ease-out}
 @keyframes whiteoutLite{0%{opacity:.5}100%{opacity:0}}
 html.lite .s-red,html.lite .cd.e-glitch{animation:none}
@@ -2332,7 +2332,7 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
   function sendDove(id){
     var d = document.getElementById(id); d.classList.remove('fly'); void d.getBoundingClientRect(); d.classList.add('fly');
   }
-  if (!window.AGLITE){
+  {
     setTimeout(function(){ sendDove('dove1'); }, 3200);
     setTimeout(function(){ sendDove('dove2'); }, 5200);
     setInterval(function(){ if (!document.hidden) sendDove(Math.random() < .5 ? 'dove1' : 'dove2'); }, 14000);
@@ -2357,7 +2357,7 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
   function strike(){
     var w = bc.width, h = bc.height;
     bx.clearRect(0,0,w,h);
-    bx.strokeStyle = 'rgba(255,246,218,.95)'; bx.shadowColor = '#FFDA7E'; bx.shadowBlur = 24; bx.lineCap = 'round';
+    bx.strokeStyle = 'rgba(255,246,218,.95)'; bx.shadowColor = '#FFDA7E'; bx.shadowBlur = window.AGLITE ? 0 : 24; bx.lineCap = 'round';
     var side = Math.random() < .5 ? .12 + Math.random()*.2 : .68 + Math.random()*.2;
     branch(w*side, 0, h*.75, Math.PI/2 + (Math.random()-.5)*.4, 4, 0);
     var fade = 1;
@@ -2365,7 +2365,7 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
     bc.style.opacity = 1;
   }
   function heroVisible(){ var r = hero.getBoundingClientRect(); return !document.hidden && hero.offsetParent !== null && r.bottom > 0 && r.top < innerHeight; }
-  if (!window.AGLITE){
+  {
     setTimeout(function(){ if (heroVisible()) strike(); }, 2900);
     (function loopStrike(){ setTimeout(function(){ if (heroVisible()) strike(); loopStrike(); }, 6000 + Math.random()*7000); })();
   }
@@ -2415,10 +2415,10 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
   function draw(t){
     c.clearRect(0,0,W,H);
     c.drawImage(neb, 0, 0, W, H);
-    var sy = (reduce || window.AGLITE) ? 0 : scrollY;
+    var sy = reduce ? 0 : scrollY;
     for (var i=0;i<stars.length;i++){
       var s = stars[i], y = ((s.y - sy * s.d) % H + H) % H;
-      var a = (reduce || window.AGLITE) ? .3 + .5*((s.p*7) % 1) : .45 + .45 * Math.sin(t/700 + s.p);
+      var a = reduce ? .3 + .5*((s.p*7) % 1) : .45 + .45 * Math.sin(t/700 + s.p);
       c.fillStyle = 'rgba(' + s.c + ',' + a + ')';
       c.beginPath(); c.arc(s.x, y, s.r, 0, 6.283); c.fill();
       if (s.r > 1.35){ c.fillStyle = 'rgba(' + s.c + ',' + a*.25 + ')'; c.fillRect(s.x - 5, y - .4, 10, .8); c.fillRect(s.x - .4, y - 5, .8, 10); }
@@ -2432,9 +2432,9 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
     }
   }
   size(); addEventListener('resize', size);
-  if (!reduce && !window.AGLITE){
-    var lastT = 0;
-    (function loop(t){ requestAnimationFrame(loop); if (document.hidden || introEl.style.display !== 'none' || t - lastT < 33) return; lastT = t; draw(t); })(0);
+  if (!reduce){
+    var lastT = 0, minDt = window.AGLITE ? 50 : 33;
+    (function loop(t){ requestAnimationFrame(loop); if (document.hidden || introEl.style.display !== 'none' || t - lastT < minDt) return; lastT = t; draw(t); })(0);
     (function shoot(){
       setTimeout(function(){
         var ang = Math.PI * (.15 + Math.random()*.2), sp = 9 + Math.random()*6;
