@@ -392,6 +392,88 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 @media (max-width:720px){.term-in input{font-size:16px}}
 
 
+
+/* ---------- v6 ---------- */
+.yt-top{gap:12px}
+.yt-logo{color:#e00;font:800 20px var(--ui);text-decoration:none;white-space:nowrap}
+.ytF{flex:1;display:flex;max-width:460px;margin-left:auto}
+.ytF input{flex:1;min-width:0;height:34px;border:1px solid #ccc;border-radius:999px 0 0 999px;padding:0 14px;font:15px var(--ui);background:#fff;color:#111}
+.ytF button{width:50px;border:1px solid #ccc;border-left:0;border-radius:0 999px 999px 0;background:#f2f2f2;cursor:pointer}
+.yt-chips{display:flex;gap:8px;padding:10px 14px 0;overflow-x:auto;scrollbar-width:none}
+.yt-chips span{padding:6px 12px;border-radius:8px;background:#eee;font:600 13px var(--ui);white-space:nowrap}
+.yt-chips span:first-child{background:#111;color:#fff}
+.yt-card{position:relative}
+.yt-len{position:absolute;right:6px;top:calc(100% - 4.4em);padding:1px 5px;border-radius:4px;background:rgba(0,0,0,.8);color:#fff;font:600 11px var(--ui);font-style:normal}
+.yt-res{padding:14px;display:grid;gap:14px;max-width:640px}
+.yt-row .yt-card{display:grid;grid-template-columns:200px 1fr;gap:12px;align-items:start}
+.yt-row .yt-len{top:auto;bottom:6px;right:auto;left:150px}
+.yt-none{color:#666}
+.yt-player{position:relative;border-radius:10px;overflow:hidden;background:#000}
+.yt-player .yt-p{border-radius:0}
+.yt-player.paused .yt-p,.yt-player.paused .yt-p *{animation-play-state:paused}
+.yt-over{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.yt-reveal{padding:14px 20px;background:#000;border:2px solid #0f0;color:#0f0;font:32px var(--pix)}
+.yt-reveal b{font-size:44px;color:#fff}
+.yt-ctl{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:8px 10px;background:linear-gradient(transparent,rgba(0,0,0,.8));color:#fff}
+.yt-ctl button{border:0;background:none;color:#fff;font-size:18px;cursor:pointer;width:30px}
+.yt-bar{flex:1;height:4px;background:rgba(255,255,255,.3);border-radius:2px;overflow:hidden}
+.yt-bar i{display:block;height:100%;width:0;background:#e00}
+.yt-time{font:600 12px var(--ui)}
+.yt-player.yt-full,.yt-player:fullscreen{position:fixed;inset:0;z-index:200;border-radius:0;display:grid;place-items:center}
+.yt-player:fullscreen .yt-p,.yt-player.yt-full .yt-p{width:100%;height:100%;aspect-ratio:auto}
+.yt-meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.yt-btns{display:flex;gap:6px}
+.yt-btns button{padding:7px 12px;border:0;border-radius:999px;background:#eee;cursor:pointer;font:600 13px var(--ui);color:#111}
+.yt-btns button.on{background:#111;color:#fff}
+.yt-ch{display:flex;align-items:center;gap:10px;margin:12px 0}
+.yt-next{display:grid;gap:10px;margin-top:10px}
+.yt-next .yt-card{display:grid;grid-template-columns:160px 1fr;gap:10px}
+.yt-next .yt-len{top:auto;bottom:6px;left:110px;right:auto}
+@media (max-width:720px){.yt-row .yt-card,.yt-next .yt-card{grid-template-columns:1fr}.yt-row .yt-len,.yt-next .yt-len{left:auto;right:6px;bottom:auto;top:calc(100% - 4.4em)}}
+.ab{padding:24px;background:#fff;color:#222;font-family:var(--ui);min-height:100%;text-align:center}
+.ab-top{font:800 30px Georgia,serif;color:#a11}
+.ab-tl{display:flex;justify-content:center;gap:12px;margin:20px 0}
+.ab-tl a{padding:12px 18px;border:2px solid #a11;border-radius:8px;color:#a11;font-weight:800;text-decoration:none}
+.ab-s{color:#888;font-size:13px}
+.ab-bar{padding:6px 10px;background:#222;color:#ddd;font:12px var(--ui);margin:-24px -24px 16px;text-align:left}
+.g98{min-height:100%;position:relative;padding:24px;background:#008080;color:#ff0;font-family:"Comic Sans MS","Comic Neue",cursive;text-align:center}
+.g98 .ab-bar{margin:-24px -24px 12px}
+.g98 marquee{background:#000;color:#0f0;font:20px var(--pix)}
+.g98 h1{color:#fff;text-shadow:3px 3px #f0f}
+.g98-sm{font-size:11px;color:#cff}
+.g98-dot{position:absolute;right:6px;bottom:4px;border:0;background:none;color:#0a8a8a;font-size:14px;cursor:pointer;padding:2px 4px}
+.g98-found{position:absolute;right:10px;bottom:10px;padding:8px 12px;background:#000;color:#0f0;font:24px var(--pix);border:2px solid #0f0}
+.ey-logo{font-size:30px;font-weight:800;letter-spacing:-1px;text-decoration:none}
+.ey-logo span:nth-child(1){color:#e53238}.ey-logo span:nth-child(2){color:#0064d2}.ey-logo span:nth-child(3){color:#f5af02}
+.ey-cart{white-space:nowrap;padding:8px 12px;border-radius:999px;background:#f2f2f2;color:#111;text-decoration:none;font-weight:700}
+.ey-i .btn:disabled{opacity:.45;cursor:not-allowed}
+.ey-more{text-align:center;padding:0 0 20px}.ey-more .btn{color:#111;border-color:#bbb}
+.ey-note{padding:10px 14px 0;color:#888;font-size:13px}
+.ey-c{padding:16px 18px;max-width:560px}
+.ey-row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #eee}
+.ey-row .btn{color:#111;border-color:#bbb;min-height:32px;padding:0 10px;font-size:12px}
+.ey-tot{margin:14px 0;font-size:18px}
+.ey-key{margin-top:12px;padding:14px;border:2px dashed #111;background:#fffbe0;font-family:var(--pix);font-size:22px}
+.fm-tuner{margin:16px auto;max-width:420px;padding:14px;border:1px solid rgba(255,79,216,.5);border-radius:12px;background:rgba(0,0,0,.3)}
+.fm-freq{font-size:22px}.fm-freq b{font-size:56px;color:#fff;text-shadow:0 0 12px #ff4fd8}
+.fm-dial{width:100%;accent-color:#ff4fd8;height:28px}
+.fm-tuner small{display:block;color:#a99cc8;font-size:16px}
+.fm-hid{color:#7cf3ff}.fm-hid a{color:#fff}
+.dp{min-height:100%;padding:30px 20px;background:#000;color:#0f0;font-family:var(--pix);font-size:22px;text-align:center}
+.dp-h{font-size:46px;letter-spacing:.1em;animation:flick 3s infinite}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.2}95%{opacity:1}97%{opacity:.4}}
+.dp-g{color:#3a7a3a}
+.dpF{display:flex;justify-content:center;gap:8px}
+.dpI{width:150px;text-align:center;letter-spacing:.4em;background:#000;border:1px solid #0f0;color:#0f0;font:34px var(--pix)}
+.dp-b{background:#0f0;color:#000;border:0;padding:6px 16px;font:24px var(--pix);cursor:pointer}
+.dp-m{color:#f55}
+.dp-links{display:flex;justify-content:center;gap:20px;margin-top:30px}.dp-links a{color:#063;font-size:18px}
+.dp-cert{display:block;width:min(560px,100%);margin:16px auto 8px;border:1px solid #0f0}
+.mir{transform:scaleX(-1)}
+.vd{padding:30px;background:#000;color:#333;font-family:var(--pix);font-size:22px;text-align:center}.vd a{color:#555}
+.cl-code{display:flex;gap:10px;margin:14px 0}
+.cl-code span{width:52px;height:64px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;font-size:44px;color:#fff;background:rgba(0,0,0,.3)}
+.cl-ok{color:#7cf3ff}.cl-no{color:var(--dim)}
 /* ---------- v5 ---------- */
 #menu{max-height:calc(100vh - var(--bar) - 16px);max-height:calc(100dvh - var(--bar) - 16px);width:min(340px,calc(100vw - 16px))}
 #menu .items{overflow-y:auto;scrollbar-width:none;display:grid;grid-template-columns:1fr 1fr;align-content:start}
@@ -681,6 +763,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     exe: '<svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="36" rx="3" fill="#2a1a05" stroke="#e2b24a" stroke-width="2"/><rect x="4" y="6" width="40" height="8" fill="#e2b24a"/><path d="M12 36l4-14 6 7 2-11 2 11 6-7 4 14z" fill="#e2b24a"/></svg>',
     vhs: '<svg viewBox="0 0 48 48"><rect x="3" y="12" width="42" height="24" rx="3" fill="#111"/><rect x="8" y="17" width="32" height="10" rx="2" fill="#333"/><circle cx="16" cy="22" r="3" fill="#eee"/><circle cx="32" cy="22" r="3" fill="#eee"/><rect x="10" y="29" width="28" height="4" fill="#f4efe2"/></svg>',
     car: '<svg viewBox="0 0 48 48"><rect x="2" y="2" width="44" height="44" rx="8" fill="#2a0d4a"/><circle cx="24" cy="18" r="9" fill="#ff7a59"/><path d="M2 26h44v20H2z" fill="#05061a"/><path d="M10 36l4-6h20l4 6v5H10z" fill="#ff4fd8"/><circle cx="16" cy="41" r="3" fill="#111"/><circle cx="32" cy="41" r="3" fill="#111"/><rect x="11" y="34" width="5" height="2" fill="#fff"/><rect x="32" y="34" width="5" height="2" fill="#fff"/></svg>',
+    clue: '<svg viewBox="0 0 48 48"><path d="M10 4h20l8 8v32H10z" fill="#fffbe0"/><path d="M30 4v8h8" fill="#e8dfa8"/><circle cx="22" cy="24" r="7" fill="none" stroke="#ff4fd8" stroke-width="3"/><path d="M27 29l7 7" stroke="#ff4fd8" stroke-width="3.5" stroke-linecap="round"/></svg>',
     gta: '<svg viewBox="0 0 48 48"><rect x="2" y="2" width="44" height="44" rx="6" fill="#0a0f2a" stroke="#ffb347" stroke-width="2"/><text x="24" y="22" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="13" fill="#fff">GRAND</text><text x="24" y="34" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="9" fill="#ffb347">THEFT AUDIO</text><path d="M10 40h28" stroke="#ff4fd8" stroke-width="2"/></svg>',
     mine: '<svg viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="4" fill="#c9c5b9"/><g fill="#8d897d"><rect x="6" y="6" width="11" height="11"/><rect x="31" y="6" width="11" height="11"/><rect x="6" y="31" width="11" height="11"/></g><circle cx="24" cy="24" r="9" fill="#05061a"/><path d="M21 20v8l6-4z" fill="#fff"/><rect x="27" y="20" width="2" height="8" fill="#fff"/></svg>',
     chat: '<svg viewBox="0 0 48 48"><circle cx="18" cy="16" r="7" fill="#4cd964"/><path d="M6 38c0-8 5-13 12-13s12 5 12 13z" fill="#4cd964"/><circle cx="32" cy="18" r="6" fill="#4aa3ff"/><path d="M22 40c0-7 4-11 10-11s10 4 10 11z" fill="#4aa3ff"/></svg>',
@@ -711,6 +794,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     merch:    {name: 'Merch', icon: function(){ return I.merch; }, w: 420, h: 320, build: buildMerch},
     mail:     {name: 'Contact', icon: function(){ return I.mail; }, w: 420, h: 330, build: buildMail},
     games:    {name: 'Arcade', icon: function(){ return I.games; }, w: 600, h: 440, build: buildGames},
+    clues:    {name: 'Clues.txt', icon: function(){ return I.clue; }, w: 520, h: 560, build: buildClues},
     welcome:  {name: 'Welcome.txt', icon: function(){ return I.txt; }, w: 520, h: 560, build: buildWelcome},
     browser:  {name: 'Browser', icon: function(){ return I.web; }, w: 760, h: 600, build: buildBrowser},
     snake:    {name: 'Snake.exe', icon: function(){ return I.snake; }, w: 440, h: 620, build: buildSnake},
@@ -726,7 +810,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     terminal: {name: 'Terminal', icon: function(){ return I.term; }, w: 620, h: 420, build: buildTerminal},
     trash:    {name: 'Trash', icon: function(){ return I.trash; }, w: 520, h: 360, build: buildTrash}
   };
-  var DESK = ['stereo80','welcome','player','browser','chat','about','links','games','terminal','paint','weather','photos','merch','mail','donotopen','trash'];
+  var DESK = ['stereo80','welcome','clues','player','browser','chat','about','links','games','terminal','paint','weather','photos','merch','mail','donotopen','trash'];
 
   /* ---------- desktop ---------- */
   var desk = $('desk');
@@ -1033,6 +1117,21 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     return stop;
   }
 
+  /* ---------- escape room keys ---------- */
+  var CLUES = [['1', 'Something was uploaded but not listed. Try searching for a way back.'], ['9', 'Even encyclopedias need citations. Old snapshots hide small things.'], ['8', 'Some things nobody looks at cost nothing. Check out.'], ['0', 'Tune in where the album lives.']];
+  function keys(){ try{ return JSON.parse(ls('yoos-keys') || '{}') || {}; }catch(e){ return {}; } }
+  function foundKey(n){ var k = keys(); if (k[n]) return; k[n] = 1; ls('yoos-keys', JSON.stringify(k)); var c = Object.keys(k).length;
+    toast('', 'PIECE ' + n + ' OF 4 FOUND', c < 4 ? c + '/4 · saved in Clues.txt' : 'All 4 found. Now find the door.', function(){ open('clues'); });
+    if (wins.clues) buildClues(wins.clues.body); }
+  function buildClues(b){
+    var k = keys(), n = Object.keys(k).length, esc2 = ls('yoos-escaped');
+    b.innerHTML = '<div class="menubar"><span>File</span><span>Edit</span><span>Help</span></div><div class="np">' +
+      '<h1>CLUES.TXT</h1><p>There is an escape room hidden in the YO-NET (open the Browser). Four pieces. Each one is a number. Together they open a door.</p>' +
+      '<div class="cl-code">' + CLUES.map(function(c, i){ return '<span>' + (k[i + 1] ? c[0] : '_') + '</span>'; }).join('') + '</div>' +
+      CLUES.map(function(c, i){ return '<p class="cl-' + (k[i + 1] ? 'ok' : 'no') + '">PIECE ' + (i + 1) + ': ' + (k[i + 1] ? 'FOUND (' + c[0] + ')' : c[1]) + '</p>'; }).join('') +
+      '<p>' + (esc2 ? 'ESCAPED. Escapee No. ' + esc2 + '.' : n === 4 ? 'All pieces found. The radio told you where the door is.' : n + '/4 found.') + '</p></div>';
+  }
+
   /* ---------- Welcome.txt ---------- */
   function buildWelcome(b){
     b.innerHTML = '<div class="menubar"><span>File</span><span>Edit</span><span>Help</span></div><div class="np sel">' +
@@ -1040,7 +1139,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       '<p>This computer belongs to Yo Agami. Look around.</p>' +
       '<p>APPS<br>· Stereo80.app : the new album, out Nov 25<br>· Player : listen on Spotify<br>· Browser : surf the YO-NET<br>· Paint : draw something, save it</p>' +
       '<p>GAMES (open the Arcade folder)<br>· NightDrive : neon racing<br>· Grand Theft Audio : steal the cassettes<br>· Snake : eat the cassettes<br>· Mixsweeper : avoid the skip buttons<br>· Beat : make a drum beat</p><p>MORE<br>· YoChat : talk to AGM_bot, Tapey and Mom<br>· Weather : the forecast in Neon City<br>· DO_NOT_OPEN.exe : do not open</p>' +
-      '<p>SECRETS<br>· This computer has hidden files.<br>· Right-click (or long-press) the desktop.<br>· The Terminal knows things. Type help.<br>· The Browser has sites nobody talks about.<br>· Leave the computer alone for a minute.</p></div>';
+      '<p>ESCAPE ROOM<br>· 4 pieces are hidden inside the Browser sites.<br>· Open Clues.txt for hints.<br>· Find the door. Enter the code.</p><p>SECRETS<br>· This computer has hidden files.<br>· Right-click (or long-press) the desktop.<br>· The Terminal knows things. Type help.<br>· The Browser has sites nobody talks about.<br>· Leave the computer alone for a minute.</p></div>';
   }
 
   /* ---------- Snake.exe ---------- */
@@ -1131,36 +1230,137 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       'secret.yo': function(){ return '<div class="sc"><h2>secret.yo</h2><p>Password:</p><form class="scF"><input class="scP" type="password" autocomplete="off"></form><p class="sc-h">Hint: what do you do on an empty highway at 2am? (one word, no spaces)</p><div class="scOut"></div></div>'; },
       'agmteam.com': function(){ return '<iframe class="br-frame" src="./" title="agmteam.com"></iframe>'; }
     };
+    /* ===== YoTube ===== */
     var VIDS = [
-      ['10 HOURS OF TAPE HISS (relaxing)', '1.2M views', 'static', ['finally something to sleep to', 'i fell asleep at hour 3, woke up at hour 9, still hiss', 'this is my favorite song']],
-      ['unboxing a cassette (emotional)', '84K views', 'tape', ['i cried at 2:14', 'the click when it opens. chef kiss', 'he did not even play it']],
-      ['NightDrive world record attempt (NOT CLICKBAIT)', '402K views', 'drive', ['he crashed in 4 seconds', 'my record is higher', 'the music in the background tho']],
-      ['I found a secret file on YO-OS', '2.6M views', 'secret', ['HOW', 'right click the desktop guys', 'the screensaver one is crazy']],
-      ['Stereo 80 countdown LIVE', 'LIVE · 3K watching', 'count', ['day ' + (Math.max(0, Math.ceil((REL - new Date()) / 864e5))) + ' of waiting', 'first', 'who else is here before it drops']],
-      ['Mom reacts to YO-OS', '19K views', 'mom', ['"did you eat?"', 'she asked who Yo Agami is', 'legend']]
+      ['10 HOURS OF TAPE HISS (relaxing)', '1.2M views', 'static', '10:00:00', ['finally something to sleep to', 'i fell asleep at hour 3, woke up at hour 9, still hiss', 'this is my favorite song']],
+      ['unboxing a cassette (emotional)', '84K views', 'tape', '4:12', ['i cried at 2:14', 'the click when it opens. chef kiss', 'he did not even play it']],
+      ['NightDrive world record attempt (NOT CLICKBAIT)', '402K views', 'drive', '0:04', ['he crashed in 4 seconds', 'my record is higher', 'the music in the background tho']],
+      ['I found a secret file on YO-OS', '2.6M views', 'secret', '8:80', ['HOW', 'right click the desktop guys', 'the screensaver one is crazy']],
+      ['Stereo 80 countdown LIVE', 'LIVE', 'count', 'LIVE', ['first', 'who else is here before it drops', 'refreshing every 5 minutes']],
+      ['Mom reacts to YO-OS', '19K views', 'mom', '2:31', ['"did you eat?"', 'she asked who Yo Agami is', 'legend']],
+      ['▓▓▓▓▓▓ (unlisted)', '3 views', 'unlisted', '0:06', ['how did you find this', 'watch till the end', '...']]
     ];
     function vidArt(k){
-      if (k === 'static') return '<div class="yt-p yt-static"></div>';
+      if (k === 'static' || k === 'unlisted') return '<div class="yt-p yt-static"></div>';
       if (k === 'drive') return '<div class="yt-p yt-drive"><i></i></div>';
       if (k === 'count') return '<div class="yt-p yt-count">' + (isOut() ? 'OUT NOW' : Math.max(0, Math.ceil((REL - new Date()) / 864e5)) + ' DAYS') + '</div>';
       if (k === 'mom') return '<div class="yt-p yt-mom">👩‍🦳<span>"did you eat?"</span></div>';
       if (k === 'secret') return '<div class="yt-p yt-secret">.vault</div>';
       return '<div class="yt-p yt-tape">📼</div>';
     }
-    SITES['yotube.yo'] = function(){ return '<div class="yt"><div class="yt-top"><b>▶ YoTube</b><span>Broadcast Yourself (but faceless)</span></div><div class="yt-grid">' + VIDS.map(function(v, i){ return '<a href="#" class="yt-card" data-go="yotube.yo/watch?v=' + i + '">' + vidArt(v[2]) + '<b>' + esc(v[0]) + '</b><small>' + esc(v[1]) + '</small></a>'; }).join('') + '</div></div>'; };
+    function ytHead(q){ return '<div class="yt-top"><a href="#" data-go="yotube.yo" class="yt-logo">▶ YoTube</a><form class="ytF"><input class="ytQ" placeholder="Search" value="' + esc(q || '') + '" autocomplete="off"><button type="submit">🔍</button></form></div>'; }
+    function ytCard(i){ var v = VIDS[i]; return '<a href="#" class="yt-card" data-go="yotube.yo/watch?v=' + i + '">' + vidArt(v[2]) + '<em class="yt-len">' + v[3] + '</em><b>' + esc(v[0]) + '</b><small>' + esc(v[1]) + '</small></a>'; }
+    SITES['yotube.yo'] = function(){ return '<div class="yt">' + ytHead() + '<div class="yt-chips"><span>All</span><span>Tapes</span><span>Night drives</span><span>Mom</span></div><div class="yt-grid">' + [0,1,2,3,4,5].map(ytCard).join('') + '</div></div>'; };
+    function ytResults(q){
+      var ql = q.toLowerCase(), hits = [];
+      VIDS.forEach(function(v, i){ if (i === 6){ if (/rewind|unlisted|hidden|▓/.test(ql)) hits.push(i); return; } if (ql.split(/\s+/).some(function(w){ return w.length > 1 && (v[0] + ' ' + v[2]).toLowerCase().indexOf(w) >= 0; })) hits.push(i); });
+      return '<div class="yt">' + ytHead(q) + '<div class="yt-res">' + (hits.length ? hits.map(function(i){ return '<div class="yt-row">' + ytCard(i) + '</div>'; }).join('') : '<p class="yt-none">No results for "' + esc(q) + '". Some videos are unlisted.</p>') + '</div></div>';
+    }
+    function ytWatch(i){
+      var v = VIDS[i] || VIDS[0], likes = 80 + v[0].length * 97;
+      return '<div class="yt">' + ytHead() + '<div class="yt-watch"><div class="yt-player paused" data-v="' + i + '">' + vidArt(v[2]).replace('yt-p', 'yt-p big') + '<div class="yt-over"></div>' +
+        '<div class="yt-ctl"><button type="button" data-act="yt-play">▶</button><div class="yt-bar"><i></i></div><span class="yt-time">0:00</span><button type="button" data-act="yt-full" aria-label="Fullscreen">⛶</button></div></div>' +
+        '<h3>' + esc(v[0]) + '</h3><div class="yt-meta"><small>' + esc(v[1]) + '</small><div class="yt-btns"><button type="button" data-act="yt-like" data-n="' + likes + '">👍 ' + likes + '</button><button type="button" data-act="yt-sub">Subscribe</button><button type="button" data-act="yt-share">Share</button></div></div>' +
+        '<div class="yt-ch"><span class="ig-av" style="width:40px;height:40px;font-size:13px">YO</span><b>Yo Agami (parody channel)</b></div>' +
+        '<div class="yt-com"><b>' + v[4].length + ' Comments</b>' + v[4].map(function(cm, k){ return '<p><b>@user' + (k * 341 + 17) + '</b> ' + esc(cm) + '</p>'; }).join('') + '</div>' +
+        '<div class="yt-next"><b>Up next</b>' + [0,1,2,3,4,5].filter(function(k){ return k !== i; }).slice(0, 4).map(ytCard).join('') + '</div></div></div>';
+    }
+
+    /* ===== WikiYo + YoBack Machine ===== */
     SITES['wikiyo.yo'] = function(){ return '<div class="wk"><div class="wk-top"><b>WikiYo</b><span>The free encyclopedia that anyone can not edit</span></div><h1>Yo Agami</h1><p class="wk-from">From WikiYo, the free encyclopedia</p>' +
-      '<table class="wk-box"><tr><th colspan="2">Yo Agami</th></tr><tr><td>Occupation</td><td>Music artist</td></tr><tr><td>Label</td><td>AGM (Agami Global Management)</td></tr><tr><td>New album</td><td>Stereo 80 (2026)</td></tr><tr><td>Face</td><td>[citation needed]</td></tr><tr><td>Website</td><td>agmteam.com</td></tr></table>' +
+      '<table class="wk-box"><tr><th colspan="2">Yo Agami</th></tr><tr><td>Occupation</td><td>Music artist</td></tr><tr><td>Label</td><td>AGM (Agami Global Management)</td></tr><tr><td>New album</td><td>Stereo 80 (2026)</td></tr><tr><td>Face</td><td><a href="#" data-go="archive.yo">[citation needed]</a></td></tr><tr><td>Website</td><td>agmteam.com</td></tr></table>' +
       '<p><b>Yo Agami</b> is a real, independent music artist. He is known for keeping the focus on his music instead of his face, and for running a website that is a whole computer.</p>' +
-      '<h2>Stereo 80</h2><p>His new album, <i>Stereo 80</i>, comes out on November 25, 2026. It has 8 tracks. The names are being revealed one per day, which has caused at least one person to refresh a website more than necessary.<sup>[1]</sup></p>' +
-      '<h2>YO-OS</h2><p>His official website runs an operating system called YO-OS. Researchers believe it contains secret files. The exact number is unknown.<sup>[citation needed]</sup></p>' +
+      '<h2>Stereo 80</h2><p>His new album, <i>Stereo 80</i>, comes out on November 25, 2026. It has 8 tracks. The names are being revealed one per day.</p>' +
+      '<h2>YO-OS</h2><p>His official website runs an operating system called YO-OS. Researchers believe there is an escape room hidden inside the YO-NET, made of four pieces.<sup>[citation needed]</sup></p>' +
       '<h2>Trivia</h2><ul><li>He has never skipped a song. (Unconfirmed.)</li><li>The previous version of his website was a kingdom. It is now in the Trash.</li><li>A cassette named Tapey works for him.</li></ul>' +
       '<h2>References</h2><ol class="wk-ref"><li>Trust me.</li></ol></div>'; };
-    SITES['eyo.yo'] = function(){
-      var IT = [['Used skip button', '$0.01', 'Never used. Nobody wanted it.', 'SOLD OUT'], ['Stereo 80 (the album)', 'FREE', 'Streaming on November 25.', 'COMING 11.25'], ['1 kg of aura', '$999', 'Pure. Handpicked.', 'ADD TO CART'], ['Cassette rewinder (a pencil)', '$40', 'Vintage tech.', 'ADD TO CART'], ['Yo Agami merch', '???', 'Coming soon. Follow @itsyoagami.', 'SOON'], ['Extra time until the 25th', '$0', 'Not for sale.', 'UNAVAILABLE']];
-      return '<div class="ey"><div class="ey-top"><b><span>e</span><span>Y</span><span>o</span></b><input placeholder="Search for anything (not the album)" disabled></div><div class="ey-grid">' + IT.map(function(x){ return '<div class="ey-i"><b>' + esc(x[0]) + '</b><span class="ey-p">' + x[1] + '</span><small>' + esc(x[2]) + '</small><button type="button" class="btn" data-cart="' + esc(x[3]) + '">' + x[3] + '</button></div>'; }).join('') + '</div></div>'; };
+    SITES['archive.yo'] = function(){ return '<div class="ab"><div class="ab-top">YoBack Machine</div><p>Browse the history of agmteam.com</p><div class="ab-tl"><a href="#" data-go="archive.yo/1998">1998</a><a href="#" data-go="archive.yo/2012">2012</a><a href="#" data-go="archive.yo/2026">2026</a></div><p class="ab-s">3 snapshots saved. One of them is hiding something.</p></div>'; };
+    SITES['archive.yo/1998'] = function(){ return '<div class="g98"><div class="ab-bar">YoBack Machine · snapshot of agmteam.com · 1998</div><marquee>WELCOME TO MY HOMEPAGE!!!</marquee><h1>~*~ AGM ~*~</h1><p>🚧 UNDER CONSTRUCTION 🚧</p><p>You are visitor 000017</p><p>Sign my guestbook (broken)</p><p class="g98-sm">best viewed in 800x600</p><button type="button" class="g98-dot" data-act="piece2" aria-label="dot">.</button></div>'; };
+    SITES['archive.yo/2012'] = function(){ return '<div class="ab"><div class="ab-bar">YoBack Machine · 2012</div><h2>404</h2><p>Nothing was here in 2012. Try going further back.</p></div>'; };
+    SITES['archive.yo/2026'] = function(){ return '<div class="ab"><div class="ab-bar">YoBack Machine · early 2026</div><h2>The Gold Era</h2><p>The site was a kingdom. Very loud. Very gold.</p><a class="btn" href="#" data-go="kingdom.yo">Visit the ruins</a></div>'; };
+
+    /* ===== eYo with a real cart ===== */
+    var ITEMS = [
+      {id: 'skip', n: 'Used skip button', p: 0.01, d: 'Never used. Nobody wanted it.'},
+      {id: 'aura', n: '1 kg of aura', p: 999, d: 'Pure. Handpicked.'},
+      {id: 'pencil', n: 'Cassette rewinder (a pencil)', p: 40, d: 'Vintage tech.'},
+      {id: 'album', n: 'Stereo 80 (the album)', p: 0, d: 'Streaming November 25.', soon: true},
+      {id: 'merch', n: 'Yo Agami merch', p: 0, d: 'Coming soon. Follow @itsyoagami.', soon: true},
+      {id: 'time', n: 'Extra time until the 25th', p: 0, d: 'Not for sale.', soon: true},
+      {id: 'glasses', n: 'Neon sunglasses (for night)', p: 80, d: 'You cannot see anything. Looks great.'},
+      {id: 'key', n: '??? (mysterious key)', p: 0, d: 'No description. No refunds.', hidden: true}
+    ];
+    function cart(){ try{ return JSON.parse(ls('yoos-cart') || '[]') || []; }catch(e){ return []; } }
+    function setCart(c){ ls('yoos-cart', JSON.stringify(c)); }
+    function money(n){ return n === 0 ? 'FREE' : '$' + n.toFixed(2); }
+    function eyHead(){ return '<div class="ey-top"><a href="#" data-go="eyo.yo" class="ey-logo"><span>e</span><span>Y</span><span>o</span></a><input placeholder="Search for anything (not the album)" disabled><a href="#" class="ey-cart" data-go="eyo.yo/cart">🛒 ' + cart().length + '</a></div>'; }
+    function eyItem(x){ return '<div class="ey-i"><b>' + esc(x.n) + '</b><span class="ey-p">' + (x.soon ? 'SOON' : money(x.p)) + '</span><small>' + esc(x.d) + '</small><button type="button" class="btn" data-act="cart-add" data-id="' + x.id + '"' + (x.soon ? ' disabled' : '') + '>' + (x.soon ? 'Not yet' : 'Add to cart') + '</button></div>'; }
+    SITES['eyo.yo'] = function(){ return '<div class="ey">' + eyHead() + '<div class="ey-grid">' + ITEMS.filter(function(x){ return !x.hidden; }).map(eyItem).join('') + '</div><div class="ey-more"><button type="button" class="btn" data-act="ey-more">Show more items</button></div></div>'; };
+    SITES['eyo.yo/more'] = function(){ return '<div class="ey">' + eyHead() + '<p class="ey-note">Page 2 of 2 · items nobody looks at</p><div class="ey-grid">' + ITEMS.filter(function(x){ return x.hidden; }).map(eyItem).join('') + '</div></div>'; };
+    SITES['eyo.yo/cart'] = function(){
+      var c = cart(), tot = 0, rows = c.map(function(id, k){ var x = ITEMS.filter(function(i){ return i.id === id; })[0]; if (!x) return ''; tot += x.p; return '<div class="ey-row"><b>' + esc(x.n) + '</b><span>' + money(x.p) + '</span><button type="button" class="btn" data-act="cart-rm" data-k="' + k + '">Remove</button></div>'; }).join('');
+      return '<div class="ey">' + eyHead() + '<div class="ey-c"><h2>Your cart</h2>' + (c.length ? rows + '<div class="ey-tot">Total: <b>' + money(tot) + '</b></div><a href="#" class="btn pri" data-go="eyo.yo/checkout">Checkout</a>' : '<p>Your cart is empty. Like the room before the album drops.</p>') + '</div></div>';
+    };
+    SITES['eyo.yo/checkout'] = function(){
+      if (!cart().length) return SITES['eyo.yo/cart']();
+      return '<div class="ey">' + eyHead() + '<div class="ey-c"><h2>Checkout</h2><p>Shipping to: <b>Neon City</b></p><p>Paying with: <b>aura</b> ✨ (we do not take real money here)</p><p>Delivery: when the tape rewinds.</p><button type="button" class="btn pri" data-act="order">Place order</button></div></div>';
+    };
+
+    /* ===== Yostagram ===== */
     SITES['yostagram.yo'] = function(){
       var H = ['#4aa3ff','#ff4fd8','#ffb347','#7cf3ff','#b9dcff','#ff7a59','#4cd964','#c21fa0','#1d4fd8'];
-      return '<div class="ig"><div class="ig-top"><b>Yostagram</b></div><div class="ig-pro"><div class="ig-av">YO</div><div><b>itsyoagami</b><small>Yo Agami · artist · Stereo 80 out 11.25</small><a class="btn pri" href="' + IG + '" target="_blank" rel="noopener">Follow on the real one ↗</a></div></div><div class="ig-grid">' + H.map(function(c, i){ return '<button type="button" class="ig-post" style="--c:' + c + '" aria-label="Post ' + (i + 1) + '"><i></i><span>♥ ' + (i * 37 + 80) + '</span></button>'; }).join('') + '</div><p class="ig-n">Double tap a post. Faces not included.</p></div>'; };
+      return '<div class="ig"><div class="ig-top"><b>Yostagram</b></div><div class="ig-pro"><div class="ig-av">YO</div><div><b>itsyoagami</b><small>Yo Agami · artist · Stereo 80 out 11.25</small><a class="btn pri" href="' + IG + '" target="_blank" rel="noopener">Follow on the real one ↗</a></div></div><div class="ig-grid">' + H.map(function(c, i){ return '<button type="button" class="ig-post" data-i="' + i + '" style="--c:' + c + '" aria-label="Post ' + (i + 1) + '"><i></i><span>♥ ' + (i * 37 + 80) + '</span></button>'; }).join('') + '</div><p class="ig-n">Double tap a post. Faces not included.</p></div>'; };
+
+    /* ===== deep YO-NET ===== */
+    SITES['deep.yo'] = function(){
+      var done = ls('yoos-escaped');
+      return '<div class="dp"><div class="dp-h">▓ DEEP.YO ▓</div><p class="dp-g">you are not supposed to be here.</p>' +
+        (done ? '<p>You already escaped. Escapee No. <b>' + esc(done) + '</b>.</p><button type="button" class="dp-b" data-act="cert">Show certificate</button>' :
+        '<p>Four pieces. One code.</p><form class="dpF"><input class="dpI" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="____"><button type="submit" class="dp-b">ENTER</button></form><p class="dp-m"></p>') +
+        '<div class="dp-links"><a href="#" data-go="void.yo">void.yo</a><a href="#" data-go="mirror.yo">mirror.yo</a></div><canvas class="dp-cert" width="1200" height="800" hidden></canvas><div class="dp-save" hidden><button type="button" class="dp-b" data-act="cert-save">Save certificate</button></div></div>';
+    };
+    SITES['void.yo'] = function(){ return '<div class="vd"><p>there is nothing here.</p><div style="height:5000px"></div><p>you scrolled all the way down. respect.</p><a href="#" data-go="end.yo">end.yo</a></div>'; };
+    SITES['end.yo'] = function(){ return '<div class="dp"><div class="dp-h">THE END OF THE YO-NET</div><p>Nothing is past this point. Except the album. November 25.</p></div>'; };
+    SITES['mirror.yo'] = function(){ return '<div class="dp mir"><div class="dp-h">.uoy wollof t\'nseod rorrim ehT</div><p>.gnihtyreve ees nac eh ,ecaf on sah tsitra ehT</p></div>'; };
+    SITES['stereo80.fm'] = function(){ return '<div class="fm"><div class="fm-logo">STEREO80<span>.FM</span></div><div class="fm-onair">● ON AIR</div>' +
+      '<div class="fm-tuner"><div class="fm-freq"><b class="fmF">101.1</b> FM</div><input type="range" class="fm-dial" min="760" max="1080" value="1011" aria-label="Tune the radio"><small>Drag to tune · 76.0 to 108.0</small></div>' +
+      '<p class="fm-now">Now playing: <b class="fmN">AGM_bot radio: no spoilers</b></p><div class="fm-eq">' + new Array(24).join('<i></i>') + '</div>' +
+      '<p>The album hits the airwaves in <b>' + (isOut() ? 'NOW. IT IS OUT.' : days() + ' days') + '</b>.</p></div>'; };
+    var STATIONS = {881: 'Mom FM: "did you eat?"', 925: 'Tapey FM: *rewinding*', 1011: 'AGM_bot radio: no spoilers', 1043: 'Static FM: 24/7 static', 1067: 'Neon City traffic: the cops are slow'};
+    function tune(P, v){
+      var f = (v / 10).toFixed(1), N = P.querySelector('.fmN'); P.querySelector('.fmF').textContent = f;
+      if (+v === 800){ N.innerHTML = '<span class="fm-hid">HIDDEN BROADCAST · PIECE 4 OF 4: <b>0</b> · the door is at <a href="#" data-go="deep.yo">deep.yo</a></span>'; foundKey(4); blip(1568, .2, 'triangle', .05); }
+      else N.textContent = STATIONS[v] || (Math.abs(v - 800) < 15 ? 'something is close... keep tuning' : 'static...');
+    }
+    function cert(P){
+      var c = P.querySelector('.dp-cert'), g = c.getContext('2d'), no = ls('yoos-escaped') || '0001';
+      c.hidden = false; P.querySelector('.dp-save').hidden = false;
+      g.fillStyle = '#000'; g.fillRect(0, 0, 1200, 800); g.strokeStyle = '#0f0'; g.lineWidth = 6; g.strokeRect(30, 30, 1140, 740);
+      g.fillStyle = '#0f0'; g.textAlign = 'center'; g.font = '48px VT323, monospace'; g.fillText('YO-OS · CERTIFICATE OF ESCAPE', 600, 140);
+      g.font = '150px VT323, monospace'; g.fillStyle = '#fff'; g.fillText('ESCAPED', 600, 340);
+      g.font = '44px VT323, monospace'; g.fillStyle = '#9f9'; g.fillText('This person found all 4 pieces hidden in the YO-NET', 600, 440); g.fillText('and opened deep.yo', 600, 495);
+      g.font = '60px VT323, monospace'; g.fillStyle = '#ff4fd8'; g.fillText('ESCAPEE No. ' + no, 600, 610);
+      g.font = '36px VT323, monospace'; g.fillStyle = '#4aa3ff'; g.fillText('STEREO 80 · YO AGAMI · 11.25.2026 · agmteam.com', 600, 710);
+    }
+    var ACT = {
+      'yt-play': function(x, P){ var pl = x.closest('.yt-player'); if (pl._iv){ clearInterval(pl._iv); pl._iv = null; x.textContent = '▶'; pl.classList.add('paused'); return; }
+        x.textContent = '❚❚'; pl.classList.remove('paused'); var v = +pl.getAttribute('data-v'), dur = v === 6 ? 6 : 12, k = pl._k || 0;
+        pl._iv = setInterval(function(){ if (!pl.isConnected){ clearInterval(pl._iv); return; } k += .1; pl._k = k; var pc = Math.min(1, k / dur); pl.querySelector('.yt-bar i').style.width = pc * 100 + '%'; pl.querySelector('.yt-time').textContent = '0:' + two(Math.floor(k));
+          if (pc >= 1){ clearInterval(pl._iv); pl._iv = null; pl._k = 0; x.textContent = '↻'; if (v === 6){ pl.querySelector('.yt-over').innerHTML = '<div class="yt-reveal">PIECE 1 OF 4: <b>1</b></div>'; foundKey(1); } } }, 100); },
+      'yt-full': function(x){ var pl = x.closest('.yt-player'); var fs = pl.requestFullscreen || pl.webkitRequestFullscreen; if (document.fullscreenElement || document.webkitFullscreenElement){ (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; } if (fs) try{ var r = fs.call(pl); if (r && r.catch) r.catch(function(){ pl.classList.toggle('yt-full'); }); }catch(e){ pl.classList.toggle('yt-full'); } else pl.classList.toggle('yt-full'); },
+      'yt-like': function(x){ var on = x.classList.toggle('on'), n = +x.getAttribute('data-n') + (on ? 1 : 0); x.textContent = '👍 ' + n; blip(on ? 1200 : 600, .05); },
+      'yt-sub': function(x){ var on = x.classList.toggle('on'); x.textContent = on ? 'Subscribed ✓' : 'Subscribe'; if (on) toast('', 'Subscribed', 'Also subscribe to the real one: @itsyoagami'); },
+      'yt-share': function(){ share('Watch this on YoTube (inside agmteam.com)', SITE); },
+      'piece2': function(x, P){ x.outerHTML = '<div class="g98-found">PIECE 2 OF 4: <b>9</b></div>'; foundKey(2); blip(1047, .2, 'triangle', .05); },
+      'cart-add': function(x, P, t){ var c = cart(); c.push(x.getAttribute('data-id')); setCart(c); var ce = P.querySelector('.ey-cart'); if (ce) ce.textContent = '🛒 ' + c.length; x.textContent = 'Added ✓'; blip(1100, .05); },
+      'cart-rm': function(x, P, t){ var c = cart(); c.splice(+x.getAttribute('data-k'), 1); setCart(c); go(t, 'eyo.yo/cart', false); },
+      'ey-more': function(x, P, t){ go(t, 'eyo.yo/more'); },
+      'order': function(x, P, t){ var c = cart(), hasKey = c.indexOf('key') >= 0, no = 100000 + (Math.random() * 899999 | 0); setCart([]);
+        P.querySelector('.ey-c').innerHTML = '<h2>Order placed ✓</h2><p>Order #' + no + '. Paid with aura. Arriving when the tape rewinds.</p>' + (hasKey ? '<div class="ey-key">📦 Inside the box with the mysterious key there is a tiny note:<br><b>PIECE 3 OF 4: 8</b></div>' : '<p>Nothing special in this order. Maybe look at page 2.</p>');
+        var ce = P.querySelector('.ey-cart'); if (ce) ce.textContent = '🛒 0'; if (hasKey) foundKey(3); chime(); },
+      'cert': function(x, P){ cert(P); },
+      'cert-save': function(x, P){ P.querySelector('.dp-cert').toBlob(function(bl){ if (!bl) return; var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = 'yo-os-escaped.png'; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500); }); }
+    };
     var SEARCH = [
       ['yo agami yoagami artist who about music', 'Yo Agami · Official site', 'Real independent music artist. New album Stereo 80 out Nov 25.', 'agmteam.com'],
       ['stereo 80 album new tracks release', 'Stereo80.app', 'The new album. Out November 25.', 'app:stereo80'],
@@ -1179,7 +1379,10 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       ['video videos watch yotube tube', 'YoTube', 'Broadcast yourself (but faceless).', 'yotube.yo'],
       ['wiki wikipedia encyclopedia yo agami who', 'Yo Agami - WikiYo', 'The free encyclopedia that anyone can not edit.', 'wikiyo.yo'],
       ['shop buy store merch ebay', 'eYo', 'Buy things you do not need.', 'eyo.yo'],
-      ['instagram yostagram photos posts', 'Yostagram', '@itsyoagami (parody edition).', 'yostagram.yo']
+      ['instagram yostagram photos posts', 'Yostagram', '@itsyoagami (parody edition).', 'yostagram.yo'],
+      ['archive history old past wayback yoback', 'YoBack Machine', 'See old versions of agmteam.com.', 'archive.yo'],
+      ['escape room clue clues piece pieces puzzle', 'Clues.txt', 'Four pieces are hidden in the YO-NET.', 'app:clues'],
+      ['deep dark hidden onion', 'nothing found', 'there is no such thing as a deep YO-NET.', 'yoogle.yo?q=really']
     ];
     function norm(u){ return (u || '').trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/+$/, ''); }
     function title(u){ if (u.indexOf('yoogle.yo?q=') === 0) return decodeURIComponent(u.slice(12)) + ' - Yoogle'; return u; }
@@ -1204,9 +1407,10 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       t.url = u; t.btn.querySelector('span').textContent = title(u);
       var P = t.el;
       if (FRAMES[u]) P.innerHTML = '<iframe class="br-frame" src="' + FRAMES[u] + '" title="' + esc(u) + '" allow="autoplay"></iframe>';
-      else if (SITES[u]) P.innerHTML = SITES[u]();
+      else if (u.indexOf('yotube.yo/watch?v=') === 0) P.innerHTML = ytWatch(+u.split('=')[1] || 0);
+      else if (u.indexOf('yotube.yo/results?q=') === 0) P.innerHTML = ytResults(decodeURIComponent(u.slice(20)));
+      else if (SITES[u]) P.innerHTML = SITES[u](t);
       else if (u.indexOf('yoogle.yo?q=') === 0){ var q = decodeURIComponent(u.slice(12)); P.innerHTML = SITES['yoogle.yo'](); P.querySelector('.ygQ').value = q; search(P, q); }
-      else if (u.indexOf('yotube.yo/watch?v=') === 0){ var v = VIDS[+u.split('=')[1]] || VIDS[0]; P.innerHTML = '<div class="yt"><div class="yt-top"><b>▶ YoTube</b><span>Broadcast Yourself (but faceless)</span></div><div class="yt-watch">' + vidArt(v[2]).replace('yt-p', 'yt-p big') + '<h3>' + esc(v[0]) + '</h3><small>' + esc(v[1]) + ' · 👍 ' + (v[0].length * 97) + '</small><div class="yt-com"><b>Comments</b>' + v[3].map(function(cm, i){ return '<p><b>@user' + (i * 341 + 17) + '</b> ' + esc(cm) + '</p>'; }).join('') + '</div><a href="#" data-go="yotube.yo">← more videos</a></div></div>'; if (v[2] === 'secret') revealHidden(); }
       else if (EXT[u] || /(spotify|instagram|tiktok|youtube)\./.test(u)){ var link = EXT[u] || 'https://' + u; P.innerHTML = '<div class="ar" style="text-align:center"><h2>' + esc(u) + '</h2><p>This site does not allow being opened inside another window, so it opens in a new tab.</p><a class="btn pri" href="' + link + '" target="_blank" rel="noopener">Open ' + esc(u) + ' ↗</a></div>'; }
       else P.innerHTML = '<div class="ar" style="text-align:center"><h2>404</h2><p>' + esc(u) + ' does not exist on the YO-NET. Yet.</p><p><a href="#" data-go="yoogle.yo">Back to Yoogle</a></p></div>';
       P.scrollTop = 0; wire(t);
@@ -1226,11 +1430,17 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
         if (a){ e.preventDefault(); var g = a.getAttribute('data-go'); if (g.indexOf('app:') === 0) open(g.slice(4)); else go(t, g); }
         else if (ap){ open(ap.getAttribute('data-app')); }
         var ct = e.target.closest('[data-cart]'); if (ct){ var w = ct.getAttribute('data-cart'); toast('', 'eYo', w === 'ADD TO CART' ? 'Added. The cart is decorative.' : w === 'SOLD OUT' ? 'Sold out. Somehow.' : 'Not yet. ' + (isOut() ? '' : 'November 25.')); }
-        var po = e.target.closest('.ig-post'); if (po){ var nw = Date.now(); if (nw - (po._t || 0) < 350){ po.classList.remove('liked'); void po.offsetWidth; po.classList.add('liked'); blip(1318, .08, 'triangle', .05); } po._t = nw; }
+        var po = e.target.closest('.ig-post'); if (po){ var nw = Date.now(); if (nw - (po._t || 0) < 350){ po.classList.remove('liked'); void po.offsetWidth; po.classList.add('liked'); blip(1318, .08, 'triangle', .05); if (po.getAttribute('data-i') === '8') toast('', 'Caption', '"tuned in to 80.0 last night. heard something weird." 📻'); } po._t = nw; }
+        var ac = e.target.closest('[data-act]'); if (ac && ACT[ac.getAttribute('data-act')]){ e.preventDefault(); ACT[ac.getAttribute('data-act')](ac, P, t); }
       };
+      P.oninput = function(e){ if (e.target.classList.contains('fm-dial')) tune(P, +e.target.value); };
       P.onsubmit = function(e){
         e.preventDefault(); var f = e.target;
         if (f.classList.contains('ygF')){ var q = f.querySelector('.ygQ').value; go(t, 'yoogle.yo?q=' + encodeURIComponent(q)); }
+        if (f.classList.contains('ytF')){ var yq = f.querySelector('.ytQ').value.trim(); if (yq) go(t, 'yotube.yo/results?q=' + encodeURIComponent(yq)); }
+        if (f.classList.contains('dpF')){ var dv = f.querySelector('.dpI').value.trim(), m = P.querySelector('.dp-m');
+          if (dv === '1980'){ if (!ls('yoos-escaped')) ls('yoos-escaped', String(1000 + (Math.random() * 8999 | 0))); chime(); matrix(); setTimeout(function(){ go(t, 'deep.yo', false); cert(t.el); }, 600); toast('', 'YOU ESCAPED', 'You found all 4 pieces. Respect.'); }
+          else { m.textContent = 'wrong. ' + (Object.keys(keys()).length < 4 ? 'you are missing pieces. open Clues.txt' : 'check the order.'); blip(90, .4, 'sawtooth', .06); } }
         if (f.classList.contains('scF')){
           var v = f.querySelector('.scP').value.trim().toLowerCase().replace(/\s+/g, ''), out = P.querySelector('.scOut');
           if (v === 'drive' || v === 'nightdrive'){ revealHidden(); out.innerHTML = '<div class="sc-ok"><b>ACCESS GRANTED</b><p>The secret list:</p><p>· Right-click the desktop: Show hidden files<br>· Type agami anywhere<br>· Tap the clock 5 times<br>· ↑ ↑ ↓ ↓ ← → ← → B A<br>· Terminal: ls -a, matrix<br>· The vault code is the release date (MMDD)<br>· Do nothing for a minute</p></div>'; blip(1047, .3, 'triangle', .06); }
@@ -1355,6 +1565,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
         [/(when|date|release|drop|out)/, isOut() ? 'Stereo 80 is OUT. go listen.' : 'Stereo 80 drops November 25. ' + Math.max(0, Math.ceil((dayStart(REL) - dayStart(new Date())) / 864e5)) + ' days.'],
         [/(song|track|name|list)/, 'no spoilers. one song name unlocks every day in Stereo80.app.'],
         [/(cover|art|picture)/, 'the cover is locked until the 25th. patience.'],
+        [/(escape|room|piece|clue|door|deep)/, 'the escape room? open Clues.txt. i can only say: four numbers, and the radio knows where the door is.'],
         [/(vault|code|secret|hidden)/, 'i am not allowed to talk about the vault. ask the Terminal. or Tapey.'],
         [/(who|agami|artist)/, 'Yo Agami. independent artist. the music talks, he does not.'],
         [/(merch|shirt|hoodie)/, 'merch is coming soon. follow @itsyoagami.'],
@@ -1421,7 +1632,10 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     'I would not open DO_NOT_OPEN.exe if I were you.',
     'Grand Theft Audio is in the Arcade. The cops are slow. Mostly.',
     'A new song name unlocks every day. Come back tomorrow.',
-    'Fun fact: I am a cassette. I have no other facts.'
+    'Fun fact: I am a cassette. I have no other facts.',
+    'Have you opened Clues.txt? Four pieces are hiding in the YO-NET.',
+    'Some videos on YoTube are unlisted. You have to search for them.',
+    'eYo has a page 2. Nobody ever checks page 2.'
   ];
   var tapeyOff = ss('yoos-tapey') === 'off', tapeyEl = null, ti = 0;
   function tapey(force){
