@@ -1131,7 +1131,8 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   ];
   function keys(){ try{ return JSON.parse(ls('yoos-keys') || '{}') || {}; }catch(e){ return {}; } }
   function foundKey(n){ var k = keys(); if (k[n]) return; k[n] = 1; ls('yoos-keys', JSON.stringify(k)); var c = Object.keys(k).length;
-    toast('', 'PIECE ' + n + ' OF 4 FOUND', c < 4 ? c + '/4 · saved in Clues.txt' : 'All 4 found. Now find the door.', function(){ open('clues'); });
+    var so = CLUES.map(function(x, i){ return k[i + 1] ? x[0] : '_'; }).join(' ');
+    toast('', 'PIECE ' + n + ' OF 4: ' + CLUES[n - 1][0], 'Your code so far: ' + so + (c < 4 ? '' : ' · now go to deep.yo'), function(){ open('clues'); });
     if (wins.clues) buildClues(wins.clues.body); }
   var hintLv = {};
   function buildClues(b){
@@ -1139,7 +1140,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     b.innerHTML = '<div class="menubar"><span>File</span><span>Edit</span><span>Help</span></div><div class="np">' +
       '<h1>CLUES.TXT</h1><p>An escape room is hidden inside the Browser (the YO-NET). Find 4 pieces. Each piece is a number.</p>' +
       '<div class="cl-code">' + CLUES.map(function(c, i){ return '<span>' + (k[i + 1] ? c[0] : '_') + '</span>'; }).join('') + '</div>' +
-      '<p class="cl-how">The code = piece 1, 2, 3, 4 in order.</p>' +
+      '<p class="cl-how">Every piece you find is ONE number. It drops into the boxes above by itself. When all 4 boxes are full, that is your code.</p>' +
       CLUES.map(function(c, i){ var lv = hintLv[i] || 0, got = k[i + 1];
         return '<div class="cl-p ' + (got ? 'cl-ok' : 'cl-no') + '"><b>PIECE ' + (i + 1) + (got ? ' · FOUND: ' + c[0] : '') + '</b>' + (got ? '' : '<p>' + c[1].slice(0, lv + 1).map(function(h, j){ return (j ? 'HINT ' + j + ': ' : '') + esc(h); }).join('<br>') + '</p>' + (lv < 2 ? '<button type="button" class="btn" data-h="' + i + '">Need a hint?</button>' : '')) + '</div>'; }).join('') +
       '<div class="cl-p"><b>THE DOOR</b><p>' + (esc2 ? 'ESCAPED. Escapee No. ' + esc2 + '.' : n === 4 ? 'All 4 found. Open the Browser, type <u>deep.yo</u> in the address bar and enter the code.' : k[4] ? 'The radio told you: deep.yo. Find all 4 pieces first.' : 'Hidden. The last piece tells you where the door is.') + '</p></div></div>';
