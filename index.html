@@ -402,6 +402,35 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 
 
 
+
+/* ---------- v8: interface ---------- */
+.rz{position:absolute;right:0;bottom:0;width:18px;height:18px;cursor:nwse-resize;touch-action:none;background:linear-gradient(135deg,transparent 50%,var(--line) 50%,var(--line) 60%,transparent 60%,transparent 70%,var(--line) 70%,var(--line) 80%,transparent 80%)}
+.win.max .rz,.win.snapL .rz,.win.snapR .rz{display:none}
+.win.resizing{transition:none;user-select:none}
+.win.resizing iframe,.win.resizing canvas{pointer-events:none}
+#tasks button{display:flex;align-items:center;gap:8px}
+#tasks .ti{display:grid;place-items:center;width:22px;height:22px;flex:0 0 auto}
+#tasks .ti svg,#tasks .ti img{width:22px;height:22px}
+#tasks .tn{overflow:hidden;text-overflow:ellipsis}
+.trb{position:relative;height:36px;min-width:36px;border-radius:8px;border:1px solid var(--line2);background:rgba(255,255,255,.04);cursor:pointer;display:grid;place-items:center;font-size:16px;color:var(--neon-hi)}
+.trb svg{width:20px;height:20px}
+.trb i{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--pink);color:#fff;font:800 11px/18px var(--ui);font-style:normal}
+#menu{flex-direction:row}
+#menu .mcol{flex:1;display:flex;flex-direction:column;min-width:0}
+#mSearch{padding:8px 8px 0}
+#mQ{width:100%;height:38px;border-radius:8px;border:1px solid var(--line);background:rgba(0,0,0,.35);color:var(--ink);padding:0 12px;font:20px var(--pix)}
+#menu .items{flex:1;min-height:0}
+#nc{position:fixed;right:8px;bottom:calc(var(--bar) + 8px);z-index:56;width:min(340px,calc(100vw - 16px));max-height:min(480px,calc(100vh - var(--bar) - 24px));display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--neon);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6);overflow:hidden;animation:winIn .15s}
+.nc-h{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line2);font-family:var(--pix);font-size:22px}
+.nc-h button{border:0;background:none;color:var(--neon);cursor:pointer;font:700 13px var(--ui)}
+#ncList{overflow:auto;scrollbar-width:none;padding:6px}
+.nc-it{display:grid;grid-template-columns:1fr auto;gap:2px 8px;width:100%;text-align:left;padding:9px 10px;border:0;border-radius:8px;background:none;cursor:pointer}
+.nc-it:hover{background:rgba(74,163,255,.14)}
+.nc-it b{font:700 14px var(--ui)}.nc-it small{grid-column:1;color:var(--dim);font-size:12px}.nc-it em{grid-column:2;grid-row:1;font:16px var(--pix);color:var(--dim);font-style:normal}
+#desk.free{display:block}
+#desk.free .ico{position:absolute;width:96px}
+.ico.dragging{opacity:.8;z-index:5;cursor:grabbing}
+@media (max-width:720px){#menu .side{display:none}#menu button{font-size:17px;padding:7px 6px}#tasks .tn{display:none}#tasks button{padding:0 8px}.trb.sd{display:grid}#ncBtn{display:grid}}
 /* ---------- v7 ---------- */
 #tod{position:fixed;inset:0;z-index:1;pointer-events:none;transition:background 2s}
 #tod.morning{background:linear-gradient(180deg,rgba(255,160,180,.12),transparent 60%)}
@@ -773,9 +802,10 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
 <nav id="bar" aria-label="Taskbar">
   <button id="start" type="button" aria-haspopup="menu"><i>YO</i><span>Start</span></button>
   <div id="tasks"></div>
-  <div id="tray"><button class="cd" type="button" id="trayCd" title="Stereo 80 countdown">11.25</button><span class="clock" id="clock">12:00</span></div>
+  <div id="tray"><button class="cd" type="button" id="trayCd" title="Stereo 80 countdown">11.25</button><button type="button" id="ncBtn" class="trb" title="Notifications" aria-label="Notifications">🔔<i id="ncN" hidden>0</i></button><span class="clock" id="clock">12:00</span><button type="button" id="showDesk" class="trb sd" title="Show desktop" aria-label="Show desktop"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 20h8" stroke="currentColor" stroke-width="2"/></svg></button></div>
 </nav>
-<div id="menu" hidden role="menu"><div class="side">YO-OS</div><div class="items" id="menuItems"></div></div>
+<div id="menu" hidden role="menu"><div class="side">YO-OS</div><div class="mcol"><form id="mSearch" autocomplete="off"><input id="mQ" placeholder="Search apps…" aria-label="Search apps"></form><div class="items" id="menuItems"></div></div></div>
+<div id="nc" hidden><div class="nc-h"><b>Notifications</b><button type="button" id="ncClr">Clear</button></div><div id="ncList"></div></div>
 
 <div id="boot" aria-hidden="true">
   <div>
@@ -906,9 +936,35 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
   DESK.forEach(function(id){
     var a = APPS[id], b = el('button', 'ico', a.icon() + '<span>' + esc(a.name).replace('.', '<wbr>.').replace(/_/g, '_<wbr>') + '</span>');
     b.type = 'button'; b.setAttribute('data-app', id); b.setAttribute('aria-label', 'Open ' + a.name);
-    b.addEventListener('click', function(){ blip(880, .04); open(id); });
+    b.addEventListener('click', function(){ if (b._moved){ b._moved = false; return; } blip(880, .04); open(id); });
     desk.appendChild(b);
   });
+
+  /* ---------- draggable desktop icons ---------- */
+  function iconPos(){ return jget('yoos-icons', null); }
+  function freeMode(){
+    if (desk.classList.contains('free')) return;
+    var P = {}; desk.querySelectorAll('.ico').forEach(function(b){ P[b.getAttribute('data-app') || b.textContent] = [b.offsetLeft, b.offsetTop]; });
+    desk.classList.add('free'); desk.querySelectorAll('.ico').forEach(function(b){ var p = P[b.getAttribute('data-app') || b.textContent]; b.style.left = p[0] + 'px'; b.style.top = p[1] + 'px'; });
+  }
+  function applyIcons(){
+    var S = iconPos(); if (!S || mobile()) return; freeMode();
+    desk.querySelectorAll('.ico').forEach(function(b){ var k = b.getAttribute('data-app') || b.textContent, p = S[k]; if (p){ b.style.left = Math.min(p[0], innerWidth - 100) + 'px'; b.style.top = Math.min(p[1], innerHeight - 160) + 'px'; } });
+  }
+  function saveIcons(){ var S = {}; desk.querySelectorAll('.ico').forEach(function(b){ S[b.getAttribute('data-app') || b.textContent] = [b.offsetLeft, b.offsetTop]; }); jset('yoos-icons', S); }
+  function sortIcons(){ ls('yoos-icons', ''); desk.classList.remove('free'); desk.querySelectorAll('.ico').forEach(function(b){ b.style.left = b.style.top = ''; }); toast('', 'Desktop', 'Icons sorted.'); }
+  (function(){
+    var cur = null, sx, sy, ox, oy, moved = false;
+    desk.addEventListener('pointerdown', function(e){ var b = e.target.closest('.ico'); if (!b || mobile() || e.button !== 0 || e.pointerType === 'touch') return; cur = b; moved = false; sx = e.clientX; sy = e.clientY; });
+    document.addEventListener('pointermove', function(e){
+      if (!cur) return;
+      if (!moved && Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) < 8) return;
+      if (!moved){ moved = true; freeMode(); ox = cur.offsetLeft; oy = cur.offsetTop; cur.classList.add('dragging'); }
+      cur.style.left = Math.max(0, Math.min(innerWidth - 100, ox + e.clientX - sx)) + 'px'; cur.style.top = Math.max(0, Math.min(innerHeight - 170, oy + e.clientY - sy)) + 'px';
+    });
+    document.addEventListener('pointerup', function(){ if (!cur) return; if (moved){ var gx = 104, gy = 110; cur.style.left = Math.round(cur.offsetLeft / gx) * gx + 18 + 'px'; cur.style.top = Math.round((cur.offsetTop - 18) / gy) * gy + 18 + 'px'; cur._moved = true; cur.classList.remove('dragging'); saveIcons(); } cur = null; });
+  })();
+  setTimeout(applyIcons, 0);
 
   /* ---------- window manager ---------- */
   var wins = {}, z = 20, cascade = 0, tasks = $('tasks');
@@ -923,19 +979,21 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
     w.innerHTML = '<div class="tb"><span class="t">' + esc(a.name) + '</span>' +
       '<button type="button" class="mn" aria-label="Minimize"><svg viewBox="0 0 12 12"><path d="M2 9h8"/></svg></button>' +
       '<button type="button" class="mx" aria-label="Maximize"><svg viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8"/></svg></button>' +
-      '<button type="button" class="x" aria-label="Close"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2l-8 8"/></svg></button></div><div class="wb"></div>';
+      '<button type="button" class="x" aria-label="Close"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2l-8 8"/></svg></button></div><div class="wb"></div><i class="rz" aria-hidden="true"></i>';
     var vw = innerWidth, vh = innerHeight - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--bar')) || 52;
     var ww = Math.min(a.w, vw - 24), hh = Math.min(a.h, vh - 24);
     var x = Math.max(8, Math.min(vw - ww - 8, 240 + cascade * 28 + (vw > 1300 ? (vw - 1300) / 3 : 0)));
     var y = Math.max(8, Math.min(vh - hh - 8, 24 + cascade * 26));
     cascade = (cascade + 1) % 6;
+    var G = GEOM()[id]; if (G && !mobile()){ ww = Math.min(Math.max(280, G[2]), vw - 16); hh = Math.min(Math.max(200, G[3]), vh - 16); x = Math.max(0, Math.min(vw - 80, G[0])); y = Math.max(0, Math.min(vh - 60, G[1])); }
     w.style.left = x + 'px'; w.style.top = y + 'px'; w.style.width = ww + 'px'; w.style.height = hh + 'px';
     $('wins').appendChild(w);
     var body = w.querySelector('.wb');
     var rec = {el: w, body: body, id: id, cleanup: null, args: args || null};
     wins[id] = rec;
     rec.cleanup = a.build(body, rec) || null;
-    var t = el('button', '', esc(a.name)); t.type = 'button';
+    var t = el('button', '', '<span class="ti">' + a.icon() + '</span><span class="tn">' + esc(a.name) + '</span>'); t.type = 'button'; t.title = a.name;
+    t.addEventListener('contextmenu', function(e){ e.preventDefault(); close(id); });
     t.addEventListener('click', function(){ if (!w.hidden && w.classList.contains('focus')){ w.hidden = true; w.classList.remove('focus'); syncTasks(); } else { w.hidden = false; focus(id); } });
     rec.task = t; tasks.appendChild(t);
     w.querySelector('.x').addEventListener('click', function(){ close(id); });
@@ -943,6 +1001,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
     w.querySelector('.mx').addEventListener('click', function(){ w.classList.toggle('max'); });
     w.addEventListener('pointerdown', function(){ focus(id); }, true);
     drag(w, w.querySelector('.tb'));
+    resizer(w, w.querySelector('.rz'), id);
     focus(id);
     setHash(id);
     saveState();
@@ -978,10 +1037,20 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
       if (on && e && e.type === 'pointerup'){
         if (e.clientX <= 12) w.classList.add('snapL'); else if (e.clientX >= innerWidth - 12) w.classList.add('snapR'); else if (e.clientY <= 6) w.classList.add('max');
       }
+      if (on) saveGeom(w);
       on = false; h.style.cursor = '';
     }
     h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
     h.addEventListener('dblclick', function(e){ if (!e.target.closest('button') && !mobile()) w.classList.toggle('max'); });
+  }
+  function GEOM(){ return jget('yoos-geom', {}); }
+  function saveGeom(w){ if (mobile() || w.classList.contains('max') || w.classList.contains('snapL') || w.classList.contains('snapR')) return; var id = Object.keys(wins).filter(function(k){ return wins[k].el === w; })[0]; if (!id) return; var g = GEOM(); g[id] = [w.offsetLeft, w.offsetTop, w.offsetWidth, w.offsetHeight]; jset('yoos-geom', g); }
+  function resizer(w, h, id){
+    var sx, sy, ow, oh, on = false;
+    h.addEventListener('pointerdown', function(e){ if (mobile() || w.classList.contains('max')) return; e.preventDefault(); e.stopPropagation(); on = true; sx = e.clientX; sy = e.clientY; ow = w.offsetWidth; oh = w.offsetHeight; try{ h.setPointerCapture(e.pointerId); }catch(er){} w.classList.add('resizing'); });
+    h.addEventListener('pointermove', function(e){ if (!on) return; w.style.width = Math.max(280, Math.min(innerWidth - w.offsetLeft - 4, ow + e.clientX - sx)) + 'px'; w.style.height = Math.max(180, Math.min(innerHeight - w.offsetTop - 50, oh + e.clientY - sy)) + 'px'; });
+    function up(){ if (!on) return; on = false; w.classList.remove('resizing'); saveGeom(w); }
+    h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
   }
   var hashLock = false;
   function setHash(id){
@@ -1012,7 +1081,27 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
   [['Restart', function(){ closeMenu(); boot(true); }], ['Shut down', shutdown]].forEach(function(p){
     var b = el('button', '', '<svg viewBox="0 0 24 24"><path d="M12 3v8M6.3 6.3a8 8 0 1 0 11.4 0" fill="none" stroke="#ff4fd8" stroke-width="2.2" stroke-linecap="round"/></svg>' + p[0]); b.type = 'button'; b.addEventListener('click', p[1]); mi.appendChild(b);
   });
-  $('start').addEventListener('click', function(e){ e.stopPropagation(); blip(660, .04); menu.hidden = !menu.hidden; });
+  function openMenu(){ menu.hidden = false; var q = $('mQ'); q.value = ''; filterMenu(''); if (!mobile()) setTimeout(function(){ q.focus(); }, 30); }
+  function filterMenu(v){ v = v.toLowerCase().trim(); mi.querySelectorAll('button').forEach(function(b){ b.hidden = !!v && b.textContent.toLowerCase().indexOf(v) < 0; }); mi.querySelectorAll('hr').forEach(function(h){ h.hidden = !!v; }); }
+  $('mQ').addEventListener('input', function(){ filterMenu(this.value); });
+  $('mSearch').addEventListener('submit', function(e){ e.preventDefault(); var b = [].filter.call(mi.querySelectorAll('button'), function(x){ return !x.hidden; })[0]; if (b) b.click(); });
+  $('start').addEventListener('click', function(e){ e.stopPropagation(); blip(660, .04); if (menu.hidden) openMenu(); else closeMenu(); });
+  document.addEventListener('keydown', function(e){ var tag = (e.target.tagName || '').toLowerCase(); if (tag === 'input' || tag === 'textarea') return; if (e.key === '/' || (e.key === 'k' && (e.ctrlKey || e.metaKey))){ e.preventDefault(); openMenu(); } });
+  /* show desktop */
+  var hiddenByDesk = [];
+  $('showDesk').addEventListener('click', function(){
+    var vis = Object.keys(wins).filter(function(k){ return !wins[k].el.hidden; });
+    if (vis.length){ hiddenByDesk = vis; vis.forEach(function(k){ wins[k].el.hidden = true; wins[k].el.classList.remove('focus'); }); }
+    else { hiddenByDesk.forEach(function(k){ if (wins[k]) wins[k].el.hidden = false; }); var t = hiddenByDesk[hiddenByDesk.length - 1]; if (t && wins[t]) focus(t); hiddenByDesk = []; }
+    syncTasks(); blip(500, .04);
+  });
+  /* notification center */
+  var NCH = [], ncUnseen = 0;
+  function ncRender(){ var L = $('ncList'); L.innerHTML = NCH.length ? NCH.slice().reverse().map(function(n, i){ return '<button type="button" class="nc-it" data-i="' + (NCH.length - 1 - i) + '"><b>' + esc(n.t) + '</b><small>' + esc(n.s) + '</small><em>' + n.tm + '</em></button>'; }).join('') : '<p class="note">Nothing new.</p>'; var N = $('ncN'); N.hidden = !ncUnseen; N.textContent = ncUnseen > 9 ? '9+' : ncUnseen; }
+  $('ncBtn').addEventListener('click', function(e){ e.stopPropagation(); var nc = $('nc'); nc.hidden = !nc.hidden; if (!nc.hidden){ ncUnseen = 0; ncRender(); $('toasts').innerHTML = ''; closeMenu(); } blip(700, .03); });
+  $('ncClr').addEventListener('click', function(){ NCH = []; ncUnseen = 0; ncRender(); });
+  $('ncList').addEventListener('click', function(e){ var b = e.target.closest('[data-i]'); if (!b) return; var n = NCH[+b.getAttribute('data-i')]; $('nc').hidden = true; if (n && n.fn) n.fn(); });
+  document.addEventListener('pointerdown', function(e){ var nc = $('nc'); if (!nc.hidden && !e.target.closest('#nc') && !e.target.closest('#ncBtn')) nc.hidden = true; });
   function closeMenu(){ menu.hidden = true; }
   document.addEventListener('pointerdown', function(e){ if (!menu.hidden && !e.target.closest('#menu') && !e.target.closest('#start')) closeMenu(); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ if (!menu.hidden) closeMenu(); else { var t = topWin(); if (t) close(t); } } });
@@ -1025,6 +1114,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
 
   /* ---------- toasts ---------- */
   function toast(img, title, sub, onClick){
+    var d = new Date(); NCH.push({t: title, s: sub, fn: onClick || null, tm: two(d.getHours()) + ':' + two(d.getMinutes())}); if (NCH.length > 30) NCH.shift(); if ($('nc').hidden) ncUnseen++; ncRender();
     var t = el('div', 'toast', (img ? '<img src="' + img + '" alt="" class="cov">' : '<span></span>') + '<div><b>' + esc(title) + '</b><small>' + esc(sub) + '</small></div>');
     t.addEventListener('click', function(){ t.remove(); if (onClick) onClick(); });
     var TS = $('toasts'); TS.appendChild(t); while (TS.children.length > (mobile() ? 1 : 3)) TS.removeChild(TS.firstChild); blip(988, .08, 'triangle', .05);
@@ -2140,7 +2230,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
     HIDDEN.forEach(function(h, i){
       var b = el('button', 'ico ghost', h[1] + '<span>' + esc(h[0]) + '</span>'); b.type = 'button';
       b.addEventListener('click', function(){ blip(220, .12, 'sawtooth', .04); h[2](); });
-      desk.appendChild(b);
+      desk.appendChild(b); if (desk.classList.contains('free')){ var S = iconPos() || {}, p = S[b.textContent]; b.style.left = (p ? p[0] : innerWidth - 240 - (i % 2) * 104) + 'px'; b.style.top = (p ? p[1] : 18 + (i >> 1) * 110 + 300) + 'px'; }
     });
     toast('', 'Hidden files revealed', '3 secret files are now on your desktop.');
   }
@@ -2151,6 +2241,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
   var CTX = [
     ['Refresh', function(){ boot(true); }],
     ['Change wallpaper', function(){ nextWall(); }],
+    ['Sort icons', function(){ sortIcons(); }],
     ['Show hidden files', function(){ if (revealed) toast('', 'Already visible', 'Look for the faded icons.'); else revealHidden(); }],
     ['Start screensaver', function(){ saver(); }],
     ['Open Terminal', function(){ open('terminal'); }],
