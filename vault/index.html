@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#04020c">
+<title>The Vault | Yo Agami</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Mr+Dafoe&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04020c;--ink:#f3eaff;--dim:#a99cc8;--pink:#ff4fd8;--blue:#4aa3ff;--line:rgba(255,79,216,.45);--pix:"VT323",monospace;--ui:"Inter",system-ui,sans-serif;--script:"Mr Dafoe","Snell Roundhand",cursive}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--ui);-webkit-text-size-adjust:100%}
+body{background:radial-gradient(ellipse at 50% -10%,rgba(255,79,216,.25),transparent 60%),radial-gradient(ellipse at 50% 120%,rgba(74,163,255,.25),transparent 60%),var(--bg);overflow-x:hidden}
+button,input{font:inherit;color:inherit}
+[hidden]{display:none!important}
+a{color:#ffc4f3}
+.scan{position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(180deg,rgba(255,255,255,.03) 0 1px,transparent 1px 3px);z-index:50}
+.back{position:fixed;left:12px;top:calc(12px + env(safe-area-inset-top));z-index:40;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(4,2,12,.8);color:var(--ink);text-decoration:none;font-family:var(--pix);font-size:20px}
+/* gate */
+#gate{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:24px;text-align:center}
+.door{width:min(360px,100%);padding:28px 22px;border:1px solid var(--line);border-radius:18px;background:rgba(20,8,36,.7);box-shadow:0 0 60px rgba(255,79,216,.2)}
+.dial{width:120px;height:120px;margin:0 auto 18px;border-radius:50%;border:3px solid var(--pink);display:grid;place-items:center;box-shadow:0 0 30px rgba(255,79,216,.45),inset 0 0 20px rgba(255,79,216,.3);transition:transform .8s cubic-bezier(.3,1.6,.5,1)}
+.dial b{font-family:var(--pix);font-size:44px}
+.door h1{margin:0;font-family:var(--pix);font-weight:400;font-size:44px;letter-spacing:.08em}
+.door p{color:var(--dim);margin:6px 0 18px}
+.pins{display:flex;justify-content:center;gap:10px;margin-bottom:16px}
+.pins span{width:44px;height:54px;border-radius:10px;border:1px solid var(--line);display:grid;place-items:center;font-family:var(--pix);font-size:36px;background:rgba(0,0,0,.4)}
+.keys{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.keys button{height:54px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);font-family:var(--pix);font-size:30px;cursor:pointer;touch-action:manipulation}
+.keys button:active{background:rgba(255,79,216,.3)}
+.door.shake{animation:sh .4s}
+@keyframes sh{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.hint{margin-top:14px;font-size:13px;color:var(--dim)}
+/* inside */
+#inside{max-width:980px;margin:0 auto;padding:80px 18px 60px}
+.hello{text-align:center;margin-bottom:34px}
+.hello small{font-family:var(--pix);font-size:22px;letter-spacing:.3em;color:var(--pink)}
+.hello h1{margin:4px 0 6px;font-family:var(--script);font-weight:400;font-size:clamp(64px,13vw,120px);line-height:1;text-shadow:0 0 16px rgba(255,79,216,.8),3px 4px 0 #6a1a9a}
+.hello p{color:var(--dim);margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.card{padding:20px;border-radius:18px;border:1px solid var(--line);background:rgba(20,8,36,.65)}
+.card h2{margin:0 0 4px;font-family:var(--pix);font-weight:400;font-size:32px}
+.card p{margin:0 0 14px;color:var(--dim);font-size:14px}
+.card canvas{display:block;width:100%;height:auto;border-radius:12px;background:#000}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.in{flex:1;min-width:0;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.4);font-size:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.05);cursor:pointer;font-weight:700;text-decoration:none;color:var(--ink)}
+.btn.pri{background:linear-gradient(180deg,#ff7ae3,#c21fa0);border-color:transparent;color:#fff;box-shadow:0 0 20px rgba(255,79,216,.45)}
+.sw{display:flex;gap:8px}
+.sw button{width:36px;height:36px;border-radius:50%;border:2px solid transparent;cursor:pointer}
+.sw button.on{border-color:#fff}
+.msg{grid-column:1/-1;text-align:center;padding:26px;border-radius:18px;border:1px dashed var(--line);font-family:var(--pix);font-size:24px;color:#ffd6f6}
+.msg b{display:block;font-size:40px;color:#fff;text-shadow:0 0 14px var(--pink)}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="scan" aria-hidden="true"></div>
+<a class="back" href="../">&larr; YO-OS</a>
+
+<section id="gate">
+  <div class="door" id="door">
+    <div class="dial" id="dial"><b>?</b></div>
+    <h1>THE VAULT</h1>
+    <p>Enter the 4-digit code.</p>
+    <div class="pins"><span></span><span></span><span></span><span></span></div>
+    <div class="keys" id="keys"></div>
+    <div class="hint">Lost? The Terminal knows. Try <b>cat hint.txt</b></div>
+  </div>
+</section>
+
+<section id="inside" hidden>
+  <div class="hello"><small>ACCESS GRANTED</small><h1>The Vault</h1><p>You found it. Not many people do.</p></div>
+  <div class="grid">
+    <div class="card">
+      <h2>FAN PASS</h2>
+      <p>Your personal Stereo 80 pass. Put your name on it, save it, post it.</p>
+      <canvas id="pass" width="1080" height="1350"></canvas>
+      <div class="row"><input class="in" id="pName" maxlength="18" placeholder="Your name" autocomplete="off"><button class="btn pri" type="button" id="pSave">Save</button><button class="btn" type="button" id="pShare">Share</button></div>
+    </div>
+    <div class="card">
+      <h2>WALLPAPER MACHINE</h2>
+      <p>Make a neon phone wallpaper. Every one is different.</p>
+      <canvas id="wp" width="1080" height="1920"></canvas>
+      <div class="row"><div class="sw" id="sw"></div><button class="btn" type="button" id="wNew">New</button><button class="btn pri" type="button" id="wSave">Save</button></div>
+    </div>
+    <div class="msg" id="vmsg"></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  'use strict';
+  var CODE = '1125', REL = new Date(2026, 10, 25);
+  function $(id){ return document.getElementById(id); }
+  function ls(k, v){ try{ if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
+  var AC = null;
+  function tone(f, d, type, v){ try{ AC = AC || new (window.AudioContext || window.webkitAudioContext)(); var t = AC.currentTime, o = AC.createOscillator(), g = AC.createGain(); o.type = type || 'square'; o.frequency.value = f; g.gain.setValueAtTime(v || .05, t); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + d + .02); }catch(e){} }
+
+  /* ---------- gate ---------- */
+  var entry = '', pins = document.querySelectorAll('.pins span'), keys = $('keys');
+  ['1','2','3','4','5','6','7','8','9','⌫','0','OK'].forEach(function(k){ var b = document.createElement('button'); b.type = 'button'; b.textContent = k; b.addEventListener('click', function(){ press(k); }); keys.appendChild(b); });
+  function show(){ pins.forEach(function(p, i){ p.textContent = entry[i] ? '•' : ''; }); }
+  function press(k){
+    if (k === '⌫'){ entry = entry.slice(0, -1); show(); tone(300, .05); return; }
+    if (k === 'OK'){ check(); return; }
+    if (entry.length >= 4) return; entry += k; show(); tone(600 + entry.length * 80, .05);
+    if (entry.length === 4) setTimeout(check, 180);
+  }
+  document.addEventListener('keydown', function(e){ if ($('gate').hidden) return; if (/^[0-9]$/.test(e.key)) press(e.key); else if (e.key === 'Backspace') press('⌫'); else if (e.key === 'Enter') press('OK'); });
+  function check(){
+    if (entry === CODE){ ls('yoos-vault', '1'); $('dial').style.transform = 'rotate(540deg)'; [523,659,784,1047].forEach(function(f, i){ setTimeout(function(){ tone(f, .3, 'triangle', .06); }, i * 120); }); setTimeout(openVault, 900); }
+    else { $('door').classList.remove('shake'); void $('door').offsetWidth; $('door').classList.add('shake'); tone(110, .3, 'sawtooth', .06); entry = ''; setTimeout(show, 250); }
+  }
+  function openVault(){ $('gate').hidden = true; $('inside').hidden = false; window.scrollTo(0, 0); drawPass(); drawWall(); }
+  if (ls('yoos-vault') === '1') openVault();
+
+  /* ---------- shared art: Stereo 80 waves ---------- */
+  function waves(g, W, H, seed, c1, c2, n, base, amp){
+    var r = mulberry(seed);
+    var a = r() * 3 + 3, b = r() * 2 + 1.5, ph = r() * 6;
+    for (var i = 0; i < n; i++){
+      var k = i / n; g.beginPath();
+      for (var x = -20; x <= W + 20; x += 8){
+        var u = x / W, y = base + Math.sin(u * a + ph + k * 1.6) * amp * (.35 + k * .9) * Math.sin(u * b + .6) - k * amp * .4;
+        if (x === -20) g.moveTo(x, y); else g.lineTo(x, y);
+      }
+      g.strokeStyle = mix(c1, c2, k, .15 + .55 * Math.sin(k * Math.PI)); g.lineWidth = 2; g.stroke();
+    }
+  }
+  function mulberry(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function hex(h){ return [parseInt(h.substr(1, 2), 16), parseInt(h.substr(3, 2), 16), parseInt(h.substr(5, 2), 16)]; }
+  function mix(a, b, k, al){ var x = hex(a), y = hex(b); return 'rgba(' + (x[0] + (y[0] - x[0]) * k | 0) + ',' + (x[1] + (y[1] - x[1]) * k | 0) + ',' + (x[2] + (y[2] - x[2]) * k | 0) + ',' + al + ')'; }
+  function ready(cb){ if (document.fonts && document.fonts.load){ Promise.all([document.fonts.load('80px "Mr Dafoe"'), document.fonts.load('40px VT323')]).then(cb, cb); } else cb(); }
+
+  /* ---------- fan pass ---------- */
+  var num = ls('yoos-passno'); if (!num){ num = String(1000 + Math.floor(Math.random() * 8999)); ls('yoos-passno', num); }
+  $('pName').value = ls('yoos-passname') || '';
+  function drawPass(){ ready(function(){
+    var c = $('pass'), g = c.getContext('2d'), W = c.width, H = c.height, name = ($('pName').value.trim() || 'GUEST').toUpperCase();
+    var bg = g.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, '#050a1c'); bg.addColorStop(1, '#0d1a46'); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    waves(g, W, H, +num, '#4aa3ff', '#b9dcff', 60, H * .62, 230);
+    g.strokeStyle = 'rgba(185,220,255,.6)'; g.lineWidth = 4; g.strokeRect(40, 40, W - 80, H - 80);
+    g.fillStyle = '#b9dcff'; g.font = '44px VT323, monospace'; g.textAlign = 'left'; g.fillText('YO-OS · OFFICIAL FAN PASS', 90, 140);
+    g.textAlign = 'center'; g.font = '210px "Mr Dafoe", cursive'; g.shadowColor = '#4aa3ff'; g.shadowBlur = 30; g.fillStyle = '#eaf4ff'; g.fillText('Stereo 80', W / 2, 420); g.shadowBlur = 0;
+    g.font = '52px VT323, monospace'; g.fillStyle = '#b9dcff'; g.fillText('YO AGAMI · 11.25.2026', W / 2, 500);
+    g.font = '40px VT323, monospace'; g.fillStyle = '#93a9d4'; g.fillText('THIS PASS BELONGS TO', W / 2, 1060);
+    var fs = 120; g.font = fs + 'px VT323, monospace'; while (g.measureText(name).width > W - 180 && fs > 50){ fs -= 6; g.font = fs + 'px VT323, monospace'; }
+    g.fillStyle = '#fff'; g.shadowColor = '#ff4fd8'; g.shadowBlur = 24; g.fillText(name, W / 2, 1160); g.shadowBlur = 0;
+    g.font = '46px VT323, monospace'; g.fillStyle = '#ff9ff0'; g.fillText('PASS No. ' + num, W / 2, 1240);
+  }); }
+  $('pName').addEventListener('input', function(){ ls('yoos-passname', this.value); drawPass(); });
+  function save(canvas, name){
+    canvas.toBlob(function(b){
+      if (!b) return;
+      var f = null; try{ f = new File([b], name, {type: 'image/png'}); }catch(e){}
+      if (f && navigator.canShare && navigator.canShare({files: [f]}) && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)){ navigator.share({files: [f]}).catch(function(){}); return; }
+      var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+    }, 'image/png');
+  }
+  $('pSave').addEventListener('click', function(){ save($('pass'), 'stereo80-fan-pass.png'); });
+  $('pShare').addEventListener('click', function(){
+    var t = 'I got into the Vault. Stereo 80 by Yo Agami drops 11.25.', u = 'https://agmteam.com/';
+    if (navigator.share) navigator.share({title: 'Yo Agami', text: t, url: u}).catch(function(){}); else { try{ navigator.clipboard.writeText(t + ' ' + u); alert('Link copied'); }catch(e){} }
+  });
+
+  /* ---------- wallpaper machine ---------- */
+  var THEMES = [['#4aa3ff','#b9dcff','#050a1c','#0d1a46'],['#ff4fd8','#ffc4f3','#12021e','#2a0d4a'],['#ff7a59','#ffd36b','#1a0610','#3a0d24'],['#7cf3ff','#4aa3ff','#02101a','#062a3a']];
+  var theme = 0, wseed = Math.random() * 1e9 | 0, sw = $('sw');
+  THEMES.forEach(function(t, i){ var b = document.createElement('button'); b.type = 'button'; b.style.background = t[0]; b.setAttribute('aria-label', 'Color ' + (i + 1)); b.addEventListener('click', function(){ theme = i; sw.querySelectorAll('button').forEach(function(x, j){ x.classList.toggle('on', j === i); }); drawWall(); }); sw.appendChild(b); });
+  sw.firstChild.classList.add('on');
+  function drawWall(){ ready(function(){
+    var c = $('wp'), g = c.getContext('2d'), W = c.width, H = c.height, t = THEMES[theme];
+    var bg = g.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, t[2]); bg.addColorStop(1, t[3]); g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    var r = mulberry(wseed); for (var i = 0; i < 160; i++){ g.fillStyle = 'rgba(255,255,255,' + (r() * .6) + ')'; g.fillRect(r() * W, r() * H * .5, 2, 2); }
+    waves(g, W, H, wseed, t[0], t[1], 80, H * .66, 380);
+    g.textAlign = 'center'; g.font = '64px VT323, monospace'; g.fillStyle = 'rgba(255,255,255,.55)'; g.fillText('YO AGAMI · STEREO 80', W / 2, H - 140);
+  }); }
+  $('wNew').addEventListener('click', function(){ wseed = Math.random() * 1e9 | 0; drawWall(); });
+  $('wSave').addEventListener('click', function(){ save($('wp'), 'yo-agami-wallpaper.png'); });
+
+  /* ---------- message ---------- */
+  var days = Math.ceil((REL - new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())) / 864e5);
+  $('vmsg').innerHTML = days > 0 ? '<b>' + days + (days === 1 ? ' DAY' : ' DAYS') + '</b>until the tape drops. You are early. That is the point.' : '<b>STEREO 80 IS OUT</b><a href="https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75" target="_blank" rel="noopener">Go listen.</a> You were here before everyone.';
+})();
+</script>
+</body>
+</html>
