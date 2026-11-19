@@ -402,6 +402,9 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 
 
 /* ---------- v6 ---------- */
+.ch-q{display:flex;gap:6px;padding:6px 8px 0;overflow-x:auto;scrollbar-width:none}
+.ch-q::-webkit-scrollbar{display:none}
+.ch-q button{flex:0 0 auto;padding:6px 10px;border-radius:999px;border:1px solid var(--line2);background:rgba(74,163,255,.1);cursor:pointer;font:600 12px var(--ui);white-space:nowrap}
 .yt-top{gap:12px}
 .yt-logo{color:#e00;font:800 20px var(--ui);text-decoration:none;white-space:nowrap}
 .ytF{flex:1;display:flex;max-width:460px;margin-left:auto}
@@ -1568,6 +1571,89 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     init();
   }
 
+  /* ================= AGM_bot brain ================= */
+  var MEM = {name: ls('yoos-botname') || '', topic: '', hint: {}, n: 0, last: ''};
+  function pick(a){ return a[Math.random() * a.length | 0]; }
+  function daysLeft(){ return Math.max(0, Math.ceil((dayStart(REL) - dayStart(new Date())) / 864e5)); }
+  function untilTxt(){ var ms = REL - new Date(); if (ms <= 0) return 'it is OUT. go listen.'; var s = Math.floor(ms / 1000), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60); return d + ' days, ' + h + ' hours and ' + m + ' minutes.'; }
+  function unlockedNames(){ var t = dayStart(new Date()), out = isOut(); return TRACKS.filter(function(x, i){ return out || t >= unlockDate(i); }); }
+  function norm2(q){
+    q = ' ' + q.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9א-ת?!\s]/g, ' ').replace(/\s+/g, ' ') + ' ';
+    var fix = {' u ': ' you ', ' ur ': ' your ', ' r ': ' are ', ' y ': ' why ', ' pls ': ' please ', ' plz ': ' please ', ' wat ': ' what ', ' wut ': ' what ', ' whats ': ' what is ', ' wheres ': ' where is ', ' hows ': ' how is ', ' im ': ' i am ', ' dont ': ' do not ', ' cant ': ' can not ', ' gonna ': ' going to ', ' wanna ': ' want to ', ' albm ': ' album ', ' albun ': ' album ', ' sterio ': ' stereo ', ' stero ': ' stereo ', ' realese ': ' release ', ' relese ': ' release ', ' tnx ': ' thanks ', ' thx ': ' thanks ', ' ty ': ' thanks '};
+    Object.keys(fix).forEach(function(k){ while (q.indexOf(k) >= 0) q = q.replace(k, fix[k]); });
+    return q;
+  }
+  function has(q, words){ return words.some(function(w){ return q.indexOf(w) >= 0; }); }
+  function escapeHint(){
+    var k = keys(), next = 0; for (var i = 1; i <= 4; i++){ if (!k[i]){ next = i; break; } }
+    if (ls('yoos-escaped')) return 'you already escaped. respect. escapee No. ' + ls('yoos-escaped') + '.';
+    if (!next) return 'you have all 4 pieces. open the Browser, type deep.yo, and enter the 4 numbers in order.';
+    var lv = MEM.hint[next] = Math.min(2, (MEM.hint[next] == null ? -1 : MEM.hint[next]) + 1);
+    return 'piece ' + next + ': ' + CLUES[next - 1][1][lv] + (lv < 2 ? ' (ask again for a bigger hint)' : '');
+  }
+  function agmReply(raw){
+    var q = norm2(raw), name = MEM.name ? ', ' + MEM.name : '';
+    MEM.n++;
+    var m = q.match(/ (?:my name is|i am called|call me|קוראים לי) ([a-zא-ת0-9]{2,16})/);
+    if (m && !/^(a|an|the|not|so|just|bored|fine|good|here|back|sad|happy|tired|ok)$/.test(m[1])){ MEM.name = m[1].charAt(0).toUpperCase() + m[1].slice(1); ls('yoos-botname', MEM.name); return pick(['nice to meet you, ' + MEM.name + '. i will remember that.', MEM.name + '. good name. saved.']); }
+    if (has(q, [' what is my name', ' who am i ', ' do you remember me'])) return MEM.name ? 'you are ' + MEM.name + '. i remember.' : 'you did not tell me your name yet. say "my name is ..."';
+    if (has(q, [' more ', ' another ', ' again ', ' else ', ' tell me more', ' one more'])) {
+      if (MEM.topic === 'joke') return jokes();
+      if (MEM.topic === 'escape') return escapeHint();
+      if (MEM.topic === 'tracks') return 'that is all that is unlocked so far. come back tomorrow for the next one.';
+      if (MEM.topic === 'games') return pick(['Grand Theft Audio: steal 12 cassettes, avoid the cops. Snake: eat cassettes. Mixsweeper: avoid the skip buttons.', 'NightDrive is the hardest one. tap left or right to change lanes.']);
+    }
+    var T = [
+      ['greet', [' hi ', ' hey ', ' hello ', ' yo ', ' sup ', ' hola ', ' שלום ', ' היי ', ' מה קורה ', ' wassup ', ' whats up ', ' good morning ', ' good evening '], function(){ return pick(['yo' + name + '. what do you want to know? album, games, secrets, or just talk.', 'hey' + name + '. welcome to YO-OS.', 'yo. i was waiting for someone to talk to. ' + daysLeft() + ' days until Stereo 80.']); }],
+      ['how', [' how are you', ' how r you', ' how is it going', ' how you doing', ' you good', ' מה נשמע', ' מה המצב'], function(){ return pick(['running at 80 bpm. you?', 'good. counting down to the 25th. you?', 'i am a bot, but i feel stereo. how about you?']); }],
+      ['mood+', [' i am good', ' i am fine', ' great ', ' amazing ', ' not bad ', ' good thanks'], function(){ return pick(['love that. want a game recommendation?', 'nice. stay like that until the 25th.']); }],
+      ['mood-', [' sad ', ' bored ', ' tired ', ' bad day', ' not good', ' lonely '], function(){ return pick(['that is rough. open the Arcade, try NightDrive. or make a beat in Beat.exe. it helps.', 'sorry to hear. music helps. so does Snake. trust me.']); }],
+      ['thanks', [' thanks', ' thank you', ' תודה ', ' appreciate'], function(){ return pick(['anytime' + name + '.', 'that is what i am here for.', 'no problem. tell one friend about the album.']); }],
+      ['bye', [' bye ', ' goodbye ', ' see you ', ' cya ', ' gtg ', ' good night ', ' ביי '], function(){ return pick(['later' + name + '. come back tomorrow, a new song name unlocks.', 'bye. do not skip anything.']); }],
+      ['when', [' when ', ' release ', ' date ', ' drop ', ' come out', ' coming out', ' how long', ' how many days', ' countdown', ' out yet', ' is it out', ' מתי '], function(){ return isOut() ? 'Stereo 80 is OUT. open Player or search Yo Agami on Spotify.' : 'Stereo 80 drops November 25. that is ' + untilTxt(); }],
+      ['tracks', [' song ', ' songs', ' track', ' tracklist', ' names ', ' name of the', ' what songs', ' spoiler'], function(){ var u = unlockedNames(); return isOut() ? 'all 8 are out: ' + u.join(', ') + '.' : 'no spoilers. unlocked so far (' + u.length + '/8): ' + (u.join(', ') || 'none yet') + '. a new one unlocks every day in Stereo80.app.'; }],
+      ['album', [' album', ' stereo 80', ' stereo80', ' record ', ' ep ', ' new music'], function(){ return 'Stereo 80 is the new album. 8 tracks, 80s energy, out November 25. ' + (isOut() ? 'it is out now.' : daysLeft() + ' days left. open Stereo80.app for the countdown.'); }],
+      ['genre', [' genre', ' style ', ' sound like', ' what kind of music', ' type of music', ' vibe'], function(){ return 'think neon, tape, night drives. the 80s, but now. you will hear it on the 25th.'; }],
+      ['cover', [' cover', ' artwork', ' art ', ' picture', ' image', ' blur'], function(){ return isOut() ? 'the cover is unlocked now. check Photos.' : 'the cover stays blurred until the 25th. it gets a little clearer every day.'; }],
+      ['who', [' who is yo agami', ' who is he', ' who made', ' who are you', ' who is agami', ' about him', ' the artist', ' מי זה'], function(){ return q.indexOf(' you') >= 0 && q.indexOf('agami') < 0 ? 'i am AGM_bot. i run on YO-OS. i know about the album, the games and maybe some secrets.' : 'Yo Agami is a real independent artist. he lets the music do the talking, so you will not see much of his face. AGM is his label.'; }],
+      ['face', [' face', ' what does he look', ' show him', ' photo of him', ' real name'], function(){ return 'nope. no face, no real name. just the music. that is the point.'; }],
+      ['listen', [' spotify', ' listen', ' stream', ' where can i hear', ' apple music', ' play his'], function(){ return 'open the Player app, or search Yo Agami on Spotify. follow him so Stereo 80 shows up on day one.'; }],
+      ['socials', [' instagram', ' tiktok', ' youtube', ' social', ' follow ', ' ig '], function(){ return '@itsyoagami on Instagram, TikTok and YouTube. the Socials app has all the links.'; }],
+      ['merch', [' merch', ' shirt', ' hoodie', ' buy ', ' store', ' shop'], function(){ return q.indexOf('eyo') >= 0 ? 'eYo is in the Browser. the cart works. page 2 is interesting.' : 'real merch is coming soon. follow @itsyoagami to know first. for fake stuff, try eYo in the Browser.'; }],
+      ['contact', [' contact', ' collab', ' booking', ' email', ' dm '], function(){ return 'for collabs or anything real, DM @itsyoagami on Instagram. the Contact app opens it.'; }],
+      ['games', [' game', ' games', ' play ', ' arcade', ' bored'], function(){ return 'open the Arcade folder: NightDrive, Grand Theft Audio, Snake, Mixsweeper, Beat.exe. which one do you want to know about?'; }],
+      ['nd', [' nightdrive', ' night drive', ' car game', ' racing'], function(){ return 'NightDrive: dodge traffic, grab cassettes (50 points each). phone: tap left or right side. it gets faster.'; }],
+      ['gta', [' gta', ' grand theft', ' cops', ' police'], function(){ return 'Grand Theft Audio: steal 12 cassettes in Neon City. every one adds a wanted star and more cops. follow the blue arrow.'; }],
+      ['snake', [' snake'], function(){ return 'Snake: eat the pink cassettes, do not bite yourself. swipe or arrows.'; }],
+      ['ms', [' mixsweeper', ' minesweeper', ' mines'], function(){ return 'Mixsweeper: the mines are skip buttons. numbers tell you how many are next to that square. right click to flag.'; }],
+      ['beat', [' beat', ' drum', ' make music'], function(){ return 'Beat.exe: left click adds a hit, right click removes, drag to paint. try preset A, then go wild.'; }],
+      ['escape', [' escape', ' room', ' piece', ' clue', ' puzzle', ' stuck', ' help me find', ' hint', ' door', ' deep'], function(){ return escapeHint(); }],
+      ['vault', [' vault', ' code', ' password', ' secret', ' hidden'], function(){ return pick(['i am not allowed to say the vault code. but it is a date you already know. MMDD.', 'secrets? try right-clicking the desktop. or type help in the Terminal.', 'the Terminal knows things. type ls -a.']); }],
+      ['browser', [' browser', ' yoogle', ' internet', ' website', ' sites'], function(){ return 'the Browser has its own internet: Yoogle, YoTube, WikiYo, eYo, Yostagram, Stereo80.fm. try searching "yo agami" on Yoogle.'; }],
+      ['tapey', [' tapey', ' cassette guy'], function(){ return 'Tapey is our cassette. a bit dramatic. gives good hints though.'; }],
+      ['mom', [' mom', ' mother', ' אמא'], function(){ return 'she asked me if you ate. did you?'; }],
+      ['ai', [' are you ai', ' are you real', ' are you human', ' are you a bot', ' chatgpt', ' gpt', ' robot'], function(){ return 'i am a bot. AGM built me. the music, though, is made by a real human.'; }],
+      ['love', [' i love you', ' love this', ' love the', ' best ', ' fire ', ' goat ', ' amazing site', ' cool site', ' sick '], function(){ return pick(['appreciated' + name + '. tell one friend.', 'that means a lot. share agmteam.com with someone.']); }],
+      ['hate', [' hate', ' trash', ' bad site', ' boring', ' stupid', ' dumb', ' sucks'], function(){ return pick(['harsh. try the escape room before you judge.', 'noted. have you tried DO_NOT_OPEN.exe? it is not boring.']); }],
+      ['joke', [' joke', ' funny', ' make me laugh', ' lol', ' haha', ' lmao'], function(){ return jokes(); }],
+      ['time', [' what time', ' time is it', ' what day', ' today'], function(){ var d = new Date(); return 'it is ' + two(d.getHours()) + ':' + two(d.getMinutes()) + ' on ' + d.toDateString() + '. ' + (isOut() ? '' : daysLeft() + ' days to Stereo 80.'); }],
+      ['weather', [' weather', ' forecast', ' rain '], function(){ return 'Neon City: 80 degrees, synth with a chance of bass. the Weather app has the 5-day forecast.'; }],
+      ['help', [' help', ' what can you do', ' what do you know', ' commands', ' options'], function(){ return 'ask me: when does the album drop, what songs are unlocked, which games are there, how to play one, where to listen, or "hint" if you are stuck on a puzzle.'; }],
+      ['age', [' how old', ' your age', ' born'], function(){ return 'i was installed on YO-OS. so, 1980. technically.'; }],
+      ['where', [' where are you', ' where is he from', ' where does he live', ' location'], function(){ return 'Neon City. that is all i can say.'; }],
+      ['yes', [' yes ', ' yeah ', ' yep ', ' sure ', ' ok ', ' okay ', ' כן '], function(){ return MEM.topic === 'games' ? 'go to the Arcade. start with NightDrive.' : MEM.topic === 'escape' ? escapeHint() : pick(['cool.', 'nice.', 'alright. what next?']); }],
+      ['no', [' no ', ' nope ', ' nah ', ' לא '], function(){ return pick(['fair.', 'ok. something else?', 'respect.']); }]
+    ];
+    var best = null, score = 0;
+    var SPEC = {when: 1, nd: 1, gta: 1, snake: 1, ms: 1, beat: 1, who: 1, face: 1, tracks: 1, cover: 1, escape: 1, how: 1};
+    T.forEach(function(t){ var s = 0; t[1].forEach(function(w){ if (q.indexOf(w) >= 0) s += w.trim().length; }); if (s && SPEC[t[0]]) s += 6; if (t[0] === 'greet' && s && s <= 3) s -= 1; if (s > score){ score = s; best = t; } });
+    if (best){ if (['yes','no','mood+','thanks'].indexOf(best[0]) < 0) MEM.topic = best[0] === 'joke' ? 'joke' : best[0] === 'escape' ? 'escape' : best[0] === 'tracks' ? 'tracks' : ['games','nd','gta','snake','ms','beat'].indexOf(best[0]) >= 0 ? 'games' : best[0]; var r = best[2](); if (r === MEM.last) r = r + ' (i already said that, i know.)'; MEM.last = r; return r; }
+    if (/\?\s*$/.test(raw.trim())) return pick(['good question. i only know about Yo Agami, the album, the games and YO-OS. ask me one of those.', 'not sure about that one. try: "when is the album out?" or "what games are there?"', 'that is above my pay grade. i get paid in aura.']);
+    return pick(['hmm. tell me more.', 'i am listening.', 'interesting' + name + '. want to know about the album or the games?', 'ok. ask me "help" to see what i know.']);
+  }
+  var JOKES = ['why did the cassette go to therapy? too many issues to rewind.', 'what does a skip button eat? nothing. it skips meals.', 'i told a joke about the album. you will get it on the 25th.', 'why do bots love 80s music? it is the only era older than our code.', 'a CD walks into a bar. the bartender says: we do not serve your kind. it was a cassette bar.'];
+  var jk = 0; function jokes(){ return JOKES[jk++ % JOKES.length]; }
+
   /* ---------- YoChat (messenger) ---------- */
   function buildChat(b){
     var BOTS = {
@@ -1576,7 +1662,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       mom: {name: 'Mom', st: 'away', av: '👩'}
     };
     b.innerHTML = '<div class="ch"><div class="ch-list" id="chL">' + Object.keys(BOTS).map(function(k){ var x = BOTS[k]; return '<button type="button" data-b="' + k + '"><span class="av">' + x.av + '</span><span><b>' + x.name + '</b><small class="' + x.st + '">● ' + x.st + '</small></span></button>'; }).join('') + '</div>' +
-      '<div class="ch-main"><div class="ch-head" id="chH"></div><div class="ch-log" id="chLog"></div><form class="ch-in" id="chF"><input id="chI" placeholder="Type a message" autocomplete="off"><button class="btn pri" type="submit">Send</button><button class="btn" type="button" id="chN" title="Nudge">📳</button></form></div></div>';
+      '<div class="ch-main"><div class="ch-head" id="chH"></div><div class="ch-log" id="chLog"></div><div class="ch-q" id="chQ"><button type="button">When is the album out?</button><button type="button">What songs are unlocked?</button><button type="button">What games are there?</button><button type="button">Give me a hint</button><button type="button">Tell me a joke</button></div><form class="ch-in" id="chF"><input id="chI" placeholder="Type a message" autocomplete="off"><button class="btn pri" type="submit">Send</button><button class="btn" type="button" id="chN" title="Nudge">📳</button></form></div></div>';
     var log = {agm: [], tapey: [], mom: []}, cur = 'agm', L = b.querySelector('#chLog');
     function say(who, txt){ log[who].push(['them', txt]); if (who === cur) render(); blip(1318, .06, 'triangle', .04); }
     function render(){ var x = BOTS[cur]; b.querySelector('#chH').innerHTML = '<span class="av">' + x.av + '</span><b>' + x.name + '</b>'; L.innerHTML = log[cur].map(function(m){ return '<div class="msg ' + m[0] + '">' + esc(m[1]) + '</div>'; }).join(''); L.scrollTop = 1e9; b.querySelectorAll('#chL button').forEach(function(z){ z.classList.toggle('on', z.getAttribute('data-b') === cur); }); }
@@ -1584,30 +1670,15 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       q = q.toLowerCase();
       if (who === 'mom'){ var M = ['did you eat?', 'call me back', 'are you wearing a jacket', 'who is yo agami. is that you??', 'ok', 'love you. eat something.']; return M[Math.random() * M.length | 0]; }
       if (who === 'tapey') return ['*rewinding*', 'I am a cassette. I only know one thing: November 25.', 'Have you tried right-clicking the desktop?', '*fast-forwarding*', 'The Terminal knows more than me.'][Math.random() * 5 | 0];
-      var R = [
-        [/(hi|hey|hello|yo|sup)\b/, 'yo. welcome to YO-OS.'],
-        [/(when|date|release|drop|out)/, isOut() ? 'Stereo 80 is OUT. go listen.' : 'Stereo 80 drops November 25. ' + Math.max(0, Math.ceil((dayStart(REL) - dayStart(new Date())) / 864e5)) + ' days.'],
-        [/(song|track|name|list)/, 'no spoilers. one song name unlocks every day in Stereo80.app.'],
-        [/(cover|art|picture)/, 'the cover is locked until the 25th. patience.'],
-        [/(escape|room|piece|clue|door|deep)/, 'the escape room? open Clues.txt. i can only say: four numbers, and the radio knows where the door is.'],
-        [/(vault|code|secret|hidden)/, 'i am not allowed to talk about the vault. ask the Terminal. or Tapey.'],
-        [/(who|agami|artist)/, 'Yo Agami. independent artist. the music talks, he does not.'],
-        [/(merch|shirt|hoodie)/, 'merch is coming soon. follow @itsyoagami.'],
-        [/(game|play|bored)/, 'open the Arcade. try Grand Theft Audio.'],
-        [/(spotify|listen|stream)/, 'Player app. or search Yo Agami on Spotify.'],
-        [/(joke|funny)/, 'why did the cassette go to therapy? it had too many issues to rewind.'],
-        [/(love|fan|best)/, 'appreciated. tell one friend.'],
-        [/(bot|real|human|ai)/, 'i am a bot. AGM made me. the music is made by a human though.']
-      ];
-      for (var i = 0; i < R.length; i++) if (R[i][0].test(q)) return R[i][1];
-      return ['hmm.', 'interesting. say more.', 'try asking me about the album.', 'no comment.', 'lol'][Math.random() * 5 | 0];
+      return agmReply(q);
     }
     b.querySelector('#chL').addEventListener('click', function(e){ var x = e.target.closest('[data-b]'); if (x){ cur = x.getAttribute('data-b'); render(); } });
     b.querySelector('#chF').addEventListener('submit', function(e){ e.preventDefault(); var I = b.querySelector('#chI'), v = I.value.trim(); if (!v) return; I.value = ''; log[cur].push(['me', v]); render(); var who = cur;
       setTimeout(function(){ b.querySelector('#chH').insertAdjacentHTML('beforeend', '<small class="typing"> is typing…</small>'); }, 300);
-      setTimeout(function(){ say(who, reply(who, v)); }, 900 + Math.random() * 900); });
+      var ans = reply(who, v); setTimeout(function(){ say(who, ans); }, Math.min(2600, 600 + ans.length * 18 + Math.random() * 400)); });
+    b.querySelector('#chQ').addEventListener('click', function(e){ var x = e.target.closest('button'); if (!x) return; b.querySelector('#chI').value = x.textContent; b.querySelector('#chF').requestSubmit ? b.querySelector('#chF').requestSubmit() : b.querySelector('#chF').dispatchEvent(new Event('submit', {cancelable: true})); });
     b.querySelector('#chN').addEventListener('click', function(){ var w = b.closest('.win'); w.classList.remove('nudge'); void w.offsetWidth; w.classList.add('nudge'); blip(180, .25, 'square', .06); log[cur].push(['sys', 'You sent a nudge!']); render(); setTimeout(function(){ say(cur, cur === 'mom' ? 'stop that' : 'bzzz'); }, 900); });
-    log.agm.push(['them', 'yo. ask me anything about Stereo 80.']); log.mom.push(['them', 'did you eat?']); log.tapey.push(['them', '*click* *whirr* hello.']);
+    log.agm.push(['them', MEM.name ? 'yo ' + MEM.name + ', welcome back. ask me anything.' : 'yo. i am AGM_bot. ask me anything: the album, the games, or say "hint" if you are stuck on a puzzle.']); log.mom.push(['them', 'did you eat?']); log.tapey.push(['them', '*click* *whirr* hello.']);
     render();
   }
 
