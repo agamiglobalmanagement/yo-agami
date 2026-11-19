@@ -389,6 +389,33 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 #mx,#saver{position:fixed;inset:0;z-index:90;width:100%;height:100%;transition:opacity .5s;cursor:pointer}
 .bm-row button{-webkit-user-select:none;user-select:none}
 @media (max-width:720px){.term-in input{font-size:16px}}
+
+/* ---------- v4 ---------- */
+.win.snapL,.win.snapR{top:8px!important;width:calc(50vw - 12px)!important;height:calc(100vh - var(--bar) - 16px)!important}
+.win.snapL{left:8px!important}.win.snapR{left:calc(50vw + 4px)!important}
+.app-frame,.br-frame{display:block;width:100%;height:100%;border:0;background:#000}
+.wb:has(> .app-frame){overflow:hidden}
+.br-tabs{display:flex;gap:2px;padding:6px 6px 0;background:#a9a598;overflow-x:auto;scrollbar-width:none}
+.br-tabs::-webkit-scrollbar{display:none}
+.br-tab{display:flex;align-items:center;gap:6px;max-width:180px;min-width:90px;height:30px;padding:0 6px 0 10px;border:1px solid #8d897d;border-bottom:0;border-radius:7px 7px 0 0;background:#bdb9ad;cursor:pointer;font:600 12px var(--ui);color:#222}
+.br-tab span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:left}
+.br-tab i{font-style:normal;width:18px;height:18px;border-radius:4px;display:grid;place-items:center;font-size:14px;color:#444}
+.br-tab i:hover{background:#d93a5a;color:#fff}
+.br-tab.on{background:#c9c5b9}
+.br-new{width:30px;height:30px;border:0;background:none;cursor:pointer;font:700 20px var(--ui);color:#222}
+.br-pages{flex:1;position:relative;min-height:0}
+.br-pages .br-page{position:absolute;inset:0}
+.br-page:has(> .br-frame){overflow:hidden}
+.yg-kp{text-align:left;padding:16px;border:1px solid #ccc;border-radius:10px;background:#fff;font-family:var(--ui);color:#222}
+.yg-kp-h b{display:block;font-size:22px}
+.yg-kp-h small{color:#666}
+.yg-kp p{font-size:14px;line-height:1.5}
+.yg-kp dl{margin:0;font-size:13px;display:grid;gap:4px}
+.yg-kp dl div{display:grid;grid-template-columns:90px 1fr}
+.yg-kp dt{font-weight:700}.yg-kp dd{margin:0}
+.yg-kp-l{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.yg-kp-l a{padding:6px 12px;border:1px solid #ccc;border-radius:999px;text-decoration:none;font-size:13px;color:#1a0dab}
+.fc-lock h2{margin-top:6px}
 /* ---------- v3 ---------- */
 .sn{padding:14px;display:grid;justify-items:center;gap:10px}
 .sn-top{display:flex;justify-content:space-between;width:100%;max-width:400px;font-family:var(--pix);font-size:22px;color:var(--neon-hi)}
@@ -494,6 +521,11 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var LITE = !!window.AGLITE, TG = !!window.AGTG;
   var mobile = function(){ return innerWidth <= 720; };
+  var TOP = (function(){ try{ return window.top === window; }catch(e){ return false; } })();
+  var STATE = {wins: [], browser: null};
+  try{ if (TOP){ var _st = JSON.parse(sessionStorage.getItem('yoos-state') || 'null'); if (_st) STATE = _st; } }catch(e){}
+  var RESTORE = TOP && !!(function(){ try{ return sessionStorage.getItem('yoos-state'); }catch(e){ return null; } })();
+  function saveState(){ if (!TOP) return; try{ STATE.wins = Object.keys(wins || {}).sort(function(a, b){ return (+wins[a].el.style.zIndex) - (+wins[b].el.style.zIndex); }); sessionStorage.setItem('yoos-state', JSON.stringify(STATE)); }catch(e){} }
   if (new Date() < REL) document.documentElement.classList.add('pre');
   function $(id){ return document.getElementById(id); }
   function el(tag, cls, html){ var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
@@ -560,6 +592,9 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     browser:  {name: 'Browser', icon: function(){ return I.web; }, w: 760, h: 600, build: buildBrowser},
     snake:    {name: 'Snake.exe', icon: function(){ return I.snake; }, w: 440, h: 620, build: buildSnake},
     paint:    {name: 'Paint', icon: function(){ return I.paint; }, w: 720, h: 560, build: buildPaint},
+    nightdrive: {name: 'NightDrive.exe', icon: function(){ return I.car; }, w: 480, h: 760, build: frameApp('nightdrive/')},
+    vault:    {name: '.vault', icon: function(){ return I.vault; }, w: 780, h: 720, build: frameApp('vault/')},
+    kingdom:  {name: 'kingdom.exe', icon: function(){ return I.exe; }, w: 1040, h: 720, build: frameApp('kingdom/')},
     terminal: {name: 'Terminal', icon: function(){ return I.term; }, w: 620, h: 420, build: buildTerminal},
     trash:    {name: 'Trash', icon: function(){ return I.trash; }, w: 520, h: 360, build: buildTrash}
   };
@@ -576,10 +611,10 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 
   /* ---------- window manager ---------- */
   var wins = {}, z = 20, cascade = 0, tasks = $('tasks');
-  function open(id){
+  function open(id, args){
     var a = APPS[id]; if (!a) return;
     closeMenu();
-    if (wins[id]){ wins[id].el.hidden = false; focus(id); return; }
+    if (wins[id]){ wins[id].el.hidden = false; focus(id); if (args && args.url && wins[id].goto) wins[id].goto(args.url); return; }
     var w = el('section', 'win', '');
     w.setAttribute('role', 'dialog'); w.setAttribute('aria-label', a.name);
     w.innerHTML = '<div class="tb"><span class="t">' + esc(a.name) + '</span>' +
@@ -594,7 +629,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     w.style.left = x + 'px'; w.style.top = y + 'px'; w.style.width = ww + 'px'; w.style.height = hh + 'px';
     $('wins').appendChild(w);
     var body = w.querySelector('.wb');
-    var rec = {el: w, body: body, id: id, cleanup: null};
+    var rec = {el: w, body: body, id: id, cleanup: null, args: args || null};
     wins[id] = rec;
     rec.cleanup = a.build(body, rec) || null;
     var t = el('button', '', esc(a.name)); t.type = 'button';
@@ -607,13 +642,14 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     drag(w, w.querySelector('.tb'));
     focus(id);
     setHash(id);
+    saveState();
   }
   function close(id){
     var r = wins[id]; if (!r) return;
     if (r.cleanup) try{ r.cleanup(); }catch(e){}
     r.el.classList.add('closing'); blip(330, .05);
     setTimeout(function(){ r.el.remove(); }, 140);
-    r.task.remove(); delete wins[id];
+    r.task.remove(); delete wins[id]; saveState();
     var top = topWin(); if (top) focus(top); else { syncTasks(); setHash(''); }
   }
   function topWin(){ var best = null, bz = -1; Object.keys(wins).forEach(function(k){ var r = wins[k]; if (!r.el.hidden && +r.el.style.zIndex > bz){ bz = +r.el.style.zIndex; best = k; } }); return best; }
@@ -626,6 +662,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     var sx, sy, ox, oy, on = false;
     h.addEventListener('pointerdown', function(e){
       if (mobile() || e.target.closest('button') || w.classList.contains('max')) return;
+      if (w.classList.contains('snapL') || w.classList.contains('snapR')){ w.classList.remove('snapL', 'snapR'); w.style.left = Math.max(0, e.clientX - w.offsetWidth / 2) + 'px'; }
       on = true; sx = e.clientX; sy = e.clientY; ox = w.offsetLeft; oy = w.offsetTop; h.setPointerCapture(e.pointerId); h.style.cursor = 'grabbing';
     });
     h.addEventListener('pointermove', function(e){
@@ -634,7 +671,12 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       var ny = Math.max(0, Math.min(innerHeight - 90, oy + e.clientY - sy));
       w.style.left = nx + 'px'; w.style.top = ny + 'px';
     });
-    function up(){ on = false; h.style.cursor = ''; }
+    function up(e){
+      if (on && e && e.type === 'pointerup'){
+        if (e.clientX <= 12) w.classList.add('snapL'); else if (e.clientX >= innerWidth - 12) w.classList.add('snapR'); else if (e.clientY <= 6) w.classList.add('max');
+      }
+      on = false; h.style.cursor = '';
+    }
     h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
     h.addEventListener('dblclick', function(e){ if (!e.target.closest('button') && !mobile()) w.classList.toggle('max'); });
   }
@@ -653,13 +695,13 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     if (h === 'album') return open('stereo80');
     if (APPS[h]) return open(h);
     if (h === 'faq') return open('about');
-    if (OLD[h]) { location.href = 'kingdom/#' + h; }
+    if (OLD[h]) { open('kingdom'); }
   }
   window.addEventListener('hashchange', route);
 
   /* ---------- start menu ---------- */
   var menu = $('menu'), mi = $('menuItems');
-  DESK.concat(['beat','snake']).forEach(function(id){
+  DESK.concat(['nightdrive','snake','beat']).forEach(function(id){
     var a = APPS[id], b = el('button', '', a.icon() + esc(a.name)); b.type = 'button'; b.setAttribute('role', 'menuitem');
     b.addEventListener('click', function(){ open(id); }); mi.appendChild(b);
   });
@@ -779,21 +821,22 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   }
   function buildGames(b){
     b.innerHTML = '<div class="folder">' +
-      '<a class="ico" href="nightdrive/" style="text-decoration:none">' + I.car + '<span>NightDrive<wbr>.exe</span></a>' +
+      '<button class="ico" type="button" data-o="nightdrive">' + I.car + '<span>NightDrive<wbr>.exe</span></button>' +
       '<button class="ico" type="button" data-o="snake">' + I.snake + '<span>Snake<wbr>.exe</span></button>' +
       '<button class="ico" type="button" data-o="beat">' + I.beat + '<span>Beat<wbr>.exe</span></button>' +
       '<button class="ico" type="button" data-o="paint">' + I.paint + '<span>Paint</span></button>' +
       '<button class="ico" type="button" data-o="browser">' + I.web + '<span>Browser</span></button>' +
       '<button class="ico" type="button" data-o="terminal">' + I.term + '<span>Terminal</span></button>' +
-      '<a class="ico" href="kingdom/#games" style="text-decoration:none">' + I.exe + '<span>old_arcade</span></a></div>';
+      '<button class="ico" type="button" data-o="kingdom">' + I.exe + '<span>old_arcade</span></button></div>';
     b.addEventListener('click', function(e){ var x = e.target.closest('[data-o]'); if (x) open(x.getAttribute('data-o')); });
   }
   function buildTrash(b){
     b.innerHTML = '<div class="folder">' +
-      '<a class="ico" href="kingdom/" style="text-decoration:none">' + I.exe + '<span>kingdom<wbr>.exe</span></a>' +
-      '<a class="ico" href="kingdom/" style="text-decoration:none">' + I.vhs + '<span>intro_movie<wbr>.vhs</span></a>' +
+      '<button class="ico" type="button" data-o="kingdom">' + I.exe + '<span>kingdom<wbr>.exe</span></button>' +
+      '<button class="ico" type="button" data-o="kingdom">' + I.vhs + '<span>intro_movie<wbr>.vhs</span></button>' +
       '<button class="ico" type="button" id="tTxt">' + I.txt + '<span>readme<wbr>.txt</span></button></div>' +
       '<p class="note" style="padding:0 16px 16px">Not deleted. Archived. The old Kingdom site still works in here.</p>';
+    b.addEventListener('click', function(e){ var x = e.target.closest('[data-o]'); if (x) open(x.getAttribute('data-o')); });
     b.querySelector('#tTxt').addEventListener('click', function(){ toast('', 'readme.txt', 'Before YO-OS there was the Kingdom. Some files on this computer are hidden. Try right-clicking the desktop.'); });
   }
 
@@ -925,69 +968,123 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     return function(){ if (ro) ro.disconnect(); };
   }
 
-  /* ---------- Browser (YO-NET) ---------- */
-  function buildBrowser(b){
-    b.innerHTML = '<div class="br"><div class="br-bar"><button type="button" id="brBack" aria-label="Back">◀</button><button type="button" id="brHome" aria-label="Home">⌂</button><form id="brForm"><input id="brUrl" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Address"></form><button type="button" id="brGo">GO</button></div>' +
-      '<div class="br-marks"><button type="button" data-u="yoogle.yo">Yoogle</button><button type="button" data-u="stereo80.fm">Stereo80.fm</button><button type="button" data-u="fanclub.yo">Fan Club</button><button type="button" data-u="arcade.yo">Arcade</button></div><div class="br-page sel" id="brPage"></div></div>';
-    var P = b.querySelector('#brPage'), U = b.querySelector('#brUrl'), hist = [];
+  /* ---------- Browser (YO-NET) with tabs ---------- */
+  var EXT = {
+    'spotify.com': SP, 'open.spotify.com': SP, 'instagram.com': IG, 'tiktok.com': TT, 'youtube.com': YT,
+    'instagram.com/itsyoagami': IG, 'tiktok.com/@itsyoagami': TT, 'youtube.com/@itsyoagami': YT
+  };
+  var FRAMES = {
+    'nightdrive.yo': 'nightdrive/', 'agmteam.com/nightdrive': 'nightdrive/',
+    'vault.yo': 'vault/', 'agmteam.com/vault': 'vault/',
+    'kingdom.yo': 'kingdom/', 'agmteam.com/kingdom': 'kingdom/'
+  };
+  function buildBrowser(b, rec){
+    b.innerHTML = '<div class="br"><div class="br-tabs" id="brTabs"><button type="button" class="br-new" id="brNew" aria-label="New tab">+</button></div>' +
+      '<div class="br-bar"><button type="button" id="brBack" aria-label="Back">◀</button><button type="button" id="brHome" aria-label="Home">⌂</button><form id="brForm"><input id="brUrl" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Address"></form><button type="button" id="brGo">GO</button></div>' +
+      '<div class="br-marks"><button type="button" data-u="yoogle.yo">Yoogle</button><button type="button" data-u="stereo80.fm">Stereo80.fm</button><button type="button" data-u="fanclub.yo">Fan Club</button><button type="button" data-u="arcade.yo">Arcade</button><button type="button" data-u="nightdrive.yo">NightDrive</button></div><div class="br-pages" id="brPages"></div></div>';
+    var TB = b.querySelector('#brTabs'), PG = b.querySelector('#brPages'), U = b.querySelector('#brUrl'), tabs = [], cur = null;
     function days(){ return Math.max(0, Math.ceil((dayStart(REL) - dayStart(new Date())) / 864e5)); }
     var visitors = 1000 + (Math.floor(Date.now() / 3.6e6) % 9000);
+    var KP = '<div class="yg-kp"><div class="yg-kp-h"><b>Yo Agami</b><small>Music artist</small></div><p>Yo Agami is a real, independent music artist. His new album, <b>Stereo 80</b>, comes out on November 25, 2026. He keeps the focus on the music, not his face. AGM (Agami Global Management) is his own independent label.</p>' +
+      '<dl><div><dt>New album</dt><dd>Stereo 80 · Nov 25, 2026 · 8 tracks</dd></div><div><dt>Label</dt><dd>AGM</dd></div><div><dt>Socials</dt><dd>@itsyoagami</dd></div></dl>' +
+      '<div class="yg-kp-l"><a href="' + SP + '" target="_blank" rel="noopener">Spotify</a><a href="' + IG + '" target="_blank" rel="noopener">Instagram</a><a href="' + TT + '" target="_blank" rel="noopener">TikTok</a><a href="' + YT + '" target="_blank" rel="noopener">YouTube</a></div></div>';
     var SITES = {
-      'yoogle.yo': function(){ return '<div class="yg"><div class="yg-logo"><span>Y</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div><form id="ygF"><input id="ygQ" placeholder="Search the YO-NET" autocomplete="off"></form><div class="yg-tip">Try: stereo 80, games, secret, vault, radio</div><div id="ygR"></div></div>'; },
+      'yoogle.yo': function(){ return '<div class="yg"><div class="yg-logo"><span>Y</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div><form class="ygF"><input class="ygQ" placeholder="Search the YO-NET" autocomplete="off"></form><div class="yg-tip">Try: yo agami, stereo 80, games, radio, secret</div><div class="ygR"></div></div>'; },
       'stereo80.fm': function(){ return '<div class="fm"><div class="fm-logo">STEREO80<span>.FM</span></div><div class="fm-onair">● ON AIR</div><p class="fm-now">Now playing: <b>static</b></p><div class="fm-eq">' + new Array(24).join('<i></i>') + '</div><p>The album hits the airwaves in <b>' + (isOut() ? 'NOW. IT IS OUT.' : days() + ' days') + '</b>.</p><p class="fm-dj">DJ says: "Keep this station on. On November 25 something comes through these speakers."</p></div>'; },
-      'fanclub.yo': function(){ return '<div class="fc"><marquee scrollamount="6">★ WELCOME TO THE OFFICIAL UNOFFICIAL YO AGAMI FAN CLUB ★ BEST VIEWED ON YO-OS ★</marquee><h2>Yo Agami Fan Club</h2><p>Member list: you.</p><p>Fan club rules:<br>1. No skipping.<br>2. Tell one friend.<br>3. Do not ask what is in the vault. Find it.</p><div class="fc-count">You are visitor No. <b>' + visitors + '</b></div><p class="fc-small">Guestbook opens 11.25 · Webmaster: AGM · <a href="#" data-go="under.yo">under construction</a></p></div>'; },
-      'arcade.yo': function(){ return '<div class="ar"><h2>YO-NET ARCADE</h2><p>Every game on this computer:</p><button class="btn pri" type="button" data-app="nightdrive">NightDrive</button> <button class="btn pri" type="button" data-app="snake">Snake</button> <button class="btn pri" type="button" data-app="beat">Beat</button> <button class="btn" type="button" data-app="paint">Paint</button><p style="margin-top:16px">High scores? <a href="#" data-go="scores.yo">scores.yo</a></p></div>'; },
+      'fanclub.yo': function(){
+        if (!isOut()) return '<div class="fc fc-lock"><marquee scrollamount="6">★ FAN CLUB OPENING SOON ★ FAN CLUB OPENING SOON ★</marquee><div style="font-size:64px;margin-top:20px">🔒</div><h2>Fan Club</h2><p>The doors open on release day.</p><div class="fc-count">OPENS IN <b>' + days() + (days() === 1 ? ' DAY' : ' DAYS') + '</b></div><p class="fc-small"><a href="#" data-go="under.yo">under construction</a></p></div>';
+        return '<div class="fc"><marquee scrollamount="6">★ WELCOME TO THE OFFICIAL UNOFFICIAL YO AGAMI FAN CLUB ★ BEST VIEWED ON YO-OS ★</marquee><h2>Yo Agami Fan Club</h2><p>Stereo 80 is out. Welcome in.</p><p>Fan club rules:<br>1. No skipping.<br>2. Tell one friend.<br>3. Do not ask what is in the vault. Find it.</p><div class="fc-count">You are visitor No. <b>' + visitors + '</b></div><p class="fc-small">Webmaster: AGM · <a href="#" data-go="under.yo">under construction</a></p></div>'; },
+      'arcade.yo': function(){ return '<div class="ar"><h2>YO-NET ARCADE</h2><p>Every game on this computer:</p><button class="btn pri" type="button" data-go="nightdrive.yo">NightDrive</button> <button class="btn pri" type="button" data-app="snake">Snake</button> <button class="btn pri" type="button" data-app="beat">Beat</button> <button class="btn" type="button" data-app="paint">Paint</button><p style="margin-top:16px">High scores? <a href="#" data-go="scores.yo">scores.yo</a></p></div>'; },
       'scores.yo': function(){ return '<div class="ar"><h2>YOUR HIGH SCORES</h2><p>NightDrive: <b>' + (ls('nd-best') || 0) + '</b></p><p>Snake: <b>' + (ls('yoos-snake') || 0) + '</b></p><p>Saved on this computer only.</p></div>'; },
       'under.yo': function(){ return '<div class="ar" style="text-align:center"><div style="font-size:60px">🚧</div><h2>UNDER CONSTRUCTION</h2><p>Since 1998. Probably forever.</p><p style="opacity:.15">psst. secret.yo</p></div>'; },
-      'secret.yo': function(){ return '<div class="sc"><h2>secret.yo</h2><p>Password:</p><form id="scF"><input id="scP" type="password" autocomplete="off"></form><p class="sc-h">Hint: what do you do on an empty highway at 2am? (one word, no spaces)</p><div id="scOut"></div></div>'; },
-      'vault.yo': function(){ return '<div class="ar"><h2>VAULT.YO</h2><p>The vault is not on the net. It is on this computer. Hidden.</p><p>Or <a href="vault/">walk straight in</a> if you know the code.</p></div>'; },
-      'agmteam.com': function(){ return '<div class="ar"><h2>agmteam.com</h2><p>You are already here. That is deep.</p></div>'; },
-      'kingdom.yo': function(){ return '<div class="ar"><h2>THE KINGDOM</h2><p>An ancient website. Very loud. Very gold.</p><a class="btn" href="kingdom/">Enter the Kingdom</a></div>'; }
+      'secret.yo': function(){ return '<div class="sc"><h2>secret.yo</h2><p>Password:</p><form class="scF"><input class="scP" type="password" autocomplete="off"></form><p class="sc-h">Hint: what do you do on an empty highway at 2am? (one word, no spaces)</p><div class="scOut"></div></div>'; },
+      'agmteam.com': function(){ return '<iframe class="br-frame" src="./" title="agmteam.com"></iframe>'; }
     };
     var SEARCH = [
+      ['yo agami yoagami artist who about music', 'Yo Agami · Official site', 'Real independent music artist. New album Stereo 80 out Nov 25.', 'agmteam.com'],
       ['stereo 80 album new tracks release', 'Stereo80.app', 'The new album. Out November 25.', 'app:stereo80'],
       ['radio fm stereo music listen', 'stereo80.fm', 'The station that plays it first.', 'stereo80.fm'],
-      ['games arcade play drive car snake beat', 'arcade.yo', 'Every game on YO-OS.', 'arcade.yo'],
+      ['games arcade play drive car snake beat race', 'arcade.yo', 'Every game on YO-OS.', 'arcade.yo'],
+      ['drive car race night', 'nightdrive.yo', 'Neon racing. Dodge the traffic.', 'nightdrive.yo'],
       ['fan club fans', 'fanclub.yo', 'The official unofficial fan club.', 'fanclub.yo'],
       ['secret hidden password', 'secret.yo', 'You should not be here.', 'secret.yo'],
       ['vault code safe', 'vault.yo', 'Locked. Obviously.', 'vault.yo'],
       ['king kingdom old gold', 'kingdom.yo', 'An ancient website.', 'kingdom.yo'],
-      ['yo agami artist who about', 'About.txt', 'Who is Yo Agami?', 'app:about'],
-      ['spotify listen music player', 'Player', 'Listen on Spotify.', 'app:player'],
+      ['spotify listen music', 'Yo Agami on Spotify', 'open.spotify.com', 'spotify.com'],
+      ['instagram ig socials', '@itsyoagami on Instagram', 'instagram.com', 'instagram.com'],
+      ['tiktok socials', '@itsyoagami on TikTok', 'tiktok.com', 'tiktok.com'],
+      ['youtube videos socials', '@itsyoagami on YouTube', 'youtube.com', 'youtube.com'],
       ['score high best', 'scores.yo', 'Your high scores.', 'scores.yo']
     ];
-    function go(u, push){
-      u = (u || '').trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
-      if (!u) u = 'yoogle.yo';
-      if (push !== false && U.getAttribute('data-cur')) hist.push(U.getAttribute('data-cur'));
-      U.value = 'http://www.' + u; U.setAttribute('data-cur', u);
-      if (SITES[u]) P.innerHTML = SITES[u]();
-      else if (u.indexOf('.') < 0) { return go('yoogle.yo?q=' + u, false); }
-      else if (u.indexOf('yoogle.yo?q=') === 0){ P.innerHTML = SITES['yoogle.yo'](); P.querySelector('#ygQ').value = decodeURIComponent(u.slice(12)); search(P.querySelector('#ygQ').value); }
+    function norm(u){ return (u || '').trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/+$/, ''); }
+    function title(u){ if (u.indexOf('yoogle.yo?q=') === 0) return decodeURIComponent(u.slice(12)) + ' - Yoogle'; return u; }
+    function newTab(u, activate){
+      var t = {hist: [], url: '', el: el('div', 'br-page sel', ''), btn: el('button', 'br-tab', '')};
+      t.btn.type = 'button'; t.btn.innerHTML = '<span></span><i aria-label="Close tab">×</i>';
+      t.btn.addEventListener('click', function(e){ if (e.target.tagName === 'I'){ closeTab(t); } else show(t); });
+      TB.insertBefore(t.btn, b.querySelector('#brNew')); PG.appendChild(t.el); tabs.push(t);
+      go(t, u || 'yoogle.yo', false); if (activate !== false) show(t);
+      return t;
+    }
+    function closeTab(t){
+      var i = tabs.indexOf(t); if (i < 0) return; t.btn.remove(); t.el.remove(); tabs.splice(i, 1);
+      if (!tabs.length){ close('browser'); return; }
+      if (cur === t) show(tabs[Math.max(0, i - 1)]); save();
+    }
+    function show(t){ cur = t; tabs.forEach(function(x){ x.el.hidden = x !== t; x.btn.classList.toggle('on', x === t); }); U.value = 'http://www.' + t.url; save(); }
+    function go(t, u, push){
+      u = norm(u); if (!u) u = 'yoogle.yo';
+      if (u.indexOf('.') < 0 && u.indexOf('yoogle.yo?q=') !== 0) u = 'yoogle.yo?q=' + encodeURIComponent(u);
+      if (push !== false && t.url) t.hist.push(t.url);
+      t.url = u; t.btn.querySelector('span').textContent = title(u);
+      var P = t.el;
+      if (FRAMES[u]) P.innerHTML = '<iframe class="br-frame" src="' + FRAMES[u] + '" title="' + esc(u) + '" allow="autoplay"></iframe>';
+      else if (SITES[u]) P.innerHTML = SITES[u]();
+      else if (u.indexOf('yoogle.yo?q=') === 0){ var q = decodeURIComponent(u.slice(12)); P.innerHTML = SITES['yoogle.yo'](); P.querySelector('.ygQ').value = q; search(P, q); }
+      else if (EXT[u] || /(spotify|instagram|tiktok|youtube)\./.test(u)){ var link = EXT[u] || 'https://' + u; P.innerHTML = '<div class="ar" style="text-align:center"><h2>' + esc(u) + '</h2><p>This site does not allow being opened inside another window, so it opens in a new tab.</p><a class="btn pri" href="' + link + '" target="_blank" rel="noopener">Open ' + esc(u) + ' ↗</a></div>'; }
       else P.innerHTML = '<div class="ar" style="text-align:center"><h2>404</h2><p>' + esc(u) + ' does not exist on the YO-NET. Yet.</p><p><a href="#" data-go="yoogle.yo">Back to Yoogle</a></p></div>';
-      P.scrollTop = 0; blip(1200, .03); wire();
+      P.scrollTop = 0; wire(t);
+      if (t === cur){ U.value = 'http://www.' + u; save(); }
     }
-    function search(q){
-      q = (q || '').toLowerCase(); var R = P.querySelector('#ygR'); if (!R) return;
-      var hits = SEARCH.filter(function(s){ return q.split(/\s+/).some(function(w){ return w && s[0].indexOf(w) >= 0; }); });
-      R.innerHTML = hits.length ? hits.map(function(h){ return '<a href="#" class="yg-r" data-go="' + h[3] + '"><b>' + esc(h[1]) + '</b><small>' + esc(h[2]) + '</small></a>'; }).join('') : '<p class="yg-tip">No results. Maybe try "secret".</p>';
-      wire();
+    function search(P, q){
+      var R = P.querySelector('.ygR'); if (!R) return; q = (q || '').toLowerCase().trim();
+      var words = q.split(/\s+/).filter(Boolean), compact = q.replace(/\s+/g, '');
+      var hits = SEARCH.filter(function(s){ return words.some(function(w){ return w.length > 1 && s[0].indexOf(w) >= 0; }) || (compact && s[0].replace(/\s+/g, '').indexOf(compact) >= 0); });
+      var kp = /yo|agami|agm/.test(q) ? KP : '';
+      R.innerHTML = kp + (hits.length ? hits.map(function(h){ return '<a href="#" class="yg-r" data-go="' + h[3] + '"><b>' + esc(h[1]) + '</b><small>' + esc(h[2]) + '</small></a>'; }).join('') : (kp ? '' : '<p class="yg-tip">No results. Maybe try "secret".</p>'));
     }
-    function wire(){
-      P.querySelectorAll('[data-go]').forEach(function(a){ a.onclick = function(e){ e.preventDefault(); var t = a.getAttribute('data-go'); if (t.indexOf('app:') === 0) open(t.slice(4)); else go(t); }; });
-      P.querySelectorAll('[data-app]').forEach(function(a){ a.onclick = function(){ var t = a.getAttribute('data-app'); if (t === 'nightdrive') location.href = 'nightdrive/'; else open(t); }; });
-      var f = P.querySelector('#ygF'); if (f) f.onsubmit = function(e){ e.preventDefault(); search(P.querySelector('#ygQ').value); };
-      var s = P.querySelector('#scF'); if (s) s.onsubmit = function(e){ e.preventDefault(); var v = P.querySelector('#scP').value.trim().toLowerCase().replace(/\s+/g, '');
-        if (v === 'drive' || v === 'nightdrive'){ revealHidden(); P.querySelector('#scOut').innerHTML = '<div class="sc-ok"><b>ACCESS GRANTED</b><p>The secret list:</p><p>· Right-click the desktop: Show hidden files<br>· Type agami anywhere<br>· Tap the clock 5 times<br>· ↑ ↑ ↓ ↓ ← → ← → B A<br>· Terminal: ls -a, matrix<br>· The vault code is the release date (MMDD)<br>· Do nothing for a minute</p></div>'; blip(1047, .3, 'triangle', .06); }
-        else { P.querySelector('#scOut').innerHTML = '<p style="color:#ff6b8a">Wrong.</p>'; blip(110, .3, 'sawtooth', .05); } };
+    function wire(t){
+      var P = t.el;
+      P.onclick = function(e){
+        var a = e.target.closest('[data-go]'), ap = e.target.closest('[data-app]');
+        if (a){ e.preventDefault(); var g = a.getAttribute('data-go'); if (g.indexOf('app:') === 0) open(g.slice(4)); else go(t, g); }
+        else if (ap){ open(ap.getAttribute('data-app')); }
+      };
+      P.onsubmit = function(e){
+        e.preventDefault(); var f = e.target;
+        if (f.classList.contains('ygF')){ var q = f.querySelector('.ygQ').value; go(t, 'yoogle.yo?q=' + encodeURIComponent(q)); }
+        if (f.classList.contains('scF')){
+          var v = f.querySelector('.scP').value.trim().toLowerCase().replace(/\s+/g, ''), out = P.querySelector('.scOut');
+          if (v === 'drive' || v === 'nightdrive'){ revealHidden(); out.innerHTML = '<div class="sc-ok"><b>ACCESS GRANTED</b><p>The secret list:</p><p>· Right-click the desktop: Show hidden files<br>· Type agami anywhere<br>· Tap the clock 5 times<br>· ↑ ↑ ↓ ↓ ← → ← → B A<br>· Terminal: ls -a, matrix<br>· The vault code is the release date (MMDD)<br>· Do nothing for a minute</p></div>'; blip(1047, .3, 'triangle', .06); }
+          else { out.innerHTML = '<p style="color:#ff6b8a">Wrong.</p>'; blip(110, .3, 'sawtooth', .05); }
+        }
+      };
     }
-    b.querySelector('#brForm').addEventListener('submit', function(e){ e.preventDefault(); go(U.value); });
-    b.querySelector('#brGo').addEventListener('click', function(){ go(U.value); });
-    b.querySelector('#brBack').addEventListener('click', function(){ if (hist.length) go(hist.pop(), false); });
-    b.querySelector('#brHome').addEventListener('click', function(){ go('yoogle.yo'); });
-    b.querySelectorAll('.br-marks [data-u]').forEach(function(x){ x.addEventListener('click', function(){ go(x.getAttribute('data-u')); }); });
-    go('yoogle.yo', false);
+    function save(){ STATE.browser = {tabs: tabs.map(function(x){ return x.url; }), active: tabs.indexOf(cur)}; saveState(); }
+    b.querySelector('#brForm').addEventListener('submit', function(e){ e.preventDefault(); go(cur, U.value); U.blur(); });
+    b.querySelector('#brGo').addEventListener('click', function(){ go(cur, U.value); });
+    b.querySelector('#brBack').addEventListener('click', function(){ if (cur.hist.length) go(cur, cur.hist.pop(), false); });
+    b.querySelector('#brHome').addEventListener('click', function(){ go(cur, 'yoogle.yo'); });
+    b.querySelector('#brNew').addEventListener('click', function(){ newTab('yoogle.yo'); });
+    b.querySelectorAll('.br-marks [data-u]').forEach(function(x){ x.addEventListener('click', function(){ go(cur, x.getAttribute('data-u')); }); });
+    var init = rec.args && rec.args.url ? {tabs: [rec.args.url], active: 0} : (STATE.browser && STATE.browser.tabs && STATE.browser.tabs.length ? STATE.browser : {tabs: ['yoogle.yo'], active: 0});
+    init.tabs.forEach(function(u){ newTab(u, false); });
+    show(tabs[Math.min(Math.max(0, init.active), tabs.length - 1)]);
+    rec.goto = function(u){ newTab(u); };
+    return function(){ STATE.browser = null; saveState(); };
   }
+  /* frame apps: real pages opened inside a window */
+  function frameApp(src){ return function(b){ b.innerHTML = '<iframe class="app-frame" src="' + src + '" title="' + esc(src) + '" allow="autoplay"></iframe>'; }; }
 
   /* ---------- Terminal ---------- */
   function buildTerminal(b, rec){
@@ -1016,13 +1113,14 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
         var map = {album: 'stereo80', stereo80: 'stereo80', player: 'player', browser: 'browser', paint: 'paint', snake: 'snake', welcome: 'welcome', terminal: 'terminal', nightdrive: 'nd', about: 'about', socials: 'links', links: 'links', beat: 'beat', photos: 'photos', merch: 'merch', contact: 'mail', arcade: 'games', trash: 'trash'};
         if (a === '.vault' || a === 'vault') return CMD.vault();
         if (map[a] === 'nd') return CMD.drive();
+        if (a === 'kingdom') return CMD.kingdom();
         if (map[a]){ p('Opening ' + a + '...'); open(map[a]); } else p('No app called "' + a + '". Try LS.');
       },
       date: function(){ p(new Date().toString()); },
       countdown: function(){ var ms = REL - new Date(); if (ms <= 0) return p('Stereo 80 is OUT NOW.'); var s = Math.floor(ms / 1000); p(Math.floor(s / 86400) + ' days, ' + Math.floor(s % 86400 / 3600) + ' hours, ' + Math.floor(s % 3600 / 60) + ' minutes until Stereo 80.'); },
-      drive: function(){ p('Starting engine...'); setTimeout(function(){ location.href = 'nightdrive/'; }, 600); },
-      vault: function(){ p('Opening .vault ...'); setTimeout(function(){ location.href = 'vault/'; }, 500); },
-      kingdom: function(){ p('Restoring the Kingdom from the Trash...'); setTimeout(function(){ location.href = 'kingdom/'; }, 700); },
+      drive: function(){ p('Starting engine...'); setTimeout(function(){ open('nightdrive'); }, 400); },
+      vault: function(){ p('Opening .vault ...'); setTimeout(function(){ open('vault'); }, 400); },
+      kingdom: function(){ p('Restoring the Kingdom from the Trash...'); setTimeout(function(){ open('kingdom'); }, 500); },
       matrix: function(){ p('Wake up.'); matrix(); },
       whoami: function(){ p('guest. (But the computer likes you.)'); },
       sudo: function(){ p('Permission denied. Only Yo Agami has root.'); },
@@ -1053,7 +1151,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   /* ================= SECRETS ================= */
   function ls(k, v){ try{ if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
   var HIDDEN = [
-    ['.vault', I.vault, function(){ location.href = 'vault/'; }],
+    ['.vault', I.vault, function(){ open('vault'); }],
     ['.tape', I.vhs, function(){ toast('', '.tape', 'Static... the tape is still recording. Come back after November 25.'); }],
     ['.screensaver', I.scr, function(){ saver(); }]
   ];
@@ -1190,6 +1288,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     var B = $('boot'), L = $('bootLines'), bar = $('bootBar'), timers = [], done = false;
     B.classList.remove('done'); B.style.display = ''; L.innerHTML = ''; bar.style.width = '0';
     var lines = ['AGM BIOS v1.80', 'Memory test ........ 640K OK', 'Detecting speakers .. STEREO', 'Loading YO-OS ........', 'Mounting Stereo80.app', 'Welcome back.'];
+    if (!full && (RESTORE || !TOP) && ss('yoos-booted')){ B.style.display = 'none'; afterBoot(); return; }
     var fast = !full && ss('yoos-booted');
     var step = fast ? 70 : 260;
     lines.forEach(function(t, i){ timers.push(setTimeout(function(){ L.appendChild(el('div', '', esc(t))); bar.style.width = ((i + 1) / lines.length * 100) + '%'; }, i * step)); });
@@ -1206,6 +1305,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     tickTray();
     if (booted) return; booted = true;
     var h = (location.hash || '').replace('#', '');
+    if (RESTORE){ var ws = (STATE.wins || []).slice(); ws.forEach(function(id){ if (APPS[id]) open(id); }); if (h) route(); return; }
     if (h) route(); else open('stereo80');
     var today = dayStart(new Date());
     if (!isOut()){
