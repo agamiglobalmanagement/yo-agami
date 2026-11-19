@@ -181,7 +181,8 @@
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--ui);-webkit-text-size-adjust:100%;overscroll-behavior:none}
 body{overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
-.sel,.sel *{-webkit-user-select:text;user-select:text}
+*{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea{-webkit-user-select:text;user-select:text}
 button{font:inherit;color:inherit}
 a{color:var(--neon-hi)}
 img{max-width:100%}
@@ -390,6 +391,123 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 .bm-row button{-webkit-user-select:none;user-select:none}
 @media (max-width:720px){.term-in input{font-size:16px}}
 
+
+/* ---------- v5 ---------- */
+#menu{max-height:calc(100vh - var(--bar) - 16px);max-height:calc(100dvh - var(--bar) - 16px);width:min(340px,calc(100vw - 16px))}
+#menu .items{overflow-y:auto;scrollbar-width:none;display:grid;grid-template-columns:1fr 1fr;align-content:start}
+#menu .items::-webkit-scrollbar{display:none}
+#menu .items hr{grid-column:1/-1}
+#menu button{padding:7px 8px;font-size:18px;gap:8px}
+#menu button svg,#menu button img{width:22px;height:22px}
+#menu button{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.gta{position:relative;height:100%;background:#0a0f2a}
+.gta canvas{display:block;width:100%;height:100%;touch-action:none}
+.gta-hud{position:absolute;top:8px;left:10px;right:10px;display:flex;justify-content:space-between;font-family:var(--pix);font-size:22px;text-shadow:0 0 6px #000;pointer-events:none}
+.gta-hud #gtW{color:#ffd36b}
+.gta-msg{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:8px;text-align:center;background:rgba(5,6,26,.75);padding:20px}
+.gta-msg b{font-family:Impact,"Arial Black",sans-serif;font-size:clamp(30px,6vw,52px);letter-spacing:.02em;color:#fff;text-shadow:3px 3px 0 #ff4fd8}
+.gta-msg p{margin:0;color:var(--neon-hi)}
+.gta-msg small{color:var(--dim)}
+.gta-pad{position:absolute;left:8px;right:8px;bottom:8px;display:grid;grid-template-columns:60px 60px 1fr 80px 80px;gap:8px}
+.gta-pad button{height:56px;border-radius:14px;border:1px solid var(--line);background:rgba(5,10,28,.6);font:22px var(--pix);touch-action:none}
+@media (hover:hover) and (pointer:fine){.gta-pad{display:none}}
+.ms{padding:14px;display:grid;justify-items:center;gap:10px}
+.ms-top{display:flex;gap:8px;align-items:center;font-family:var(--pix);font-size:22px}
+.ms-top .btn{min-height:36px;padding:0 12px}
+.ms-g{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:2px;width:min(360px,100%);background:#8d897d;padding:3px;border-radius:4px}
+.ms-c{aspect-ratio:1;border:2px outset #eee;background:#c9c5b9;font:700 15px var(--ui);color:#111;cursor:pointer;padding:0;display:grid;place-items:center;touch-action:manipulation}
+.ms-c.o{border:1px solid #9a968a;background:#e9e6dd}
+.ms-c.boom{background:#ff2f4f}
+.ms-c[data-n="1"]{color:#1d4fd8}.ms-c[data-n="2"]{color:#1f8a3a}.ms-c[data-n="3"]{color:#d9263a}.ms-c[data-n="4"]{color:#5b2a9a}
+.ch{display:grid;grid-template-columns:190px minmax(0,1fr);height:100%}
+.ch-list{border-right:1px solid var(--line2);padding:8px;display:grid;align-content:start;gap:4px;background:rgba(5,10,28,.5)}
+.ch-list button{display:flex;gap:10px;align-items:center;padding:8px;border:0;border-radius:8px;background:none;cursor:pointer;text-align:left}
+.ch-list button.on{background:rgba(74,163,255,.2)}
+.ch-list b{display:block;font:700 14px var(--ui)}
+.ch-list small{font-size:11px}.ch-list .online{color:#4cd964}.ch-list .away{color:#ffb347}
+.av{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;font-size:20px;flex:0 0 auto}
+.ch-main{display:flex;flex-direction:column;min-width:0}
+.ch-head{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line2)}
+.ch-head .typing{color:var(--dim);font-size:12px}
+.ch-log{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px;scrollbar-width:none}
+.ch-log::-webkit-scrollbar{display:none}
+.msg{max-width:78%;padding:8px 12px;border-radius:14px;font-size:14px;line-height:1.35}
+.msg.them{align-self:flex-start;background:rgba(255,255,255,.08)}
+.msg.me{align-self:flex-end;background:#1d4fd8}
+.msg.sys{align-self:center;font-size:12px;color:var(--pink);background:none}
+.ch-in{display:flex;gap:6px;padding:8px;border-top:1px solid var(--line2)}
+.ch-in input{flex:1;min-width:0;padding:0 12px;height:40px;border-radius:999px;border:1px solid var(--line2);background:rgba(0,0,0,.3);color:var(--ink);font:16px var(--ui)}
+.ch-in .btn{min-height:40px;padding:0 14px}
+.win.nudge{animation:nudge .4s}
+@keyframes nudge{20%,60%{transform:translate(-8px,4px)}40%,80%{transform:translate(8px,-4px)}}
+@media (max-width:720px){.ch{grid-template-columns:76px minmax(0,1fr)}.ch-list b,.ch-list small{display:none}}
+.wx{padding:22px;text-align:center}
+.wx small{font-family:var(--pix);font-size:22px;letter-spacing:.2em;color:var(--neon-hi)}
+.wx-t{font-family:var(--pix);font-size:110px;line-height:1;text-shadow:0 0 20px var(--pink)}
+.wx-f{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:16px}
+.wx-f div{padding:10px 4px;border-radius:10px;background:rgba(5,10,28,.6);border:1px solid var(--line2);display:grid;gap:4px;justify-items:center}
+.wx-f b{font-size:12px}.wx-f span{font-size:24px}.wx-f small{font-family:var(--ui);font-size:10px;letter-spacing:0;color:var(--dim)}
+.pop{position:fixed;z-index:95;width:280px;background:#c9c5b9;color:#111;border:2px outset #eee;box-shadow:4px 4px 0 rgba(0,0,0,.5);animation:winIn .12s}
+.pop-t{display:flex;justify-content:space-between;align-items:center;padding:4px 6px 4px 10px;background:linear-gradient(90deg,#b3000f,#ff4fd8);color:#fff;font:700 13px var(--ui)}
+.pop-t button{border:1px outset #eee;background:#c9c5b9;width:22px;height:20px;cursor:pointer;color:#111}
+.pop-b{padding:16px 12px;font:600 14px var(--ui)}
+#bsod{position:fixed;inset:0;z-index:120;background:#0b3fa8;color:#fff;display:grid;place-items:center;padding:30px;font-family:var(--ui);font-size:clamp(16px,2.6vw,24px);cursor:pointer}
+#bsod p{max-width:640px}
+.cfm{position:fixed;inset:0;z-index:96;display:grid;place-items:center;background:rgba(0,0,0,.4)}
+.cfm-b{width:min(380px,calc(100vw - 24px));background:var(--panel);border:1px solid var(--neon);border-radius:10px;overflow:hidden}
+.tapey{position:fixed;right:14px;bottom:calc(var(--bar) + 14px);z-index:57;display:flex;align-items:flex-end;gap:8px;max-width:min(360px,calc(100vw - 28px));animation:tIn .3s}
+.tp-face svg{width:64px;height:64px;animation:bob 1.4s ease-in-out infinite;filter:drop-shadow(0 0 10px var(--neon))}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-4deg)}}
+.tp-bub{background:#fffbe0;color:#222;border:2px solid #222;border-radius:12px;padding:10px 12px;font:14px var(--ui)}
+.tp-bub b{display:block;font-size:13px}
+.tp-bub p{margin:4px 0 8px}
+.tp-bub .btn{min-height:32px;padding:0 10px;font-size:12px;color:#222;border-color:#999;background:#fff}
+.yt{min-height:100%;background:#f9f9f9;color:#111;font-family:var(--ui)}
+.yt-top{display:flex;align-items:baseline;gap:10px;padding:10px 14px;background:#fff;border-bottom:1px solid #ddd}
+.yt-top b{color:#e00;font-size:22px}.yt-top span{font-size:12px;color:#666}
+.yt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;padding:14px}
+.yt-card{text-decoration:none;color:#111}.yt-card b{display:block;font-size:14px;margin-top:6px;color:#111}.yt-card small{color:#666;font-size:12px}
+.yt-p{aspect-ratio:16/9;border-radius:8px;overflow:hidden;position:relative;background:#000;display:grid;place-items:center;color:#fff;font:40px var(--pix)}
+.yt-static{background:repeating-radial-gradient(circle at 30% 40%,#777 0 1px,#111 1px 3px);animation:stat .2s steps(3) infinite}
+@keyframes stat{50%{background-position:3px 2px;filter:brightness(1.3)}}
+.yt-tape{background:linear-gradient(135deg,#1d4fd8,#ff4fd8)}
+.yt-drive{background:linear-gradient(#2a0d4a 50%,#05061a 50%)}
+.yt-drive i{position:absolute;bottom:20%;width:40px;height:16px;background:#ff4fd8;border-radius:4px;animation:drv 1s ease-in-out infinite alternate}
+@keyframes drv{from{transform:translateX(-50px)}to{transform:translateX(50px)}}
+.yt-count{background:#05061a;color:#ff4fd8;text-shadow:0 0 10px #ff4fd8}
+.yt-mom{background:#ffe0ec;color:#333;font-size:46px;gap:0}.yt-mom span{font:700 14px var(--ui)}
+.yt-secret{background:#000;color:#0f0}
+.yt-watch{padding:14px}.yt-p.big{font-size:70px}
+.yt-watch h3{margin:10px 0 2px}.yt-watch small{color:#666}
+.yt-com{margin:14px 0;padding-top:10px;border-top:1px solid #ddd;font-size:14px}
+.wk{padding:16px 22px;background:#fff;color:#202122;font-family:Georgia,"Times New Roman",serif;min-height:100%}
+.wk-top{display:flex;align-items:baseline;gap:10px;border-bottom:1px solid #a2a9b1;padding-bottom:6px;font-family:var(--ui)}.wk-top b{font-size:20px}.wk-top span{font-size:12px;color:#54595d}
+.wk h1{font-weight:400;font-size:30px;margin:14px 0 0;border-bottom:1px solid #a2a9b1}
+.wk h2{font-weight:400;font-size:22px;border-bottom:1px solid #a2a9b1;margin:20px 0 8px}
+.wk-from{font-size:13px;color:#54595d;margin:4px 0 12px}
+.wk-box{float:right;margin:0 0 12px 16px;border:1px solid #a2a9b1;background:#f8f9fa;font-size:13px;font-family:var(--ui);border-collapse:collapse;max-width:45%}
+.wk-box th{background:#cfe0ff;padding:6px}.wk-box td{padding:4px 8px;border-top:1px solid #eaecf0;vertical-align:top}
+@media (max-width:720px){.wk-box{float:none;margin:0 0 12px;max-width:100%}}
+.ey{min-height:100%;background:#fff;color:#111;font-family:var(--ui)}
+.ey-top{display:flex;gap:14px;align-items:center;padding:12px 14px;border-bottom:1px solid #ddd}
+.ey-top b{font-size:30px;letter-spacing:-1px}.ey-top b span:nth-child(1){color:#e53238}.ey-top b span:nth-child(2){color:#0064d2}.ey-top b span:nth-child(3){color:#f5af02}
+.ey-top input{flex:1;min-width:0;height:36px;border:2px solid #111;border-radius:999px;padding:0 12px}
+.ey-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;padding:14px}
+.ey-i{border:1px solid #ddd;border-radius:10px;padding:12px;display:grid;gap:4px}
+.ey-p{font-size:20px;font-weight:800}.ey-i small{color:#666}
+.ey-i .btn{color:#111;border-color:#bbb;min-height:36px;margin-top:6px}
+.ig{min-height:100%;background:#fff;color:#111;font-family:var(--ui)}
+.ig-top{padding:10px 14px;border-bottom:1px solid #ddd}.ig-top b{font-family:var(--script);font-size:32px;font-weight:400}
+.ig-pro{display:flex;gap:16px;align-items:center;padding:16px}
+.ig-av{width:72px;height:72px;border-radius:50%;background:conic-gradient(#f9a03f,#e1306c,#833ab4,#f9a03f);display:grid;place-items:center;color:#fff;font:800 22px var(--ui);flex:0 0 auto}
+.ig-pro b{display:block;font-size:18px}.ig-pro small{display:block;color:#555;margin:2px 0 8px}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.ig-post{position:relative;aspect-ratio:1;border:0;padding:0;cursor:pointer;background:radial-gradient(circle at 30% 30%,var(--c),#05061a 80%);overflow:hidden}
+.ig-post i{position:absolute;inset:0;background:repeating-linear-gradient(160deg,transparent 0 10px,rgba(255,255,255,.08) 10px 12px)}
+.ig-post span{position:absolute;left:6px;bottom:6px;color:#fff;font:700 12px var(--ui);text-shadow:0 1px 3px #000}
+.ig-post.liked::after{content:"♥";position:absolute;inset:0;display:grid;place-items:center;font-size:70px;color:#fff;animation:heart .8s ease-out forwards}
+@keyframes heart{0%{transform:scale(.2);opacity:0}30%{transform:scale(1.2);opacity:1}100%{transform:scale(1);opacity:0}}
+.ig-n{text-align:center;color:#888;font-size:12px}
 /* ---------- v4 ---------- */
 .win.snapL,.win.snapR{top:8px!important;width:calc(50vw - 12px)!important;height:calc(100vh - var(--bar) - 16px)!important}
 .win.snapL{left:8px!important}.win.snapR{left:calc(50vw + 4px)!important}
@@ -563,6 +681,11 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     exe: '<svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="36" rx="3" fill="#2a1a05" stroke="#e2b24a" stroke-width="2"/><rect x="4" y="6" width="40" height="8" fill="#e2b24a"/><path d="M12 36l4-14 6 7 2-11 2 11 6-7 4 14z" fill="#e2b24a"/></svg>',
     vhs: '<svg viewBox="0 0 48 48"><rect x="3" y="12" width="42" height="24" rx="3" fill="#111"/><rect x="8" y="17" width="32" height="10" rx="2" fill="#333"/><circle cx="16" cy="22" r="3" fill="#eee"/><circle cx="32" cy="22" r="3" fill="#eee"/><rect x="10" y="29" width="28" height="4" fill="#f4efe2"/></svg>',
     car: '<svg viewBox="0 0 48 48"><rect x="2" y="2" width="44" height="44" rx="8" fill="#2a0d4a"/><circle cx="24" cy="18" r="9" fill="#ff7a59"/><path d="M2 26h44v20H2z" fill="#05061a"/><path d="M10 36l4-6h20l4 6v5H10z" fill="#ff4fd8"/><circle cx="16" cy="41" r="3" fill="#111"/><circle cx="32" cy="41" r="3" fill="#111"/><rect x="11" y="34" width="5" height="2" fill="#fff"/><rect x="32" y="34" width="5" height="2" fill="#fff"/></svg>',
+    gta: '<svg viewBox="0 0 48 48"><rect x="2" y="2" width="44" height="44" rx="6" fill="#0a0f2a" stroke="#ffb347" stroke-width="2"/><text x="24" y="22" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="13" fill="#fff">GRAND</text><text x="24" y="34" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="9" fill="#ffb347">THEFT AUDIO</text><path d="M10 40h28" stroke="#ff4fd8" stroke-width="2"/></svg>',
+    mine: '<svg viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="4" fill="#c9c5b9"/><g fill="#8d897d"><rect x="6" y="6" width="11" height="11"/><rect x="31" y="6" width="11" height="11"/><rect x="6" y="31" width="11" height="11"/></g><circle cx="24" cy="24" r="9" fill="#05061a"/><path d="M21 20v8l6-4z" fill="#fff"/><rect x="27" y="20" width="2" height="8" fill="#fff"/></svg>',
+    chat: '<svg viewBox="0 0 48 48"><circle cx="18" cy="16" r="7" fill="#4cd964"/><path d="M6 38c0-8 5-13 12-13s12 5 12 13z" fill="#4cd964"/><circle cx="32" cy="18" r="6" fill="#4aa3ff"/><path d="M22 40c0-7 4-11 10-11s10 4 10 11z" fill="#4aa3ff"/></svg>',
+    wx: '<svg viewBox="0 0 48 48"><circle cx="20" cy="18" r="9" fill="#ffb347"/><path d="M14 38h22a7 7 0 0 0 0-14 10 10 0 0 0-19 3 6 6 0 0 0-3 11z" fill="#b9dcff"/><path d="M18 42l-2 4M26 42l-2 4M34 42l-2 4" stroke="#ff4fd8" stroke-width="2"/></svg>',
+    warn: '<svg viewBox="0 0 48 48"><path d="M24 4l21 38H3z" fill="#ffd36b" stroke="#ff2f4f" stroke-width="2"/><rect x="22" y="16" width="4" height="14" fill="#05061a"/><rect x="22" y="33" width="4" height="4" fill="#05061a"/></svg>',
     web: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="#0d2a7a" stroke="#7cf3ff" stroke-width="2"/><ellipse cx="24" cy="24" rx="8" ry="19" fill="none" stroke="#7cf3ff" stroke-width="2"/><path d="M5 24h38M8 14h32M8 34h32" stroke="#7cf3ff" stroke-width="2"/><path d="M30 30l12 6-5 2-2 5z" fill="#ff4fd8" stroke="#fff" stroke-width="1"/></svg>',
     snake: '<svg viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="8" fill="#050a1c" stroke="#4aa3ff" stroke-width="2"/><path d="M10 34h10V22h12v-8h6" fill="none" stroke="#4aa3ff" stroke-width="6" stroke-linejoin="round"/><rect x="34" y="30" width="9" height="6" rx="1" fill="#ff4fd8"/></svg>',
     paint: '<svg viewBox="0 0 48 48"><path d="M24 4C12 4 4 12 4 22c0 9 7 14 13 12 3-1 3 3 5 5 3 3 9 2 14-2 6-5 8-13 4-20S31 4 24 4z" fill="#eaf4ff"/><circle cx="14" cy="18" r="4" fill="#ff4fd8"/><circle cx="24" cy="12" r="4" fill="#4aa3ff"/><circle cx="34" cy="17" r="4" fill="#ffb347"/><circle cx="35" cy="28" r="4" fill="#4cd964"/></svg>',
@@ -587,7 +710,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     photos:   {name: 'Photos', icon: function(){ return I.photos; }, w: 560, h: 460, build: buildPhotos},
     merch:    {name: 'Merch', icon: function(){ return I.merch; }, w: 420, h: 320, build: buildMerch},
     mail:     {name: 'Contact', icon: function(){ return I.mail; }, w: 420, h: 330, build: buildMail},
-    games:    {name: 'Arcade', icon: function(){ return I.games; }, w: 560, h: 380, build: buildGames},
+    games:    {name: 'Arcade', icon: function(){ return I.games; }, w: 600, h: 440, build: buildGames},
     welcome:  {name: 'Welcome.txt', icon: function(){ return I.txt; }, w: 520, h: 560, build: buildWelcome},
     browser:  {name: 'Browser', icon: function(){ return I.web; }, w: 760, h: 600, build: buildBrowser},
     snake:    {name: 'Snake.exe', icon: function(){ return I.snake; }, w: 440, h: 620, build: buildSnake},
@@ -595,15 +718,20 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     nightdrive: {name: 'NightDrive.exe', icon: function(){ return I.car; }, w: 480, h: 760, build: frameApp('nightdrive/')},
     vault:    {name: '.vault', icon: function(){ return I.vault; }, w: 780, h: 720, build: frameApp('vault/')},
     kingdom:  {name: 'kingdom.exe', icon: function(){ return I.exe; }, w: 1040, h: 720, build: frameApp('kingdom/')},
+    gta:      {name: 'GrandTheftAudio.exe', icon: function(){ return I.gta; }, w: 760, h: 600, build: buildGTA},
+    sweeper:  {name: 'Mixsweeper.exe', icon: function(){ return I.mine; }, w: 420, h: 560, build: buildSweeper},
+    chat:     {name: 'YoChat', icon: function(){ return I.chat; }, w: 640, h: 500, build: buildChat},
+    weather:  {name: 'Weather', icon: function(){ return I.wx; }, w: 440, h: 420, build: buildWeather},
+    donotopen:{name: 'DO_NOT_OPEN.exe', icon: function(){ return I.warn; }, action: function(){ chaos(); }},
     terminal: {name: 'Terminal', icon: function(){ return I.term; }, w: 620, h: 420, build: buildTerminal},
     trash:    {name: 'Trash', icon: function(){ return I.trash; }, w: 520, h: 360, build: buildTrash}
   };
-  var DESK = ['stereo80','welcome','player','browser','about','links','games','terminal','paint','photos','merch','mail','trash'];
+  var DESK = ['stereo80','welcome','player','browser','chat','about','links','games','terminal','paint','weather','photos','merch','mail','donotopen','trash'];
 
   /* ---------- desktop ---------- */
   var desk = $('desk');
   DESK.forEach(function(id){
-    var a = APPS[id], b = el('button', 'ico', a.icon() + '<span>' + esc(a.name).replace('.', '<wbr>.') + '</span>');
+    var a = APPS[id], b = el('button', 'ico', a.icon() + '<span>' + esc(a.name).replace('.', '<wbr>.').replace(/_/g, '_<wbr>') + '</span>');
     b.type = 'button'; b.setAttribute('data-app', id); b.setAttribute('aria-label', 'Open ' + a.name);
     b.addEventListener('click', function(){ blip(880, .04); open(id); });
     desk.appendChild(b);
@@ -614,6 +742,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   function open(id, args){
     var a = APPS[id]; if (!a) return;
     closeMenu();
+    if (a.action){ a.action(); return; }
     if (wins[id]){ wins[id].el.hidden = false; focus(id); if (args && args.url && wins[id].goto) wins[id].goto(args.url); return; }
     var w = el('section', 'win', '');
     w.setAttribute('role', 'dialog'); w.setAttribute('aria-label', a.name);
@@ -701,7 +830,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 
   /* ---------- start menu ---------- */
   var menu = $('menu'), mi = $('menuItems');
-  DESK.concat(['nightdrive','snake','beat']).forEach(function(id){
+  DESK.concat(['nightdrive','gta','snake','sweeper','beat']).forEach(function(id){
     var a = APPS[id], b = el('button', '', a.icon() + esc(a.name)); b.type = 'button'; b.setAttribute('role', 'menuitem');
     b.addEventListener('click', function(){ open(id); }); mi.appendChild(b);
   });
@@ -822,7 +951,9 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   function buildGames(b){
     b.innerHTML = '<div class="folder">' +
       '<button class="ico" type="button" data-o="nightdrive">' + I.car + '<span>NightDrive<wbr>.exe</span></button>' +
+      '<button class="ico" type="button" data-o="gta">' + I.gta + '<span>Grand<wbr>Theft<wbr>Audio</span></button>' +
       '<button class="ico" type="button" data-o="snake">' + I.snake + '<span>Snake<wbr>.exe</span></button>' +
+      '<button class="ico" type="button" data-o="sweeper">' + I.mine + '<span>Mix<wbr>sweeper</span></button>' +
       '<button class="ico" type="button" data-o="beat">' + I.beat + '<span>Beat<wbr>.exe</span></button>' +
       '<button class="ico" type="button" data-o="paint">' + I.paint + '<span>Paint</span></button>' +
       '<button class="ico" type="button" data-o="browser">' + I.web + '<span>Browser</span></button>' +
@@ -908,7 +1039,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       '<h1>WELCOME TO YO-OS</h1>' +
       '<p>This computer belongs to Yo Agami. Look around.</p>' +
       '<p>APPS<br>· Stereo80.app : the new album, out Nov 25<br>· Player : listen on Spotify<br>· Browser : surf the YO-NET<br>· Paint : draw something, save it</p>' +
-      '<p>GAMES (open the Arcade folder)<br>· NightDrive : neon racing<br>· Snake : eat the cassettes<br>· Beat : make a drum beat</p>' +
+      '<p>GAMES (open the Arcade folder)<br>· NightDrive : neon racing<br>· Grand Theft Audio : steal the cassettes<br>· Snake : eat the cassettes<br>· Mixsweeper : avoid the skip buttons<br>· Beat : make a drum beat</p><p>MORE<br>· YoChat : talk to AGM_bot, Tapey and Mom<br>· Weather : the forecast in Neon City<br>· DO_NOT_OPEN.exe : do not open</p>' +
       '<p>SECRETS<br>· This computer has hidden files.<br>· Right-click (or long-press) the desktop.<br>· The Terminal knows things. Type help.<br>· The Browser has sites nobody talks about.<br>· Leave the computer alone for a minute.</p></div>';
   }
 
@@ -981,7 +1112,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   function buildBrowser(b, rec){
     b.innerHTML = '<div class="br"><div class="br-tabs" id="brTabs"><button type="button" class="br-new" id="brNew" aria-label="New tab">+</button></div>' +
       '<div class="br-bar"><button type="button" id="brBack" aria-label="Back">◀</button><button type="button" id="brHome" aria-label="Home">⌂</button><form id="brForm"><input id="brUrl" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Address"></form><button type="button" id="brGo">GO</button></div>' +
-      '<div class="br-marks"><button type="button" data-u="yoogle.yo">Yoogle</button><button type="button" data-u="stereo80.fm">Stereo80.fm</button><button type="button" data-u="fanclub.yo">Fan Club</button><button type="button" data-u="arcade.yo">Arcade</button><button type="button" data-u="nightdrive.yo">NightDrive</button></div><div class="br-pages" id="brPages"></div></div>';
+      '<div class="br-marks"><button type="button" data-u="yoogle.yo">Yoogle</button><button type="button" data-u="stereo80.fm">Stereo80.fm</button><button type="button" data-u="fanclub.yo">Fan Club</button><button type="button" data-u="arcade.yo">Arcade</button><button type="button" data-u="nightdrive.yo">NightDrive</button><button type="button" data-u="yotube.yo">YoTube</button><button type="button" data-u="wikiyo.yo">WikiYo</button><button type="button" data-u="eyo.yo">eYo</button><button type="button" data-u="yostagram.yo">Yostagram</button></div><div class="br-pages" id="brPages"></div></div>';
     var TB = b.querySelector('#brTabs'), PG = b.querySelector('#brPages'), U = b.querySelector('#brUrl'), tabs = [], cur = null;
     function days(){ return Math.max(0, Math.ceil((dayStart(REL) - dayStart(new Date())) / 864e5)); }
     var visitors = 1000 + (Math.floor(Date.now() / 3.6e6) % 9000);
@@ -989,7 +1120,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       '<dl><div><dt>New album</dt><dd>Stereo 80 · Nov 25, 2026 · 8 tracks</dd></div><div><dt>Label</dt><dd>AGM</dd></div><div><dt>Socials</dt><dd>@itsyoagami</dd></div></dl>' +
       '<div class="yg-kp-l"><a href="' + SP + '" target="_blank" rel="noopener">Spotify</a><a href="' + IG + '" target="_blank" rel="noopener">Instagram</a><a href="' + TT + '" target="_blank" rel="noopener">TikTok</a><a href="' + YT + '" target="_blank" rel="noopener">YouTube</a></div></div>';
     var SITES = {
-      'yoogle.yo': function(){ return '<div class="yg"><div class="yg-logo"><span>Y</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div><form class="ygF"><input class="ygQ" placeholder="Search the YO-NET" autocomplete="off"></form><div class="yg-tip">Try: yo agami, stereo 80, games, radio, secret</div><div class="ygR"></div></div>'; },
+      'yoogle.yo': function(){ return '<div class="yg"><div class="yg-logo"><span>Y</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div><form class="ygF"><input class="ygQ" placeholder="Search the YO-NET" autocomplete="off"></form><div class="yg-tip">Try: yo agami, stereo 80, games, videos, wiki, shop, secret</div><div class="ygR"></div></div>'; },
       'stereo80.fm': function(){ return '<div class="fm"><div class="fm-logo">STEREO80<span>.FM</span></div><div class="fm-onair">● ON AIR</div><p class="fm-now">Now playing: <b>static</b></p><div class="fm-eq">' + new Array(24).join('<i></i>') + '</div><p>The album hits the airwaves in <b>' + (isOut() ? 'NOW. IT IS OUT.' : days() + ' days') + '</b>.</p><p class="fm-dj">DJ says: "Keep this station on. On November 25 something comes through these speakers."</p></div>'; },
       'fanclub.yo': function(){
         if (!isOut()) return '<div class="fc fc-lock"><marquee scrollamount="6">★ FAN CLUB OPENING SOON ★ FAN CLUB OPENING SOON ★</marquee><div style="font-size:64px;margin-top:20px">🔒</div><h2>Fan Club</h2><p>The doors open on release day.</p><div class="fc-count">OPENS IN <b>' + days() + (days() === 1 ? ' DAY' : ' DAYS') + '</b></div><p class="fc-small"><a href="#" data-go="under.yo">under construction</a></p></div>';
@@ -1000,6 +1131,36 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       'secret.yo': function(){ return '<div class="sc"><h2>secret.yo</h2><p>Password:</p><form class="scF"><input class="scP" type="password" autocomplete="off"></form><p class="sc-h">Hint: what do you do on an empty highway at 2am? (one word, no spaces)</p><div class="scOut"></div></div>'; },
       'agmteam.com': function(){ return '<iframe class="br-frame" src="./" title="agmteam.com"></iframe>'; }
     };
+    var VIDS = [
+      ['10 HOURS OF TAPE HISS (relaxing)', '1.2M views', 'static', ['finally something to sleep to', 'i fell asleep at hour 3, woke up at hour 9, still hiss', 'this is my favorite song']],
+      ['unboxing a cassette (emotional)', '84K views', 'tape', ['i cried at 2:14', 'the click when it opens. chef kiss', 'he did not even play it']],
+      ['NightDrive world record attempt (NOT CLICKBAIT)', '402K views', 'drive', ['he crashed in 4 seconds', 'my record is higher', 'the music in the background tho']],
+      ['I found a secret file on YO-OS', '2.6M views', 'secret', ['HOW', 'right click the desktop guys', 'the screensaver one is crazy']],
+      ['Stereo 80 countdown LIVE', 'LIVE · 3K watching', 'count', ['day ' + (Math.max(0, Math.ceil((REL - new Date()) / 864e5))) + ' of waiting', 'first', 'who else is here before it drops']],
+      ['Mom reacts to YO-OS', '19K views', 'mom', ['"did you eat?"', 'she asked who Yo Agami is', 'legend']]
+    ];
+    function vidArt(k){
+      if (k === 'static') return '<div class="yt-p yt-static"></div>';
+      if (k === 'drive') return '<div class="yt-p yt-drive"><i></i></div>';
+      if (k === 'count') return '<div class="yt-p yt-count">' + (isOut() ? 'OUT NOW' : Math.max(0, Math.ceil((REL - new Date()) / 864e5)) + ' DAYS') + '</div>';
+      if (k === 'mom') return '<div class="yt-p yt-mom">👩‍🦳<span>"did you eat?"</span></div>';
+      if (k === 'secret') return '<div class="yt-p yt-secret">.vault</div>';
+      return '<div class="yt-p yt-tape">📼</div>';
+    }
+    SITES['yotube.yo'] = function(){ return '<div class="yt"><div class="yt-top"><b>▶ YoTube</b><span>Broadcast Yourself (but faceless)</span></div><div class="yt-grid">' + VIDS.map(function(v, i){ return '<a href="#" class="yt-card" data-go="yotube.yo/watch?v=' + i + '">' + vidArt(v[2]) + '<b>' + esc(v[0]) + '</b><small>' + esc(v[1]) + '</small></a>'; }).join('') + '</div></div>'; };
+    SITES['wikiyo.yo'] = function(){ return '<div class="wk"><div class="wk-top"><b>WikiYo</b><span>The free encyclopedia that anyone can not edit</span></div><h1>Yo Agami</h1><p class="wk-from">From WikiYo, the free encyclopedia</p>' +
+      '<table class="wk-box"><tr><th colspan="2">Yo Agami</th></tr><tr><td>Occupation</td><td>Music artist</td></tr><tr><td>Label</td><td>AGM (Agami Global Management)</td></tr><tr><td>New album</td><td>Stereo 80 (2026)</td></tr><tr><td>Face</td><td>[citation needed]</td></tr><tr><td>Website</td><td>agmteam.com</td></tr></table>' +
+      '<p><b>Yo Agami</b> is a real, independent music artist. He is known for keeping the focus on his music instead of his face, and for running a website that is a whole computer.</p>' +
+      '<h2>Stereo 80</h2><p>His new album, <i>Stereo 80</i>, comes out on November 25, 2026. It has 8 tracks. The names are being revealed one per day, which has caused at least one person to refresh a website more than necessary.<sup>[1]</sup></p>' +
+      '<h2>YO-OS</h2><p>His official website runs an operating system called YO-OS. Researchers believe it contains secret files. The exact number is unknown.<sup>[citation needed]</sup></p>' +
+      '<h2>Trivia</h2><ul><li>He has never skipped a song. (Unconfirmed.)</li><li>The previous version of his website was a kingdom. It is now in the Trash.</li><li>A cassette named Tapey works for him.</li></ul>' +
+      '<h2>References</h2><ol class="wk-ref"><li>Trust me.</li></ol></div>'; };
+    SITES['eyo.yo'] = function(){
+      var IT = [['Used skip button', '$0.01', 'Never used. Nobody wanted it.', 'SOLD OUT'], ['Stereo 80 (the album)', 'FREE', 'Streaming on November 25.', 'COMING 11.25'], ['1 kg of aura', '$999', 'Pure. Handpicked.', 'ADD TO CART'], ['Cassette rewinder (a pencil)', '$40', 'Vintage tech.', 'ADD TO CART'], ['Yo Agami merch', '???', 'Coming soon. Follow @itsyoagami.', 'SOON'], ['Extra time until the 25th', '$0', 'Not for sale.', 'UNAVAILABLE']];
+      return '<div class="ey"><div class="ey-top"><b><span>e</span><span>Y</span><span>o</span></b><input placeholder="Search for anything (not the album)" disabled></div><div class="ey-grid">' + IT.map(function(x){ return '<div class="ey-i"><b>' + esc(x[0]) + '</b><span class="ey-p">' + x[1] + '</span><small>' + esc(x[2]) + '</small><button type="button" class="btn" data-cart="' + esc(x[3]) + '">' + x[3] + '</button></div>'; }).join('') + '</div></div>'; };
+    SITES['yostagram.yo'] = function(){
+      var H = ['#4aa3ff','#ff4fd8','#ffb347','#7cf3ff','#b9dcff','#ff7a59','#4cd964','#c21fa0','#1d4fd8'];
+      return '<div class="ig"><div class="ig-top"><b>Yostagram</b></div><div class="ig-pro"><div class="ig-av">YO</div><div><b>itsyoagami</b><small>Yo Agami · artist · Stereo 80 out 11.25</small><a class="btn pri" href="' + IG + '" target="_blank" rel="noopener">Follow on the real one ↗</a></div></div><div class="ig-grid">' + H.map(function(c, i){ return '<button type="button" class="ig-post" style="--c:' + c + '" aria-label="Post ' + (i + 1) + '"><i></i><span>♥ ' + (i * 37 + 80) + '</span></button>'; }).join('') + '</div><p class="ig-n">Double tap a post. Faces not included.</p></div>'; };
     var SEARCH = [
       ['yo agami yoagami artist who about music', 'Yo Agami · Official site', 'Real independent music artist. New album Stereo 80 out Nov 25.', 'agmteam.com'],
       ['stereo 80 album new tracks release', 'Stereo80.app', 'The new album. Out November 25.', 'app:stereo80'],
@@ -1014,7 +1175,11 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       ['instagram ig socials', '@itsyoagami on Instagram', 'instagram.com', 'instagram.com'],
       ['tiktok socials', '@itsyoagami on TikTok', 'tiktok.com', 'tiktok.com'],
       ['youtube videos socials', '@itsyoagami on YouTube', 'youtube.com', 'youtube.com'],
-      ['score high best', 'scores.yo', 'Your high scores.', 'scores.yo']
+      ['score high best', 'scores.yo', 'Your high scores.', 'scores.yo'],
+      ['video videos watch yotube tube', 'YoTube', 'Broadcast yourself (but faceless).', 'yotube.yo'],
+      ['wiki wikipedia encyclopedia yo agami who', 'Yo Agami - WikiYo', 'The free encyclopedia that anyone can not edit.', 'wikiyo.yo'],
+      ['shop buy store merch ebay', 'eYo', 'Buy things you do not need.', 'eyo.yo'],
+      ['instagram yostagram photos posts', 'Yostagram', '@itsyoagami (parody edition).', 'yostagram.yo']
     ];
     function norm(u){ return (u || '').trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/+$/, ''); }
     function title(u){ if (u.indexOf('yoogle.yo?q=') === 0) return decodeURIComponent(u.slice(12)) + ' - Yoogle'; return u; }
@@ -1041,6 +1206,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       if (FRAMES[u]) P.innerHTML = '<iframe class="br-frame" src="' + FRAMES[u] + '" title="' + esc(u) + '" allow="autoplay"></iframe>';
       else if (SITES[u]) P.innerHTML = SITES[u]();
       else if (u.indexOf('yoogle.yo?q=') === 0){ var q = decodeURIComponent(u.slice(12)); P.innerHTML = SITES['yoogle.yo'](); P.querySelector('.ygQ').value = q; search(P, q); }
+      else if (u.indexOf('yotube.yo/watch?v=') === 0){ var v = VIDS[+u.split('=')[1]] || VIDS[0]; P.innerHTML = '<div class="yt"><div class="yt-top"><b>▶ YoTube</b><span>Broadcast Yourself (but faceless)</span></div><div class="yt-watch">' + vidArt(v[2]).replace('yt-p', 'yt-p big') + '<h3>' + esc(v[0]) + '</h3><small>' + esc(v[1]) + ' · 👍 ' + (v[0].length * 97) + '</small><div class="yt-com"><b>Comments</b>' + v[3].map(function(cm, i){ return '<p><b>@user' + (i * 341 + 17) + '</b> ' + esc(cm) + '</p>'; }).join('') + '</div><a href="#" data-go="yotube.yo">← more videos</a></div></div>'; if (v[2] === 'secret') revealHidden(); }
       else if (EXT[u] || /(spotify|instagram|tiktok|youtube)\./.test(u)){ var link = EXT[u] || 'https://' + u; P.innerHTML = '<div class="ar" style="text-align:center"><h2>' + esc(u) + '</h2><p>This site does not allow being opened inside another window, so it opens in a new tab.</p><a class="btn pri" href="' + link + '" target="_blank" rel="noopener">Open ' + esc(u) + ' ↗</a></div>'; }
       else P.innerHTML = '<div class="ar" style="text-align:center"><h2>404</h2><p>' + esc(u) + ' does not exist on the YO-NET. Yet.</p><p><a href="#" data-go="yoogle.yo">Back to Yoogle</a></p></div>';
       P.scrollTop = 0; wire(t);
@@ -1059,6 +1225,8 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
         var a = e.target.closest('[data-go]'), ap = e.target.closest('[data-app]');
         if (a){ e.preventDefault(); var g = a.getAttribute('data-go'); if (g.indexOf('app:') === 0) open(g.slice(4)); else go(t, g); }
         else if (ap){ open(ap.getAttribute('data-app')); }
+        var ct = e.target.closest('[data-cart]'); if (ct){ var w = ct.getAttribute('data-cart'); toast('', 'eYo', w === 'ADD TO CART' ? 'Added. The cart is decorative.' : w === 'SOLD OUT' ? 'Sold out. Somehow.' : 'Not yet. ' + (isOut() ? '' : 'November 25.')); }
+        var po = e.target.closest('.ig-post'); if (po){ var nw = Date.now(); if (nw - (po._t || 0) < 350){ po.classList.remove('liked'); void po.offsetWidth; po.classList.add('liked'); blip(1318, .08, 'triangle', .05); } po._t = nw; }
       };
       P.onsubmit = function(e){
         e.preventDefault(); var f = e.target;
@@ -1086,6 +1254,187 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   /* frame apps: real pages opened inside a window */
   function frameApp(src){ return function(b){ b.innerHTML = '<iframe class="app-frame" src="' + src + '" title="' + esc(src) + '" allow="autoplay"></iframe>'; }; }
 
+  /* ================= v5: more chaos ================= */
+
+  /* ---------- Grand Theft Audio ---------- */
+  function buildGTA(b){
+    b.innerHTML = '<div class="gta"><canvas id="gtC"></canvas><div class="gta-hud"><span id="gtS">TAPES 0/12</span><span id="gtW"></span><span id="gtT">0:00</span></div>' +
+      '<div class="gta-msg" id="gtM"><b>GRAND THEFT AUDIO</b><p>Steal all 12 cassettes in Neon City. The cops do not like that.</p><button class="btn pri" type="button" id="gtGo">START</button><small>Arrows / WASD · phone: buttons</small></div>' +
+      '<div class="gta-pad"><button type="button" data-k="l">◀</button><button type="button" data-k="r">▶</button><span></span><button type="button" data-k="b">BRAKE</button><button type="button" data-k="g">GAS</button></div></div>';
+    var c = b.querySelector('#gtC'), g = c.getContext('2d'), W = 0, H = 0, raf = 0, keys = {}, state = 'menu';
+    var WORLD = 1800, BL = 200, RD = 70, car, tapes, cops, wanted, t0, last = 0, best = +(ls('yoos-gta') || 0);
+    function fit(){ var r = c.getBoundingClientRect(); W = Math.max(50, r.width); H = Math.max(50, r.height); var d = Math.min(window.devicePixelRatio || 1, 1.5); c.width = W * d; c.height = H * d; g.setTransform(d, 0, 0, d, 0, 0); }
+    var ro = window.ResizeObserver ? new ResizeObserver(fit) : null; if (ro) ro.observe(c); setTimeout(fit, 30);
+    function road(x, y){ var m = BL + RD; var lx = ((x % m) + m) % m, ly = ((y % m) + m) % m; return lx < RD || ly < RD; }
+    function spot(){ var m = BL + RD; for (var i = 0; i < 50; i++){ var x = (Math.random() * (WORLD / m) | 0) * m + RD / 2, y = Math.random() * WORLD; if (Math.random() < .5){ var t = x; x = y; y = t; x = Math.round(x / m) * m + RD / 2; } if (road(x, y) && x > 40 && y > 40 && x < WORLD - 40 && y < WORLD - 40) return {x: x, y: y}; } return {x: RD / 2, y: RD / 2}; }
+    function reset(){ var mm = BL + RD; car = {x: 3 * mm + RD / 2, y: 3 * mm + RD / 2, a: 0, v: 0}; tapes = []; for (var i = 0; i < 12; i++){ var p = spot(); tapes.push({x: p.x, y: p.y}); } cops = []; wanted = 0; t0 = performance.now(); }
+    function begin(){ reset(); state = 'play'; b.querySelector('#gtM').hidden = true; blip(220, .2, 'sawtooth', .05); }
+    b.querySelector('#gtGo').addEventListener('click', begin);
+    function kd(e){ if (!wins.gta || !wins.gta.el.classList.contains('focus')) return; var k = {ArrowLeft: 'l', a: 'l', ArrowRight: 'r', d: 'r', ArrowUp: 'g', w: 'g', ArrowDown: 'b', s: 'b'}[e.key]; if (k){ keys[k] = e.type === 'keydown'; e.preventDefault(); } }
+    document.addEventListener('keydown', kd); document.addEventListener('keyup', kd);
+    b.querySelectorAll('[data-k]').forEach(function(x){ var k = x.getAttribute('data-k'); x.addEventListener('pointerdown', function(e){ e.preventDefault(); keys[k] = true; }); ['pointerup','pointerleave','pointercancel'].forEach(function(ev){ x.addEventListener(ev, function(){ keys[k] = false; }); }); });
+    function end(msg){ state = 'over'; var sec = Math.round((performance.now() - t0) / 1000), got = 12 - tapes.length; if (got > best){ best = got; ls('yoos-gta', best); }
+      var m = b.querySelector('#gtM'); m.hidden = false; m.querySelector('b').textContent = msg; m.querySelector('p').textContent = 'Cassettes: ' + got + '/12 · Time: ' + sec + 's · Best: ' + best; m.querySelector('button').textContent = 'AGAIN'; }
+    function step(dt){
+      var turn = (keys.l ? -1 : 0) + (keys.r ? 1 : 0);
+      if (keys.g) car.v = Math.min(380, car.v + 420 * dt); else if (keys.b) car.v = Math.max(-120, car.v - 600 * dt); else car.v *= Math.pow(.35, dt);
+      car.a += turn * dt * 2.6 * Math.min(1, Math.abs(car.v) / 120) * (car.v < 0 ? -1 : 1);
+      var nx = car.x + Math.cos(car.a) * car.v * dt, ny = car.y + Math.sin(car.a) * car.v * dt;
+      if (road(nx, ny) && nx > 10 && ny > 10 && nx < WORLD - 10 && ny < WORLD - 10){ car.x = nx; car.y = ny; } else { car.v *= -.3; }
+      tapes = tapes.filter(function(t){ if (Math.hypot(t.x - car.x, t.y - car.y) < 26){ wanted = Math.min(5, wanted + 1); blip(1047, .12, 'triangle', .06); for (var i = 0; i < wanted; i++){ var p = spot(); if (Math.hypot(p.x - car.x, p.y - car.y) > 400) cops.push({x: p.x, y: p.y}); } return false; } return true; });
+      cops.forEach(function(o){ var dx = car.x - o.x, dy = car.y - o.y, d = Math.hypot(dx, dy) || 1, sp = 150 + wanted * 22; var nx2 = o.x + dx / d * sp * dt, ny2 = o.y + dy / d * sp * dt;
+        if (road(nx2, o.y)) o.x = nx2; if (road(o.x, ny2)) o.y = ny2; if (!road(nx2, o.y) && !road(o.x, ny2)){ o.x += (Math.random() - .5) * 40 * dt * 10; o.y += (Math.random() - .5) * 40 * dt * 10; }
+        if (d < 24 && state === 'play'){ blip(90, .5, 'sawtooth', .08); end('BUSTED'); } });
+      if (!tapes.length && state === 'play'){ chime(); end('YOU GOT THEM ALL'); }
+      var s = Math.floor((performance.now() - t0) / 1000);
+      b.querySelector('#gtS').textContent = 'TAPES ' + (12 - tapes.length) + '/12'; b.querySelector('#gtW').textContent = '★★★★★'.slice(0, wanted) + '☆☆☆☆☆'.slice(0, 5 - wanted); b.querySelector('#gtT').textContent = Math.floor(s / 60) + ':' + two(s % 60);
+    }
+    function draw(t){
+      var cam = car || {x: WORLD / 2, y: WORLD / 2}, ox = W / 2 - cam.x, oy = H / 2 - cam.y, m = BL + RD;
+      g.fillStyle = '#0a0f2a'; g.fillRect(0, 0, W, H);
+      g.save(); g.translate(ox, oy);
+      g.fillStyle = '#141b3d'; g.fillRect(0, 0, WORLD, WORLD);
+      for (var bx = RD; bx < WORLD; bx += m) for (var by = RD; by < WORLD; by += m){
+        if (bx + BL < cam.x - W / 2 - 50 || bx > cam.x + W / 2 + 50 || by + BL < cam.y - H / 2 - 50 || by > cam.y + H / 2 + 50) continue;
+        g.fillStyle = '#060918'; g.fillRect(bx, by, BL, BL); g.strokeStyle = ((bx + by) / m) % 3 < 1 ? '#ff4fd8' : '#4aa3ff'; g.lineWidth = 2; g.strokeRect(bx + 6, by + 6, BL - 12, BL - 12);
+        g.fillStyle = 'rgba(255,211,107,.25)'; for (var wy = by + 24; wy < by + BL - 20; wy += 28) for (var wx = bx + 22; wx < bx + BL - 20; wx += 30) if ((wx * 7 + wy * 13) % 5 < 2) g.fillRect(wx, wy, 10, 8);
+      }
+      g.strokeStyle = 'rgba(234,244,255,.18)'; g.setLineDash([16, 16]); g.lineWidth = 2;
+      for (var r = RD / 2; r < WORLD; r += m){ g.beginPath(); g.moveTo(r, 0); g.lineTo(r, WORLD); g.moveTo(0, r); g.lineTo(WORLD, r); g.stroke(); }
+      g.setLineDash([]);
+      if (tapes) tapes.forEach(function(tp){ var bob = Math.sin(t / 200 + tp.x) * 3; g.fillStyle = '#7cf3ff'; g.fillRect(tp.x - 12, tp.y - 8 + bob, 24, 16); g.fillStyle = '#ff4fd8'; g.fillRect(tp.x - 9, tp.y - 6 + bob, 18, 5); g.fillStyle = '#0b1433'; g.fillRect(tp.x - 6, tp.y + 1 + bob, 4, 4); g.fillRect(tp.x + 2, tp.y + 1 + bob, 4, 4); });
+      if (cops) cops.forEach(function(o){ g.fillStyle = '#eaf4ff'; g.fillRect(o.x - 10, o.y - 10, 20, 20); g.fillStyle = (t / 150 | 0) % 2 ? '#ff2f4f' : '#4aa3ff'; g.fillRect(o.x - 10, o.y - 3, 20, 6); });
+      if (car){ g.save(); g.translate(car.x, car.y); g.rotate(car.a); g.fillStyle = '#ff4fd8'; g.fillRect(-16, -9, 32, 18); g.fillStyle = '#05061a'; g.fillRect(2, -7, 8, 14); g.fillStyle = '#fff'; g.fillRect(14, -8, 3, 4); g.fillRect(14, 4, 3, 4); g.restore(); }
+      g.restore();
+      if (tapes && state === 'play'){ var near = null, nd = 1e9; tapes.forEach(function(tp){ var d = Math.hypot(tp.x - car.x, tp.y - car.y); if (d < nd){ nd = d; near = tp; } });
+        if (near && nd > 200){ var ang = Math.atan2(near.y - car.y, near.x - car.x); g.save(); g.translate(W / 2 + Math.cos(ang) * 60, H / 2 + Math.sin(ang) * 60); g.rotate(ang); g.fillStyle = '#7cf3ff'; g.beginPath(); g.moveTo(10, 0); g.lineTo(-6, -7); g.lineTo(-6, 7); g.fill(); g.restore(); } }
+    }
+    function loop(t){ raf = requestAnimationFrame(loop); var dt = Math.min(.05, (t - last) / 1000 || 0); last = t; if (b.closest('.win').hidden) return; if (state === 'play') step(dt); draw(t); }
+    raf = requestAnimationFrame(loop);
+    return function(){ cancelAnimationFrame(raf); if (ro) ro.disconnect(); document.removeEventListener('keydown', kd); document.removeEventListener('keyup', kd); };
+  }
+
+  /* ---------- Mixsweeper ---------- */
+  function buildSweeper(b){
+    var N = 9, M = 10, cells, over, flagMode = false, first = true;
+    b.innerHTML = '<div class="ms"><div class="ms-top"><span id="msL">💿 10</span><button class="btn" type="button" id="msF">⛳ Flag mode: off</button><button class="btn" type="button" id="msR">😎</button></div><div class="ms-g" id="msG"></div><p class="note" id="msMsg">Find the hidden skip buttons. Left click opens, right click flags.</p></div>';
+    var G = b.querySelector('#msG');
+    function init(){ cells = []; over = false; first = true; G.innerHTML = ''; for (var i = 0; i < N * N; i++){ var d = el('button', 'ms-c', ''); d.type = 'button'; d.dataset.i = i; G.appendChild(d); cells.push({m: false, o: false, f: false, n: 0, el: d}); } b.querySelector('#msR').textContent = '😎'; b.querySelector('#msMsg').textContent = 'Find the hidden skip buttons. Left click opens, right click flags.'; count(); }
+    function nb(i){ var x = i % N, y = i / N | 0, r = []; for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++){ var nx = x + dx, ny = y + dy; if ((dx || dy) && nx >= 0 && ny >= 0 && nx < N && ny < N) r.push(ny * N + nx); } return r; }
+    function plant(safe){ var k = 0; while (k < M){ var i = Math.random() * N * N | 0; if (i === safe || cells[i].m || nb(safe).indexOf(i) >= 0) continue; cells[i].m = true; k++; } cells.forEach(function(c, i){ c.n = nb(i).filter(function(j){ return cells[j].m; }).length; }); }
+    function count(){ b.querySelector('#msL').textContent = '💿 ' + (M - cells.filter(function(c){ return c.f; }).length); }
+    function reveal(i){ var c = cells[i]; if (c.o || c.f) return; c.o = true; c.el.classList.add('o'); if (c.m){ c.el.textContent = '⏭'; c.el.classList.add('boom'); lose(); return; } if (c.n){ c.el.textContent = c.n; c.el.dataset.n = c.n; } else nb(i).forEach(reveal); }
+    function lose(){ over = true; blip(110, .5, 'sawtooth', .07); cells.forEach(function(c){ if (c.m){ c.el.textContent = '⏭'; c.el.classList.add('o'); } }); b.querySelector('#msR').textContent = '😵'; b.querySelector('#msMsg').textContent = 'You hit a skip button. The song stopped. Tap 😵 to retry.'; }
+    function check(){ if (cells.every(function(c){ return c.m || c.o; })){ over = true; chime(); b.querySelector('#msR').textContent = '🏆'; b.querySelector('#msMsg').textContent = 'No skips. Clean listen. You win.'; } }
+    function act(i, flag){ if (over) return; var c = cells[i]; if (flag){ if (!c.o){ c.f = !c.f; c.el.textContent = c.f ? '⛳' : ''; count(); blip(600, .03); } return; } if (first){ plant(i); first = false; } reveal(i); blip(800, .02); check(); }
+    G.addEventListener('click', function(e){ var d = e.target.closest('.ms-c'); if (d) act(+d.dataset.i, flagMode); });
+    G.addEventListener('contextmenu', function(e){ var d = e.target.closest('.ms-c'); if (d){ e.preventDefault(); act(+d.dataset.i, true); } });
+    b.querySelector('#msF').addEventListener('click', function(){ flagMode = !flagMode; this.textContent = '⛳ Flag mode: ' + (flagMode ? 'on' : 'off'); });
+    b.querySelector('#msR').addEventListener('click', init);
+    init();
+  }
+
+  /* ---------- YoChat (messenger) ---------- */
+  function buildChat(b){
+    var BOTS = {
+      agm: {name: 'AGM_bot', st: 'online', av: '🤖'},
+      tapey: {name: 'Tapey', st: 'online', av: '📼'},
+      mom: {name: 'Mom', st: 'away', av: '👩'}
+    };
+    b.innerHTML = '<div class="ch"><div class="ch-list" id="chL">' + Object.keys(BOTS).map(function(k){ var x = BOTS[k]; return '<button type="button" data-b="' + k + '"><span class="av">' + x.av + '</span><span><b>' + x.name + '</b><small class="' + x.st + '">● ' + x.st + '</small></span></button>'; }).join('') + '</div>' +
+      '<div class="ch-main"><div class="ch-head" id="chH"></div><div class="ch-log" id="chLog"></div><form class="ch-in" id="chF"><input id="chI" placeholder="Type a message" autocomplete="off"><button class="btn pri" type="submit">Send</button><button class="btn" type="button" id="chN" title="Nudge">📳</button></form></div></div>';
+    var log = {agm: [], tapey: [], mom: []}, cur = 'agm', L = b.querySelector('#chLog');
+    function say(who, txt){ log[who].push(['them', txt]); if (who === cur) render(); blip(1318, .06, 'triangle', .04); }
+    function render(){ var x = BOTS[cur]; b.querySelector('#chH').innerHTML = '<span class="av">' + x.av + '</span><b>' + x.name + '</b>'; L.innerHTML = log[cur].map(function(m){ return '<div class="msg ' + m[0] + '">' + esc(m[1]) + '</div>'; }).join(''); L.scrollTop = 1e9; b.querySelectorAll('#chL button').forEach(function(z){ z.classList.toggle('on', z.getAttribute('data-b') === cur); }); }
+    function reply(who, q){
+      q = q.toLowerCase();
+      if (who === 'mom'){ var M = ['did you eat?', 'call me back', 'are you wearing a jacket', 'who is yo agami. is that you??', 'ok', 'love you. eat something.']; return M[Math.random() * M.length | 0]; }
+      if (who === 'tapey') return ['*rewinding*', 'I am a cassette. I only know one thing: November 25.', 'Have you tried right-clicking the desktop?', '*fast-forwarding*', 'The Terminal knows more than me.'][Math.random() * 5 | 0];
+      var R = [
+        [/(hi|hey|hello|yo|sup)\b/, 'yo. welcome to YO-OS.'],
+        [/(when|date|release|drop|out)/, isOut() ? 'Stereo 80 is OUT. go listen.' : 'Stereo 80 drops November 25. ' + Math.max(0, Math.ceil((dayStart(REL) - dayStart(new Date())) / 864e5)) + ' days.'],
+        [/(song|track|name|list)/, 'no spoilers. one song name unlocks every day in Stereo80.app.'],
+        [/(cover|art|picture)/, 'the cover is locked until the 25th. patience.'],
+        [/(vault|code|secret|hidden)/, 'i am not allowed to talk about the vault. ask the Terminal. or Tapey.'],
+        [/(who|agami|artist)/, 'Yo Agami. independent artist. the music talks, he does not.'],
+        [/(merch|shirt|hoodie)/, 'merch is coming soon. follow @itsyoagami.'],
+        [/(game|play|bored)/, 'open the Arcade. try Grand Theft Audio.'],
+        [/(spotify|listen|stream)/, 'Player app. or search Yo Agami on Spotify.'],
+        [/(joke|funny)/, 'why did the cassette go to therapy? it had too many issues to rewind.'],
+        [/(love|fan|best)/, 'appreciated. tell one friend.'],
+        [/(bot|real|human|ai)/, 'i am a bot. AGM made me. the music is made by a human though.']
+      ];
+      for (var i = 0; i < R.length; i++) if (R[i][0].test(q)) return R[i][1];
+      return ['hmm.', 'interesting. say more.', 'try asking me about the album.', 'no comment.', 'lol'][Math.random() * 5 | 0];
+    }
+    b.querySelector('#chL').addEventListener('click', function(e){ var x = e.target.closest('[data-b]'); if (x){ cur = x.getAttribute('data-b'); render(); } });
+    b.querySelector('#chF').addEventListener('submit', function(e){ e.preventDefault(); var I = b.querySelector('#chI'), v = I.value.trim(); if (!v) return; I.value = ''; log[cur].push(['me', v]); render(); var who = cur;
+      setTimeout(function(){ b.querySelector('#chH').insertAdjacentHTML('beforeend', '<small class="typing"> is typing…</small>'); }, 300);
+      setTimeout(function(){ say(who, reply(who, v)); }, 900 + Math.random() * 900); });
+    b.querySelector('#chN').addEventListener('click', function(){ var w = b.closest('.win'); w.classList.remove('nudge'); void w.offsetWidth; w.classList.add('nudge'); blip(180, .25, 'square', .06); log[cur].push(['sys', 'You sent a nudge!']); render(); setTimeout(function(){ say(cur, cur === 'mom' ? 'stop that' : 'bzzz'); }, 900); });
+    log.agm.push(['them', 'yo. ask me anything about Stereo 80.']); log.mom.push(['them', 'did you eat?']); log.tapey.push(['them', '*click* *whirr* hello.']);
+    render();
+  }
+
+  /* ---------- Weather ---------- */
+  function buildWeather(b){
+    var d = Math.max(0, Math.ceil((dayStart(REL) - dayStart(new Date())) / 864e5)), DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], F = ['Synth', 'Bass showers', 'Neon fog', 'Chrome sun', 'Tape hiss', 'Reverb', 'Clear skies'];
+    var h = '<div class="wx"><small>NEON CITY</small><div class="wx-t">80°</div><p>' + (isOut() ? 'Heavy Stereo 80 all day. Play it loud.' : 'Synth with a chance of bass.') + '</p><div class="wx-f">';
+    for (var i = 0; i < 5; i++){ var dd = new Date(); dd.setDate(dd.getDate() + i); var left = d - i; h += '<div><b>' + (i ? DAYS[dd.getDay()] : 'Today') + '</b><span>' + (left === 0 ? '💿' : ['🌆','🌃','🎹','🌧️','🌌'][i]) + '</span><small>' + (left === 0 ? 'ALBUM' : left < 0 ? 'Stereo' : F[(dd.getDate() + i) % F.length]) + '</small></div>'; }
+    b.innerHTML = h + '</div><p class="note">' + (d > 0 ? 'Forecast: ' + d + (d === 1 ? ' day' : ' days') + ' until Stereo 80.' : 'Today: Stereo 80.') + '</p></div>';
+  }
+
+  /* ---------- DO_NOT_OPEN.exe ---------- */
+  function chaos(){
+    if (!confirmBox('DO_NOT_OPEN.exe', 'Are you sure? It says do not open.', 'Open it', function(){
+      var P = ['YOU WON A FREE SKIP!! (skips are not allowed)', 'Download more aura? [YES] [YES]', 'Your computer has too much drip.', 'WARNING: bass levels critical', 'Congratulations, you are visitor No. 1', 'Hot singles... I mean, hot cassettes near you', 'Stereo80.app wants to know your location (Neon City)', 'ERROR: too cool', 'Your PC is running a little too smooth.', 'Click here to delete the album (just kidding)', 'Tapey has entered the chat', 'ALERT: someone is about to skip a song'];
+      var n = 0, iv = setInterval(function(){
+        var p = el('div', 'pop', '<div class="pop-t">⚠ ' + (n % 2 ? 'System' : 'YO-OS') + '<button type="button">×</button></div><div class="pop-b">' + esc(P[n % P.length]) + '</div>');
+        p.style.left = Math.random() * Math.max(10, innerWidth - 300) + 'px'; p.style.top = Math.random() * Math.max(10, innerHeight - 220) + 'px';
+        p.querySelector('button').onclick = function(){ p.remove(); }; document.body.appendChild(p); blip(400 + Math.random() * 800, .08, 'square', .04);
+        if (++n >= 16){ clearInterval(iv); setTimeout(bsod, 900); }
+      }, 220);
+    })) return;
+  }
+  function bsod(){
+    document.querySelectorAll('.pop').forEach(function(p){ p.remove(); });
+    var s = el('div', '', '<div><div style="font-size:clamp(80px,18vw,150px);line-height:1">:(</div><p>YO-OS ran into a problem: <b>TOO_MUCH_STEREO</b></p><p>We are collecting some aura, and then we will restart for you.</p><p id="bsP">0% complete</p><p style="opacity:.7">Tap to restart now</p></div>'); s.id = 'bsod';
+    document.body.appendChild(s); blip(60, .8, 'sawtooth', .07);
+    var k = 0, iv = setInterval(function(){ k = Math.min(100, k + 7 + Math.random() * 12 | 0); var e = $('bsP'); if (e) e.textContent = k + '% complete'; if (k >= 100) fin(); }, 300);
+    function fin(){ clearInterval(iv); s.remove(); boot(true); }
+    s.onclick = fin;
+  }
+  function confirmBox(title, text, ok, cb){
+    var m = el('div', 'cfm', '<div class="cfm-b"><div class="tb"><span class="t">' + esc(title) + '</span></div><div class="pad"><p>' + esc(text) + '</p><div class="row" style="justify-content:flex-end"><button type="button" class="btn" data-x>Cancel</button><button type="button" class="btn pri" data-ok>' + esc(ok) + '</button></div></div></div>');
+    document.body.appendChild(m); blip(500, .08);
+    m.querySelector('[data-x]').onclick = function(){ m.remove(); };
+    m.querySelector('[data-ok]').onclick = function(){ m.remove(); cb(); };
+    return true;
+  }
+
+  /* ---------- Tapey, the helpful cassette ---------- */
+  var TIPS = [
+    'It looks like you are waiting for an album. Would you like help waiting?',
+    'Did you know? Right-clicking the desktop shows a secret menu.',
+    'Tip: search "yo agami" in the Browser.',
+    'Psst. Type help in the Terminal.',
+    'I would not open DO_NOT_OPEN.exe if I were you.',
+    'Grand Theft Audio is in the Arcade. The cops are slow. Mostly.',
+    'A new song name unlocks every day. Come back tomorrow.',
+    'Fun fact: I am a cassette. I have no other facts.'
+  ];
+  var tapeyOff = ss('yoos-tapey') === 'off', tapeyEl = null, ti = 0;
+  function tapey(force){
+    if ((tapeyOff && !force) || tapeyEl || saving || !TOP) return;
+    tapeyEl = el('div', 'tapey', '<div class="tp-face">' + I.vhs + '</div><div class="tp-bub"><b>Tapey</b><p>' + esc(TIPS[ti++ % TIPS.length]) + '</p><div class="row"><button type="button" class="btn" data-n>Next tip</button><button type="button" class="btn" data-x>Go away</button></div></div>');
+    document.body.appendChild(tapeyEl); blip(1500, .05, 'triangle', .04);
+    tapeyEl.querySelector('[data-n]').onclick = function(){ tapeyEl.querySelector('p').textContent = TIPS[ti++ % TIPS.length]; blip(1200, .04); };
+    tapeyEl.querySelector('[data-x]').onclick = function(){ tapeyEl.remove(); tapeyEl = null; tapeyOff = true; ss('yoos-tapey', 'off'); };
+    setTimeout(function(){ if (tapeyEl){ tapeyEl.remove(); tapeyEl = null; } }, 14000);
+  }
+  setTimeout(function(){ tapey(); }, 25000);
+  setInterval(function(){ tapey(); }, 120000);
+
   /* ---------- Terminal ---------- */
   function buildTerminal(b, rec){
     b.innerHTML = '<div class="term sel" id="tmOut"></div><form class="term-in" id="tmForm" autocomplete="off"><span>C:\\YO&gt;</span><input id="tmIn" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Command"></form>';
@@ -1095,7 +1444,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     var hist = [], hi = 0;
     var CMD = {
       help: function(){ ['help         this list','ls           list files','ls -a        list ALL files (even hidden ones)','open <name>  open an app (album, browser, paint, snake, beat...)','cat <file>   read a file','games        list the games','date         today','countdown    time until Stereo 80','drive        start the night drive','matrix       ???','whoami       who are you','clear        clear the screen','exit         close the terminal','','(capital letters or not, both work)'].forEach(function(l){ p(l); }); },
-      games: function(){ p('nightdrive  snake  beat  paint'); p('type: open snake (or drive for nightdrive)'); },
+      games: function(){ p('nightdrive  gta  snake  sweeper  beat  paint'); p('type: open snake (or drive for nightdrive)'); },
       ls: function(a){
         var f = ['Stereo80.app','Welcome.txt','Player','Browser','About.txt','Socials','Arcade','Paint','Photos','Merch','Contact','Trash','hint.txt'];
         if (a === '-a' || a === '-la' || a === '-al'){ f = f.concat(['.vault','.tape','.screensaver']); revealHidden(); }
@@ -1110,9 +1459,10 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       },
       open: function(a){
         a = (a || '').toLowerCase().replace(/\.(app|exe|txt)$/, '');
-        var map = {album: 'stereo80', stereo80: 'stereo80', player: 'player', browser: 'browser', paint: 'paint', snake: 'snake', welcome: 'welcome', terminal: 'terminal', nightdrive: 'nd', about: 'about', socials: 'links', links: 'links', beat: 'beat', photos: 'photos', merch: 'merch', contact: 'mail', arcade: 'games', trash: 'trash'};
+        var map = {gta: 'gta', sweeper: 'sweeper', mixsweeper: 'sweeper', chat: 'chat', yochat: 'chat', weather: 'weather', tapey: 'tapey', album: 'stereo80', stereo80: 'stereo80', player: 'player', browser: 'browser', paint: 'paint', snake: 'snake', welcome: 'welcome', terminal: 'terminal', nightdrive: 'nd', about: 'about', socials: 'links', links: 'links', beat: 'beat', photos: 'photos', merch: 'merch', contact: 'mail', arcade: 'games', trash: 'trash'};
         if (a === '.vault' || a === 'vault') return CMD.vault();
         if (map[a] === 'nd') return CMD.drive();
+        if (map[a] === 'tapey'){ p('Summoning Tapey...'); return tapey(true); }
         if (a === 'kingdom') return CMD.kingdom();
         if (map[a]){ p('Opening ' + a + '...'); open(map[a]); } else p('No app called "' + a + '". Try LS.');
       },
