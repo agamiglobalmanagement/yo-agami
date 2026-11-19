@@ -441,8 +441,9 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 .g98 marquee{background:#000;color:#0f0;font:20px var(--pix)}
 .g98 h1{color:#fff;text-shadow:3px 3px #f0f}
 .g98-sm{font-size:11px;color:#cff}
-.g98-dot{position:absolute;right:6px;bottom:4px;border:0;background:none;color:#0a8a8a;font-size:14px;cursor:pointer;padding:2px 4px}
-.g98-found{position:absolute;right:10px;bottom:10px;padding:8px 12px;background:#000;color:#0f0;font:24px var(--pix);border:2px solid #0f0}
+.g98-dot{position:absolute;right:10px;top:44px;border:0;background:none;color:#ffff66;font-size:22px;cursor:pointer;padding:6px;animation:g98b 1.6s steps(2) infinite}
+@keyframes g98b{50%{opacity:.25}}
+.g98-found{position:absolute;right:10px;top:44px;padding:8px 12px;background:#000;color:#0f0;font:24px var(--pix);border:2px solid #0f0}
 .ey-logo{font-size:30px;font-weight:800;letter-spacing:-1px;text-decoration:none}
 .ey-logo span:nth-child(1){color:#e53238}.ey-logo span:nth-child(2){color:#0064d2}.ey-logo span:nth-child(3){color:#f5af02}
 .ey-cart{white-space:nowrap;padding:8px 12px;border-radius:999px;background:#f2f2f2;color:#111;text-decoration:none;font-weight:700}
@@ -473,7 +474,11 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 .vd{padding:30px;background:#000;color:#333;font-family:var(--pix);font-size:22px;text-align:center}.vd a{color:#555}
 .cl-code{display:flex;gap:10px;margin:14px 0}
 .cl-code span{width:52px;height:64px;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;font-size:44px;color:#fff;background:rgba(0,0,0,.3)}
-.cl-ok{color:#7cf3ff}.cl-no{color:var(--dim)}
+.cl-p{padding:10px 0;border-top:1px solid var(--line2)}
+.cl-p p{margin:6px 0 8px}
+.cl-p .btn{min-height:34px;font-size:13px}
+.cl-how{color:var(--neon-hi)}
+.cl-ok b{color:#7cf3ff}.cl-no{color:#d9e8ff}
 /* ---------- v5 ---------- */
 #menu{max-height:calc(100vh - var(--bar) - 16px);max-height:calc(100dvh - var(--bar) - 16px);width:min(340px,calc(100vw - 16px))}
 #menu .items{overflow-y:auto;scrollbar-width:none;display:grid;grid-template-columns:1fr 1fr;align-content:start}
@@ -1118,18 +1123,27 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   }
 
   /* ---------- escape room keys ---------- */
-  var CLUES = [['1', 'Something was uploaded but not listed. Try searching for a way back.'], ['9', 'Even encyclopedias need citations. Old snapshots hide small things.'], ['8', 'Some things nobody looks at cost nothing. Check out.'], ['0', 'Tune in where the album lives.']];
+  var CLUES = [
+    ['1', ['Something was uploaded to YoTube but never listed.', 'YoTube has a search bar. Search for the opposite of fast-forward.', 'Search "rewind" on YoTube, open the video and watch it to the end.']],
+    ['9', ['Even encyclopedias need citations.', 'On WikiYo, click the blue [citation needed] next to "Face".', 'Open the oldest snapshot (1998) and tap the blinking yellow ✦ star in the top right corner.']],
+    ['8', ['Some things nobody looks at cost nothing.', 'eYo has a second page. Press "Show more items".', 'Add the mysterious key to your cart, go to the cart, checkout and place the order.']],
+    ['0', ['Tune in where the album lives.', 'Open Stereo80.fm and drag the radio dial. The album name has a number in it.', 'Tune the dial to exactly 80.0.']]
+  ];
   function keys(){ try{ return JSON.parse(ls('yoos-keys') || '{}') || {}; }catch(e){ return {}; } }
   function foundKey(n){ var k = keys(); if (k[n]) return; k[n] = 1; ls('yoos-keys', JSON.stringify(k)); var c = Object.keys(k).length;
     toast('', 'PIECE ' + n + ' OF 4 FOUND', c < 4 ? c + '/4 · saved in Clues.txt' : 'All 4 found. Now find the door.', function(){ open('clues'); });
     if (wins.clues) buildClues(wins.clues.body); }
+  var hintLv = {};
   function buildClues(b){
     var k = keys(), n = Object.keys(k).length, esc2 = ls('yoos-escaped');
     b.innerHTML = '<div class="menubar"><span>File</span><span>Edit</span><span>Help</span></div><div class="np">' +
-      '<h1>CLUES.TXT</h1><p>There is an escape room hidden in the YO-NET (open the Browser). Four pieces. Each one is a number. Together they open a door.</p>' +
+      '<h1>CLUES.TXT</h1><p>An escape room is hidden inside the Browser (the YO-NET). Find 4 pieces. Each piece is a number.</p>' +
       '<div class="cl-code">' + CLUES.map(function(c, i){ return '<span>' + (k[i + 1] ? c[0] : '_') + '</span>'; }).join('') + '</div>' +
-      CLUES.map(function(c, i){ return '<p class="cl-' + (k[i + 1] ? 'ok' : 'no') + '">PIECE ' + (i + 1) + ': ' + (k[i + 1] ? 'FOUND (' + c[0] + ')' : c[1]) + '</p>'; }).join('') +
-      '<p>' + (esc2 ? 'ESCAPED. Escapee No. ' + esc2 + '.' : n === 4 ? 'All pieces found. The radio told you where the door is.' : n + '/4 found.') + '</p></div>';
+      '<p class="cl-how">The code = piece 1, 2, 3, 4 in order.</p>' +
+      CLUES.map(function(c, i){ var lv = hintLv[i] || 0, got = k[i + 1];
+        return '<div class="cl-p ' + (got ? 'cl-ok' : 'cl-no') + '"><b>PIECE ' + (i + 1) + (got ? ' · FOUND: ' + c[0] : '') + '</b>' + (got ? '' : '<p>' + c[1].slice(0, lv + 1).map(function(h, j){ return (j ? 'HINT ' + j + ': ' : '') + esc(h); }).join('<br>') + '</p>' + (lv < 2 ? '<button type="button" class="btn" data-h="' + i + '">Need a hint?</button>' : '')) + '</div>'; }).join('') +
+      '<div class="cl-p"><b>THE DOOR</b><p>' + (esc2 ? 'ESCAPED. Escapee No. ' + esc2 + '.' : n === 4 ? 'All 4 found. Open the Browser, type <u>deep.yo</u> in the address bar and enter the code.' : k[4] ? 'The radio told you: deep.yo. Find all 4 pieces first.' : 'Hidden. The last piece tells you where the door is.') + '</p></div></div>';
+    b.querySelectorAll('[data-h]').forEach(function(x){ x.onclick = function(){ var i = +x.getAttribute('data-h'); hintLv[i] = Math.min(2, (hintLv[i] || 0) + 1); blip(900, .04); buildClues(b); }; });
   }
 
   /* ---------- Welcome.txt ---------- */
@@ -1219,7 +1233,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       '<dl><div><dt>New album</dt><dd>Stereo 80 · Nov 25, 2026 · 8 tracks</dd></div><div><dt>Label</dt><dd>AGM</dd></div><div><dt>Socials</dt><dd>@itsyoagami</dd></div></dl>' +
       '<div class="yg-kp-l"><a href="' + SP + '" target="_blank" rel="noopener">Spotify</a><a href="' + IG + '" target="_blank" rel="noopener">Instagram</a><a href="' + TT + '" target="_blank" rel="noopener">TikTok</a><a href="' + YT + '" target="_blank" rel="noopener">YouTube</a></div></div>';
     var SITES = {
-      'yoogle.yo': function(){ return '<div class="yg"><div class="yg-logo"><span>Y</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div><form class="ygF"><input class="ygQ" placeholder="Search the YO-NET" autocomplete="off"></form><div class="yg-tip">Try: yo agami, stereo 80, games, videos, wiki, shop, secret</div><div class="ygR"></div></div>'; },
+      'yoogle.yo': function(){ return '<div class="yg"><div class="yg-logo"><span>Y</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div><form class="ygF"><input class="ygQ" placeholder="Search the YO-NET" autocomplete="off"></form><div class="yg-tip">Try: yo agami, stereo 80, games, videos, wiki, shop, secret</div><div class="yg-tip">🔎 Looking for the escape room? Open <a href="#" data-go="app:clues">Clues.txt</a></div><div class="ygR"></div></div>'; },
       'stereo80.fm': function(){ return '<div class="fm"><div class="fm-logo">STEREO80<span>.FM</span></div><div class="fm-onair">● ON AIR</div><p class="fm-now">Now playing: <b>static</b></p><div class="fm-eq">' + new Array(24).join('<i></i>') + '</div><p>The album hits the airwaves in <b>' + (isOut() ? 'NOW. IT IS OUT.' : days() + ' days') + '</b>.</p><p class="fm-dj">DJ says: "Keep this station on. On November 25 something comes through these speakers."</p></div>'; },
       'fanclub.yo': function(){
         if (!isOut()) return '<div class="fc fc-lock"><marquee scrollamount="6">★ FAN CLUB OPENING SOON ★ FAN CLUB OPENING SOON ★</marquee><div style="font-size:64px;margin-top:20px">🔒</div><h2>Fan Club</h2><p>The doors open on release day.</p><div class="fc-count">OPENS IN <b>' + days() + (days() === 1 ? ' DAY' : ' DAYS') + '</b></div><p class="fc-small"><a href="#" data-go="under.yo">under construction</a></p></div>';
@@ -1274,8 +1288,8 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       '<h2>YO-OS</h2><p>His official website runs an operating system called YO-OS. Researchers believe there is an escape room hidden inside the YO-NET, made of four pieces.<sup>[citation needed]</sup></p>' +
       '<h2>Trivia</h2><ul><li>He has never skipped a song. (Unconfirmed.)</li><li>The previous version of his website was a kingdom. It is now in the Trash.</li><li>A cassette named Tapey works for him.</li></ul>' +
       '<h2>References</h2><ol class="wk-ref"><li>Trust me.</li></ol></div>'; };
-    SITES['archive.yo'] = function(){ return '<div class="ab"><div class="ab-top">YoBack Machine</div><p>Browse the history of agmteam.com</p><div class="ab-tl"><a href="#" data-go="archive.yo/1998">1998</a><a href="#" data-go="archive.yo/2012">2012</a><a href="#" data-go="archive.yo/2026">2026</a></div><p class="ab-s">3 snapshots saved. One of them is hiding something.</p></div>'; };
-    SITES['archive.yo/1998'] = function(){ return '<div class="g98"><div class="ab-bar">YoBack Machine · snapshot of agmteam.com · 1998</div><marquee>WELCOME TO MY HOMEPAGE!!!</marquee><h1>~*~ AGM ~*~</h1><p>🚧 UNDER CONSTRUCTION 🚧</p><p>You are visitor 000017</p><p>Sign my guestbook (broken)</p><p class="g98-sm">best viewed in 800x600</p><button type="button" class="g98-dot" data-act="piece2" aria-label="dot">.</button></div>'; };
+    SITES['archive.yo'] = function(){ return '<div class="ab"><div class="ab-top">YoBack Machine</div><p>Old saved copies of agmteam.com</p><div class="ab-tl"><a href="#" data-go="archive.yo/1998">1998</a><a href="#" data-go="archive.yo/2012">2012</a><a href="#" data-go="archive.yo/2026">2026</a></div><p class="ab-s">3 snapshots saved. One of them is hiding something.</p></div>'; };
+    SITES['archive.yo/1998'] = function(){ return '<div class="g98"><div class="ab-bar">YoBack Machine · snapshot of agmteam.com · 1998</div><marquee>WELCOME TO MY HOMEPAGE!!!</marquee><h1>~*~ AGM ~*~</h1><p>🚧 UNDER CONSTRUCTION 🚧</p><p>You are visitor 000017</p><p>Sign my guestbook (broken)</p><p class="g98-sm">psst... the webmaster hid a blinking star somewhere on this page</p><button type="button" class="g98-dot" data-act="piece2" aria-label="hidden star">✦</button></div>'; };
     SITES['archive.yo/2012'] = function(){ return '<div class="ab"><div class="ab-bar">YoBack Machine · 2012</div><h2>404</h2><p>Nothing was here in 2012. Try going further back.</p></div>'; };
     SITES['archive.yo/2026'] = function(){ return '<div class="ab"><div class="ab-bar">YoBack Machine · early 2026</div><h2>The Gold Era</h2><p>The site was a kingdom. Very loud. Very gold.</p><a class="btn" href="#" data-go="kingdom.yo">Visit the ruins</a></div>'; };
 
@@ -1330,7 +1344,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     function tune(P, v){
       var f = (v / 10).toFixed(1), N = P.querySelector('.fmN'); P.querySelector('.fmF').textContent = f;
       if (+v === 800){ N.innerHTML = '<span class="fm-hid">HIDDEN BROADCAST · PIECE 4 OF 4: <b>0</b> · the door is at <a href="#" data-go="deep.yo">deep.yo</a></span>'; foundKey(4); blip(1568, .2, 'triangle', .05); }
-      else N.textContent = STATIONS[v] || (Math.abs(v - 800) < 15 ? 'something is close... keep tuning' : 'static...');
+      else N.textContent = STATIONS[v] || (Math.abs(v - 800) <= 3 ? 'SO close... a voice is coming through' : Math.abs(v - 800) < 20 ? 'something is close... keep tuning' : v < 880 ? 'static... (strange signal somewhere below 88)' : 'static...');
     }
     function cert(P){
       var c = P.querySelector('.dp-cert'), g = c.getContext('2d'), no = ls('yoos-escaped') || '0001';
