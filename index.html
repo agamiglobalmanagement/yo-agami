@@ -56,101 +56,7 @@
    "recordLabel": {
     "@id": "https://agmteam.com/#agm"
    },
-   "description": "Stereo 80 is the new album by the independent music artist Yo Agami, released on November 25, 2026.",
-   "track": {
-    "@type": "ItemList",
-    "numberOfItems": 8,
-    "itemListElement": [
-     {
-      "@type": "ListItem",
-      "position": 1,
-      "item": {
-       "@type": "MusicRecording",
-       "name": "Hot Wax",
-       "byArtist": {
-        "@id": "https://agmteam.com/#artist"
-       }
-      }
-     },
-     {
-      "@type": "ListItem",
-      "position": 2,
-      "item": {
-       "@type": "MusicRecording",
-       "name": "VCR",
-       "byArtist": {
-        "@id": "https://agmteam.com/#artist"
-       }
-      }
-     },
-     {
-      "@type": "ListItem",
-      "position": 3,
-      "item": {
-       "@type": "MusicRecording",
-       "name": "Club Soda",
-       "byArtist": {
-        "@id": "https://agmteam.com/#artist"
-       }
-      }
-     },
-     {
-      "@type": "ListItem",
-      "position": 4,
-      "item": {
-       "@type": "MusicRecording",
-       "name": "Stereo 80",
-       "byArtist": {
-        "@id": "https://agmteam.com/#artist"
-       }
-      }
-     },
-     {
-      "@type": "ListItem",
-      "position": 5,
-      "item": {
-       "@type": "MusicRecording",
-       "name": "Walkmen",
-       "byArtist": {
-        "@id": "https://agmteam.com/#artist"
-       }
-      }
-     },
-     {
-      "@type": "ListItem",
-      "position": 6,
-      "item": {
-       "@type": "MusicRecording",
-       "name": "Jet Lag",
-       "byArtist": {
-        "@id": "https://agmteam.com/#artist"
-       }
-      }
-     },
-     {
-      "@type": "ListItem",
-      "position": 7,
-      "item": {
-       "@type": "MusicRecording",
-       "name": "MixDown",
-       "byArtist": {
-        "@id": "https://agmteam.com/#artist"
-       }
-      }
-     },
-     {
-      "@type": "ListItem",
-      "position": 8,
-      "item": {
-       "@type": "MusicRecording",
-       "name": "Studio B",
-       "byArtist": {
-        "@id": "https://agmteam.com/#artist"
-       }
-      }
-     }
-    ]
-   }
+   "description": "Stereo 80 is the new album by the independent music artist Yo Agami, released on November 25, 2026."
   },
   {
    "@type": "Organization",
@@ -190,7 +96,7 @@
      "name": "When does Yo Agami's new album come out?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Stereo 80, the new album by Yo Agami, comes out on November 25, 2026. It has 8 tracks: Hot Wax, VCR, Club Soda, Stereo 80, Walkmen, Jet Lag, MixDown, Studio B."
+      "text": "Stereo 80, the new album by Yo Agami, comes out on November 25, 2026. It has 8 tracks."
      }
     },
     {
@@ -483,6 +389,66 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 #mx,#saver{position:fixed;inset:0;z-index:90;width:100%;height:100%;transition:opacity .5s;cursor:pointer}
 .bm-row button{-webkit-user-select:none;user-select:none}
 @media (max-width:720px){.term-in input{font-size:16px}}
+/* ---------- v3 ---------- */
+.sn{padding:14px;display:grid;justify-items:center;gap:10px}
+.sn-top{display:flex;justify-content:space-between;width:100%;max-width:400px;font-family:var(--pix);font-size:22px;color:var(--neon-hi)}
+.sn canvas{width:min(400px,100%);aspect-ratio:1;border:1px solid var(--line);border-radius:8px;touch-action:none;image-rendering:pixelated}
+.sn-pad{display:grid;grid-template-columns:repeat(3,56px);grid-template-rows:repeat(2,48px);gap:6px}
+.sn-pad button{border-radius:10px;border:1px solid var(--line);background:rgba(74,163,255,.12);font-size:20px;cursor:pointer;touch-action:manipulation}
+.sn-pad [data-d="0,-1"]{grid-column:2;grid-row:1}.sn-pad [data-d="-1,0"]{grid-column:1;grid-row:2}.sn-pad [data-d="0,1"]{grid-column:2;grid-row:2}.sn-pad [data-d="1,0"]{grid-column:3;grid-row:2}
+@media (hover:hover) and (pointer:fine){.sn-pad{display:none}}
+.pt{display:flex;flex-direction:column;height:100%}
+.pt-tools{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:10px;border-bottom:1px solid var(--line2)}
+.pt-c{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.2);cursor:pointer}
+.pt-c.on{border-color:#fff;box-shadow:0 0 10px currentColor}
+.pt-s{min-width:34px;height:34px;border-radius:8px;border:1px solid var(--line2);background:rgba(255,255,255,.05);cursor:pointer;font-family:var(--pix);font-size:20px}
+.pt-s.on{background:var(--neon);color:#061234}
+.pt-sep{width:1px;height:24px;background:var(--line2);margin:0 4px}
+.pt .btn{min-height:34px;padding:0 14px}
+.pt canvas{flex:1;width:100%;min-height:200px;touch-action:none;cursor:crosshair;display:block}
+.br{display:flex;flex-direction:column;height:100%;background:#e9e6dd;color:#111}
+.br-bar{display:flex;gap:6px;padding:8px;background:#c9c5b9;border-bottom:2px solid #8d897d}
+.br-bar button{min-width:36px;height:34px;border:2px outset #eee;background:#d8d4c8;cursor:pointer;font:700 15px var(--ui);color:#111}
+.br-bar form{flex:1;min-width:0}
+.br-bar input{width:100%;height:34px;border:2px inset #eee;padding:0 10px;font:16px var(--pix);font-size:19px;background:#fff;color:#111}
+.br-marks{display:flex;gap:4px;padding:4px 8px;background:#d8d4c8;border-bottom:1px solid #8d897d;overflow-x:auto;scrollbar-width:none}
+.br-marks button{border:0;background:none;cursor:pointer;font:600 13px var(--ui);color:#0b2a8a;white-space:nowrap;padding:4px 8px}
+.br-page{flex:1;overflow:auto;scrollbar-width:none;font-family:"Times New Roman",serif;font-size:17px}
+.br-page::-webkit-scrollbar{display:none}
+.br-page a{color:#0000ee}
+.yg{display:grid;justify-items:center;gap:14px;padding:44px 18px}
+.yg-logo{font:800 64px "Times New Roman",serif;letter-spacing:-2px}
+.yg-logo span:nth-child(1){color:#1d4fd8}.yg-logo span:nth-child(2){color:#ff2f6a}.yg-logo span:nth-child(3){color:#ffb300}.yg-logo span:nth-child(4){color:#1d4fd8}.yg-logo span:nth-child(5){color:#22a85a}.yg-logo span:nth-child(6){color:#ff2f6a}
+.yg form{width:min(440px,100%)}
+.yg input{width:100%;height:42px;border:1px solid #999;border-radius:20px;padding:0 16px;font:16px var(--ui);background:#fff;color:#111}
+.yg-tip{font:13px var(--ui);color:#555}
+#ygR{width:min(520px,100%);display:grid;gap:12px}
+.yg-r{display:block;text-decoration:none}
+.yg-r b{display:block;color:#1a0dab;font:600 18px var(--ui);text-decoration:underline}
+.yg-r small{color:#444;font:14px var(--ui)}
+.fm{min-height:100%;padding:28px 20px;text-align:center;background:linear-gradient(180deg,#12021e,#2a0d4a);color:#ffd6f6;font-family:var(--pix);font-size:22px}
+.fm-logo{font-size:64px;line-height:1;color:#fff;text-shadow:0 0 16px #ff4fd8}
+.fm-logo span{color:#ff4fd8}
+.fm-onair{display:inline-block;margin:10px 0;padding:4px 12px;border:2px solid #ff3b30;color:#ff3b30;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.3}}
+.fm-eq{display:flex;justify-content:center;align-items:flex-end;gap:4px;height:70px;margin:14px 0}
+.fm-eq i{width:8px;background:linear-gradient(0deg,#4aa3ff,#ff4fd8);animation:eq .9s ease-in-out infinite alternate}
+.fm-eq i:nth-child(3n){animation-duration:.6s}.fm-eq i:nth-child(4n){animation-duration:1.2s}.fm-eq i:nth-child(5n){animation-duration:.75s}
+@keyframes eq{from{height:8%}to{height:100%}}
+.fm-dj{color:#a99cc8}
+.fc{min-height:100%;padding:18px;background:#000080 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ctext x='8' y='26' font-size='14' fill='%23ffffff22'%3E★%3C/text%3E%3C/svg%3E");color:#ffff00;font-family:"Comic Sans MS","Comic Neue",cursive;text-align:center}
+.fc marquee{background:#ff00ff;color:#fff;padding:4px;font-weight:700}
+.fc h2{font-size:34px;color:#00ffff;text-shadow:2px 2px #ff00ff}
+.fc-count{display:inline-block;margin:10px 0;padding:6px 12px;background:#000;border:2px inset #888;font-family:var(--pix);font-size:22px;color:#0f0}
+.fc-small{font-size:13px;color:#fff}.fc-small a{color:#0ff}
+.ar,.sc{padding:26px 20px}
+.ar h2,.sc h2{margin:0 0 10px;font:800 28px var(--ui)}
+.sc{min-height:100%;background:#000;color:#0f0;font-family:var(--pix);font-size:22px}
+.sc h2{font-family:var(--pix);font-weight:400;font-size:40px;color:#0f0}
+.sc input{background:#000;border:1px solid #0f0;color:#0f0;font:22px var(--pix);padding:6px 10px;width:min(280px,100%)}
+.sc-h{color:#3a7a3a}
+.sc-ok{margin-top:14px;padding:12px;border:1px dashed #0f0}
+
 </style>
 </head>
 <body>
@@ -513,7 +479,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 <!-- Content for search engines and screen readers (the same text lives in the About.txt window) -->
 <section id="seo" class="sel" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">
   <h1>Yo Agami | Official Website</h1>
-  <p>Yo Agami is a real, independent music artist. His new album Stereo 80 comes out on November 25, 2026. It has 8 tracks: Hot Wax, VCR, Club Soda, Stereo 80, Walkmen, Jet Lag, MixDown and Studio B. His music is on Spotify and he is on Instagram, TikTok and YouTube as @itsyoagami. AGM (Agami Global Management) is his own independent label and management.</p>
+  <p>Yo Agami is a real, independent music artist. His new album Stereo 80 comes out on November 25, 2026. It has 8 tracks. His music is on Spotify and he is on Instagram, TikTok and YouTube as @itsyoagami. AGM (Agami Global Management) is his own independent label and management.</p>
   <p><a href="https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75">Yo Agami on Spotify</a> · <a href="https://www.instagram.com/itsyoagami/">Instagram</a> · <a href="https://www.tiktok.com/@itsyoagami">TikTok</a> · <a href="https://www.youtube.com/@itsyoagami">YouTube</a></p>
 </section>
 
@@ -523,7 +489,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   var SP = 'https://open.spotify.com/artist/18uAUC32k2x89CR8McqT75';
   var IG = 'https://www.instagram.com/itsyoagami/', TT = 'https://www.tiktok.com/@itsyoagami', YT = 'https://www.youtube.com/@itsyoagami';
   var SITE = 'https://agmteam.com/';
-  var TRACKS = ['Hot Wax','VCR','Club Soda','Stereo 80','Walkmen','Jet Lag','MixDown','Studio B'];
+  var TRACKS = JSON.parse(atob('WyJIb3QgV2F4IiwgIlZDUiIsICJDbHViIFNvZGEiLCAiU3RlcmVvIDgwIiwgIldhbGttZW4iLCAiSmV0IExhZyIsICJNaXhEb3duIiwgIlN0dWRpbyBCIl0='));
   var REL = new Date(2026, 10, 25, 0, 0, 0);
   var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var LITE = !!window.AGLITE, TG = !!window.AGTG;
@@ -565,6 +531,9 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     exe: '<svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="36" rx="3" fill="#2a1a05" stroke="#e2b24a" stroke-width="2"/><rect x="4" y="6" width="40" height="8" fill="#e2b24a"/><path d="M12 36l4-14 6 7 2-11 2 11 6-7 4 14z" fill="#e2b24a"/></svg>',
     vhs: '<svg viewBox="0 0 48 48"><rect x="3" y="12" width="42" height="24" rx="3" fill="#111"/><rect x="8" y="17" width="32" height="10" rx="2" fill="#333"/><circle cx="16" cy="22" r="3" fill="#eee"/><circle cx="32" cy="22" r="3" fill="#eee"/><rect x="10" y="29" width="28" height="4" fill="#f4efe2"/></svg>',
     car: '<svg viewBox="0 0 48 48"><rect x="2" y="2" width="44" height="44" rx="8" fill="#2a0d4a"/><circle cx="24" cy="18" r="9" fill="#ff7a59"/><path d="M2 26h44v20H2z" fill="#05061a"/><path d="M10 36l4-6h20l4 6v5H10z" fill="#ff4fd8"/><circle cx="16" cy="41" r="3" fill="#111"/><circle cx="32" cy="41" r="3" fill="#111"/><rect x="11" y="34" width="5" height="2" fill="#fff"/><rect x="32" y="34" width="5" height="2" fill="#fff"/></svg>',
+    web: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="19" fill="#0d2a7a" stroke="#7cf3ff" stroke-width="2"/><ellipse cx="24" cy="24" rx="8" ry="19" fill="none" stroke="#7cf3ff" stroke-width="2"/><path d="M5 24h38M8 14h32M8 34h32" stroke="#7cf3ff" stroke-width="2"/><path d="M30 30l12 6-5 2-2 5z" fill="#ff4fd8" stroke="#fff" stroke-width="1"/></svg>',
+    snake: '<svg viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="8" fill="#050a1c" stroke="#4aa3ff" stroke-width="2"/><path d="M10 34h10V22h12v-8h6" fill="none" stroke="#4aa3ff" stroke-width="6" stroke-linejoin="round"/><rect x="34" y="30" width="9" height="6" rx="1" fill="#ff4fd8"/></svg>',
+    paint: '<svg viewBox="0 0 48 48"><path d="M24 4C12 4 4 12 4 22c0 9 7 14 13 12 3-1 3 3 5 5 3 3 9 2 14-2 6-5 8-13 4-20S31 4 24 4z" fill="#eaf4ff"/><circle cx="14" cy="18" r="4" fill="#ff4fd8"/><circle cx="24" cy="12" r="4" fill="#4aa3ff"/><circle cx="34" cy="17" r="4" fill="#ffb347"/><circle cx="35" cy="28" r="4" fill="#4cd964"/></svg>',
     term: '<svg viewBox="0 0 48 48"><rect x="3" y="7" width="42" height="34" rx="4" fill="#02050f" stroke="#4aa3ff" stroke-width="2"/><path d="M10 18l6 5-6 5" fill="none" stroke="#9fd0ff" stroke-width="2.5"/><path d="M20 30h12" stroke="#ff4fd8" stroke-width="2.5"/></svg>',
     vault: '<svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="36" rx="5" fill="#1a1f2e" stroke="#ff4fd8" stroke-width="2"/><circle cx="24" cy="24" r="10" fill="none" stroke="#ff4fd8" stroke-width="2.5"/><path d="M24 14v4M24 30v4M14 24h4M30 24h4" stroke="#ff4fd8" stroke-width="2"/><circle cx="24" cy="24" r="3" fill="#fff"/></svg>',
     scr: '<svg viewBox="0 0 48 48"><rect x="3" y="6" width="42" height="30" rx="3" fill="#05061a" stroke="#4aa3ff" stroke-width="2"/><rect x="18" y="38" width="12" height="4" fill="#4aa3ff"/><rect x="11" y="13" width="14" height="9" rx="1.5" fill="#ff4fd8"/><rect x="25" y="21" width="12" height="8" rx="1.5" fill="#4aa3ff"/></svg>',
@@ -586,11 +555,15 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     photos:   {name: 'Photos', icon: function(){ return I.photos; }, w: 560, h: 460, build: buildPhotos},
     merch:    {name: 'Merch', icon: function(){ return I.merch; }, w: 420, h: 320, build: buildMerch},
     mail:     {name: 'Contact', icon: function(){ return I.mail; }, w: 420, h: 330, build: buildMail},
-    games:    {name: 'Arcade', icon: function(){ return I.games; }, w: 520, h: 300, build: buildGames},
+    games:    {name: 'Arcade', icon: function(){ return I.games; }, w: 560, h: 380, build: buildGames},
+    welcome:  {name: 'Welcome.txt', icon: function(){ return I.txt; }, w: 520, h: 560, build: buildWelcome},
+    browser:  {name: 'Browser', icon: function(){ return I.web; }, w: 760, h: 600, build: buildBrowser},
+    snake:    {name: 'Snake.exe', icon: function(){ return I.snake; }, w: 440, h: 620, build: buildSnake},
+    paint:    {name: 'Paint', icon: function(){ return I.paint; }, w: 720, h: 560, build: buildPaint},
     terminal: {name: 'Terminal', icon: function(){ return I.term; }, w: 620, h: 420, build: buildTerminal},
     trash:    {name: 'Trash', icon: function(){ return I.trash; }, w: 520, h: 360, build: buildTrash}
   };
-  var DESK = ['stereo80','player','about','links','beat','games','terminal','photos','merch','mail','trash'];
+  var DESK = ['stereo80','welcome','player','browser','about','links','games','terminal','paint','photos','merch','mail','trash'];
 
   /* ---------- desktop ---------- */
   var desk = $('desk');
@@ -686,7 +659,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 
   /* ---------- start menu ---------- */
   var menu = $('menu'), mi = $('menuItems');
-  DESK.forEach(function(id){
+  DESK.concat(['beat','snake']).forEach(function(id){
     var a = APPS[id], b = el('button', '', a.icon() + esc(a.name)); b.type = 'button'; b.setAttribute('role', 'menuitem');
     b.addEventListener('click', function(){ open(id); }); mi.appendChild(b);
   });
@@ -780,7 +753,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       '<p>Yo Agami is a real, independent music artist.</p>' +
       '<p>His new album, Stereo 80, comes out on November 25, 2026. Eight tracks, all made in the spirit of the 80s: neon, tape, night drives.</p>' +
       '<p>He keeps the focus on the music, so you will not see much of his face. You will hear a lot of him though.</p>' +
-      '<dl><div><dt>NAME</dt><dd>Yo Agami (YO AGAMI)</dd></div><div><dt>NEW ALBUM</dt><dd>Stereo 80 · Nov 25, 2026</dd></div><div><dt>TRACKS</dt><dd>' + TRACKS.join(', ') + '</dd></div><div><dt>LABEL</dt><dd>AGM · Agami Global Management</dd></div><div><dt>LISTEN</dt><dd><a href="' + SP + '" target="_blank" rel="noopener">Spotify</a></dd></div><div><dt>FOLLOW</dt><dd>@itsyoagami on Instagram, TikTok and YouTube</dd></div></dl>' +
+      '<dl><div><dt>NAME</dt><dd>Yo Agami (YO AGAMI)</dd></div><div><dt>NEW ALBUM</dt><dd>Stereo 80 · Nov 25, 2026</dd></div><div><dt>TRACKS</dt><dd>8 (names unlock day by day in Stereo80.app)</dd></div><div><dt>LABEL</dt><dd>AGM · Agami Global Management</dd></div><div><dt>LISTEN</dt><dd><a href="' + SP + '" target="_blank" rel="noopener">Spotify</a></dd></div><div><dt>FOLLOW</dt><dd>@itsyoagami on Instagram, TikTok and YouTube</dd></div></dl>' +
       '<p style="margin-top:18px">P.S. Something old and very dramatic is hiding in the Trash.</p></div>';
   }
 
@@ -807,7 +780,10 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   function buildGames(b){
     b.innerHTML = '<div class="folder">' +
       '<a class="ico" href="nightdrive/" style="text-decoration:none">' + I.car + '<span>NightDrive<wbr>.exe</span></a>' +
+      '<button class="ico" type="button" data-o="snake">' + I.snake + '<span>Snake<wbr>.exe</span></button>' +
       '<button class="ico" type="button" data-o="beat">' + I.beat + '<span>Beat<wbr>.exe</span></button>' +
+      '<button class="ico" type="button" data-o="paint">' + I.paint + '<span>Paint</span></button>' +
+      '<button class="ico" type="button" data-o="browser">' + I.web + '<span>Browser</span></button>' +
       '<button class="ico" type="button" data-o="terminal">' + I.term + '<span>Terminal</span></button>' +
       '<a class="ico" href="kingdom/#games" style="text-decoration:none">' + I.exe + '<span>old_arcade</span></a></div>';
     b.addEventListener('click', function(e){ var x = e.target.closest('[data-o]'); if (x) open(x.getAttribute('data-o')); });
@@ -883,6 +859,136 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     return stop;
   }
 
+  /* ---------- Welcome.txt ---------- */
+  function buildWelcome(b){
+    b.innerHTML = '<div class="menubar"><span>File</span><span>Edit</span><span>Help</span></div><div class="np sel">' +
+      '<h1>WELCOME TO YO-OS</h1>' +
+      '<p>This computer belongs to Yo Agami. Look around.</p>' +
+      '<p>APPS<br>· Stereo80.app : the new album, out Nov 25<br>· Player : listen on Spotify<br>· Browser : surf the YO-NET<br>· Paint : draw something, save it</p>' +
+      '<p>GAMES (open the Arcade folder)<br>· NightDrive : neon racing<br>· Snake : eat the cassettes<br>· Beat : make a drum beat</p>' +
+      '<p>SECRETS<br>· This computer has hidden files.<br>· Right-click (or long-press) the desktop.<br>· The Terminal knows things. Type help.<br>· The Browser has sites nobody talks about.<br>· Leave the computer alone for a minute.</p></div>';
+  }
+
+  /* ---------- Snake.exe ---------- */
+  function buildSnake(b){
+    b.innerHTML = '<div class="sn"><div class="sn-top"><span id="snS">SCORE 0</span><span id="snB">BEST 0</span></div><canvas id="snC" width="400" height="400"></canvas>' +
+      '<div class="sn-pad"><button type="button" data-d="0,-1" aria-label="Up">▲</button><button type="button" data-d="-1,0" aria-label="Left">◀</button><button type="button" data-d="0,1" aria-label="Down">▼</button><button type="button" data-d="1,0" aria-label="Right">▶</button></div>' +
+      '<p class="note" id="snMsg">Tap the screen or press any arrow to start</p></div>';
+    var c = b.querySelector('#snC'), g = c.getContext('2d'), N = 20, S = 20, snake, dir, nd, food, score, best = +(ls('yoos-snake') || 0), alive = false, iv = null, speed;
+    b.querySelector('#snB').textContent = 'BEST ' + best;
+    function place(){ do { food = {x: Math.random() * N | 0, y: Math.random() * N | 0}; } while (snake.some(function(p){ return p.x === food.x && p.y === food.y; })); }
+    function start(){ snake = [{x: 9, y: 10}, {x: 8, y: 10}, {x: 7, y: 10}]; dir = {x: 1, y: 0}; nd = dir; score = 0; speed = 130; place(); alive = true; b.querySelector('#snMsg').textContent = 'Eat the cassettes. Do not bite yourself.'; loop(); }
+    function loop(){ clearInterval(iv); iv = setInterval(step, speed); }
+    function step(){
+      dir = nd; var h = {x: (snake[0].x + dir.x + N) % N, y: (snake[0].y + dir.y + N) % N};
+      if (snake.some(function(p){ return p.x === h.x && p.y === h.y; })){ alive = false; clearInterval(iv); blip(110, .4, 'sawtooth', .06); if (score > best){ best = score; ls('yoos-snake', best); } b.querySelector('#snB').textContent = 'BEST ' + best; b.querySelector('#snMsg').textContent = 'Game over. Tap to play again.'; draw(); return; }
+      snake.unshift(h);
+      if (h.x === food.x && h.y === food.y){ score++; blip(880 + score * 10, .08, 'triangle', .06); place(); if (speed > 60){ speed -= 4; loop(); } } else snake.pop();
+      b.querySelector('#snS').textContent = 'SCORE ' + score; draw();
+    }
+    function draw(){
+      g.fillStyle = '#050a1c'; g.fillRect(0, 0, 400, 400);
+      g.strokeStyle = 'rgba(74,163,255,.08)'; for (var i = 1; i < N; i++){ g.beginPath(); g.moveTo(i * S, 0); g.lineTo(i * S, 400); g.moveTo(0, i * S); g.lineTo(400, i * S); g.stroke(); }
+      if (food){ g.fillStyle = '#ff4fd8'; g.fillRect(food.x * S + 3, food.y * S + 5, 14, 10); g.fillStyle = '#fff'; g.fillRect(food.x * S + 6, food.y * S + 9, 3, 3); g.fillRect(food.x * S + 11, food.y * S + 9, 3, 3); }
+      if (snake) snake.forEach(function(p, i){ g.fillStyle = i ? 'rgba(74,163,255,' + Math.max(.35, 1 - i / snake.length) + ')' : '#b9dcff'; g.fillRect(p.x * S + 1, p.y * S + 1, S - 2, S - 2); });
+    }
+    function turn(x, y){ if (!alive){ start(); return; } if (x === -dir.x && y === -dir.y) return; nd = {x: x, y: y}; }
+    function key(e){ if (!wins.snake || !wins.snake.el.classList.contains('focus')) return; var m = {ArrowUp: [0,-1], ArrowDown: [0,1], ArrowLeft: [-1,0], ArrowRight: [1,0], w: [0,-1], s: [0,1], a: [-1,0], d: [1,0]}[e.key]; if (m){ e.preventDefault(); turn(m[0], m[1]); } }
+    document.addEventListener('keydown', key);
+    b.querySelectorAll('[data-d]').forEach(function(x){ x.addEventListener('pointerdown', function(e){ e.preventDefault(); var d = x.getAttribute('data-d').split(','); turn(+d[0], +d[1]); }); });
+    var tx, ty; c.addEventListener('pointerdown', function(e){ tx = e.clientX; ty = e.clientY; if (!alive) start(); });
+    c.addEventListener('pointerup', function(e){ var dx = e.clientX - tx, dy = e.clientY - ty; if (Math.max(Math.abs(dx), Math.abs(dy)) < 20) return; if (Math.abs(dx) > Math.abs(dy)) turn(dx > 0 ? 1 : -1, 0); else turn(0, dy > 0 ? 1 : -1); });
+    snake = [{x: 9, y: 10}, {x: 8, y: 10}, {x: 7, y: 10}]; food = {x: 14, y: 10}; draw();
+    return function(){ clearInterval(iv); document.removeEventListener('keydown', key); };
+  }
+
+  /* ---------- Paint.exe ---------- */
+  function buildPaint(b){
+    var COLS = ['#eaf4ff','#4aa3ff','#ff4fd8','#7cf3ff','#ffb347','#ffd36b','#4cd964','#05061a'];
+    b.innerHTML = '<div class="pt"><div class="pt-tools">' + COLS.map(function(c, i){ return '<button type="button" class="pt-c' + (i === 1 ? ' on' : '') + '" data-c="' + c + '" style="background:' + c + '" aria-label="Color ' + (i + 1) + '"></button>'; }).join('') +
+      '<span class="pt-sep"></span><button type="button" class="pt-s" data-s="3">S</button><button type="button" class="pt-s on" data-s="8">M</button><button type="button" class="pt-s" data-s="20">L</button><button type="button" class="pt-s" data-s="glow">✦</button>' +
+      '<span class="pt-sep"></span><button type="button" class="btn" id="ptClr">Clear</button><button type="button" class="btn pri" id="ptSave">Save</button></div><canvas id="ptC"></canvas></div>';
+    var c = b.querySelector('#ptC'), g = c.getContext('2d'), col = '#4aa3ff', size = 8, glow = false, down = false, lx, ly;
+    function fit(){ var r = c.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2), img = null; if (c.width) { img = document.createElement('canvas'); img.width = c.width; img.height = c.height; img.getContext('2d').drawImage(c, 0, 0); }
+      c.width = Math.max(10, r.width * d); c.height = Math.max(10, r.height * d); g.setTransform(d, 0, 0, d, 0, 0); g.fillStyle = '#05061a'; g.fillRect(0, 0, r.width, r.height); if (img) g.drawImage(img, 0, 0, img.width / d, img.height / d); }
+    setTimeout(fit, 30);
+    var ro = window.ResizeObserver ? new ResizeObserver(function(){ fit(); }) : null; if (ro) ro.observe(c);
+    function pos(e){ var r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+    c.addEventListener('pointerdown', function(e){ down = true; c.setPointerCapture(e.pointerId); var p = pos(e); lx = p[0]; ly = p[1]; line(lx, ly, lx + .1, ly + .1); });
+    c.addEventListener('pointermove', function(e){ if (!down) return; var p = pos(e); line(lx, ly, p[0], p[1]); lx = p[0]; ly = p[1]; });
+    ['pointerup','pointercancel'].forEach(function(ev){ c.addEventListener(ev, function(){ down = false; }); });
+    function line(a, b2, x, y){ g.lineCap = 'round'; g.lineJoin = 'round'; g.strokeStyle = col; g.lineWidth = glow ? 6 : size; g.shadowColor = col; g.shadowBlur = glow ? 18 : 0; g.beginPath(); g.moveTo(a, b2); g.lineTo(x, y); g.stroke(); g.shadowBlur = 0; }
+    b.querySelectorAll('.pt-c').forEach(function(x){ x.addEventListener('click', function(){ col = x.getAttribute('data-c'); b.querySelectorAll('.pt-c').forEach(function(y){ y.classList.toggle('on', y === x); }); }); });
+    b.querySelectorAll('.pt-s').forEach(function(x){ x.addEventListener('click', function(){ var s = x.getAttribute('data-s'); glow = s === 'glow'; if (!glow) size = +s; b.querySelectorAll('.pt-s').forEach(function(y){ y.classList.toggle('on', y === x); }); }); });
+    b.querySelector('#ptClr').addEventListener('click', function(){ var r = c.getBoundingClientRect(); g.fillStyle = '#05061a'; g.fillRect(0, 0, r.width, r.height); });
+    b.querySelector('#ptSave').addEventListener('click', function(){ c.toBlob(function(bl){ if (!bl) return; var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = 'yo-os-paint.png'; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500); toast('', 'Saved', 'yo-os-paint.png'); }); });
+    return function(){ if (ro) ro.disconnect(); };
+  }
+
+  /* ---------- Browser (YO-NET) ---------- */
+  function buildBrowser(b){
+    b.innerHTML = '<div class="br"><div class="br-bar"><button type="button" id="brBack" aria-label="Back">◀</button><button type="button" id="brHome" aria-label="Home">⌂</button><form id="brForm"><input id="brUrl" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Address"></form><button type="button" id="brGo">GO</button></div>' +
+      '<div class="br-marks"><button type="button" data-u="yoogle.yo">Yoogle</button><button type="button" data-u="stereo80.fm">Stereo80.fm</button><button type="button" data-u="fanclub.yo">Fan Club</button><button type="button" data-u="arcade.yo">Arcade</button></div><div class="br-page sel" id="brPage"></div></div>';
+    var P = b.querySelector('#brPage'), U = b.querySelector('#brUrl'), hist = [];
+    function days(){ return Math.max(0, Math.ceil((dayStart(REL) - dayStart(new Date())) / 864e5)); }
+    var visitors = 1000 + (Math.floor(Date.now() / 3.6e6) % 9000);
+    var SITES = {
+      'yoogle.yo': function(){ return '<div class="yg"><div class="yg-logo"><span>Y</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div><form id="ygF"><input id="ygQ" placeholder="Search the YO-NET" autocomplete="off"></form><div class="yg-tip">Try: stereo 80, games, secret, vault, radio</div><div id="ygR"></div></div>'; },
+      'stereo80.fm': function(){ return '<div class="fm"><div class="fm-logo">STEREO80<span>.FM</span></div><div class="fm-onair">● ON AIR</div><p class="fm-now">Now playing: <b>static</b></p><div class="fm-eq">' + new Array(24).join('<i></i>') + '</div><p>The album hits the airwaves in <b>' + (isOut() ? 'NOW. IT IS OUT.' : days() + ' days') + '</b>.</p><p class="fm-dj">DJ says: "Keep this station on. On November 25 something comes through these speakers."</p></div>'; },
+      'fanclub.yo': function(){ return '<div class="fc"><marquee scrollamount="6">★ WELCOME TO THE OFFICIAL UNOFFICIAL YO AGAMI FAN CLUB ★ BEST VIEWED ON YO-OS ★</marquee><h2>Yo Agami Fan Club</h2><p>Member list: you.</p><p>Fan club rules:<br>1. No skipping.<br>2. Tell one friend.<br>3. Do not ask what is in the vault. Find it.</p><div class="fc-count">You are visitor No. <b>' + visitors + '</b></div><p class="fc-small">Guestbook opens 11.25 · Webmaster: AGM · <a href="#" data-go="under.yo">under construction</a></p></div>'; },
+      'arcade.yo': function(){ return '<div class="ar"><h2>YO-NET ARCADE</h2><p>Every game on this computer:</p><button class="btn pri" type="button" data-app="nightdrive">NightDrive</button> <button class="btn pri" type="button" data-app="snake">Snake</button> <button class="btn pri" type="button" data-app="beat">Beat</button> <button class="btn" type="button" data-app="paint">Paint</button><p style="margin-top:16px">High scores? <a href="#" data-go="scores.yo">scores.yo</a></p></div>'; },
+      'scores.yo': function(){ return '<div class="ar"><h2>YOUR HIGH SCORES</h2><p>NightDrive: <b>' + (ls('nd-best') || 0) + '</b></p><p>Snake: <b>' + (ls('yoos-snake') || 0) + '</b></p><p>Saved on this computer only.</p></div>'; },
+      'under.yo': function(){ return '<div class="ar" style="text-align:center"><div style="font-size:60px">🚧</div><h2>UNDER CONSTRUCTION</h2><p>Since 1998. Probably forever.</p><p style="opacity:.15">psst. secret.yo</p></div>'; },
+      'secret.yo': function(){ return '<div class="sc"><h2>secret.yo</h2><p>Password:</p><form id="scF"><input id="scP" type="password" autocomplete="off"></form><p class="sc-h">Hint: what do you do on an empty highway at 2am? (one word, no spaces)</p><div id="scOut"></div></div>'; },
+      'vault.yo': function(){ return '<div class="ar"><h2>VAULT.YO</h2><p>The vault is not on the net. It is on this computer. Hidden.</p><p>Or <a href="vault/">walk straight in</a> if you know the code.</p></div>'; },
+      'agmteam.com': function(){ return '<div class="ar"><h2>agmteam.com</h2><p>You are already here. That is deep.</p></div>'; },
+      'kingdom.yo': function(){ return '<div class="ar"><h2>THE KINGDOM</h2><p>An ancient website. Very loud. Very gold.</p><a class="btn" href="kingdom/">Enter the Kingdom</a></div>'; }
+    };
+    var SEARCH = [
+      ['stereo 80 album new tracks release', 'Stereo80.app', 'The new album. Out November 25.', 'app:stereo80'],
+      ['radio fm stereo music listen', 'stereo80.fm', 'The station that plays it first.', 'stereo80.fm'],
+      ['games arcade play drive car snake beat', 'arcade.yo', 'Every game on YO-OS.', 'arcade.yo'],
+      ['fan club fans', 'fanclub.yo', 'The official unofficial fan club.', 'fanclub.yo'],
+      ['secret hidden password', 'secret.yo', 'You should not be here.', 'secret.yo'],
+      ['vault code safe', 'vault.yo', 'Locked. Obviously.', 'vault.yo'],
+      ['king kingdom old gold', 'kingdom.yo', 'An ancient website.', 'kingdom.yo'],
+      ['yo agami artist who about', 'About.txt', 'Who is Yo Agami?', 'app:about'],
+      ['spotify listen music player', 'Player', 'Listen on Spotify.', 'app:player'],
+      ['score high best', 'scores.yo', 'Your high scores.', 'scores.yo']
+    ];
+    function go(u, push){
+      u = (u || '').trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
+      if (!u) u = 'yoogle.yo';
+      if (push !== false && U.getAttribute('data-cur')) hist.push(U.getAttribute('data-cur'));
+      U.value = 'http://www.' + u; U.setAttribute('data-cur', u);
+      if (SITES[u]) P.innerHTML = SITES[u]();
+      else if (u.indexOf('.') < 0) { return go('yoogle.yo?q=' + u, false); }
+      else if (u.indexOf('yoogle.yo?q=') === 0){ P.innerHTML = SITES['yoogle.yo'](); P.querySelector('#ygQ').value = decodeURIComponent(u.slice(12)); search(P.querySelector('#ygQ').value); }
+      else P.innerHTML = '<div class="ar" style="text-align:center"><h2>404</h2><p>' + esc(u) + ' does not exist on the YO-NET. Yet.</p><p><a href="#" data-go="yoogle.yo">Back to Yoogle</a></p></div>';
+      P.scrollTop = 0; blip(1200, .03); wire();
+    }
+    function search(q){
+      q = (q || '').toLowerCase(); var R = P.querySelector('#ygR'); if (!R) return;
+      var hits = SEARCH.filter(function(s){ return q.split(/\s+/).some(function(w){ return w && s[0].indexOf(w) >= 0; }); });
+      R.innerHTML = hits.length ? hits.map(function(h){ return '<a href="#" class="yg-r" data-go="' + h[3] + '"><b>' + esc(h[1]) + '</b><small>' + esc(h[2]) + '</small></a>'; }).join('') : '<p class="yg-tip">No results. Maybe try "secret".</p>';
+      wire();
+    }
+    function wire(){
+      P.querySelectorAll('[data-go]').forEach(function(a){ a.onclick = function(e){ e.preventDefault(); var t = a.getAttribute('data-go'); if (t.indexOf('app:') === 0) open(t.slice(4)); else go(t); }; });
+      P.querySelectorAll('[data-app]').forEach(function(a){ a.onclick = function(){ var t = a.getAttribute('data-app'); if (t === 'nightdrive') location.href = 'nightdrive/'; else open(t); }; });
+      var f = P.querySelector('#ygF'); if (f) f.onsubmit = function(e){ e.preventDefault(); search(P.querySelector('#ygQ').value); };
+      var s = P.querySelector('#scF'); if (s) s.onsubmit = function(e){ e.preventDefault(); var v = P.querySelector('#scP').value.trim().toLowerCase().replace(/\s+/g, '');
+        if (v === 'drive' || v === 'nightdrive'){ revealHidden(); P.querySelector('#scOut').innerHTML = '<div class="sc-ok"><b>ACCESS GRANTED</b><p>The secret list:</p><p>· Right-click the desktop: Show hidden files<br>· Type agami anywhere<br>· Tap the clock 5 times<br>· ↑ ↑ ↓ ↓ ← → ← → B A<br>· Terminal: ls -a, matrix<br>· The vault code is the release date (MMDD)<br>· Do nothing for a minute</p></div>'; blip(1047, .3, 'triangle', .06); }
+        else { P.querySelector('#scOut').innerHTML = '<p style="color:#ff6b8a">Wrong.</p>'; blip(110, .3, 'sawtooth', .05); } };
+    }
+    b.querySelector('#brForm').addEventListener('submit', function(e){ e.preventDefault(); go(U.value); });
+    b.querySelector('#brGo').addEventListener('click', function(){ go(U.value); });
+    b.querySelector('#brBack').addEventListener('click', function(){ if (hist.length) go(hist.pop(), false); });
+    b.querySelector('#brHome').addEventListener('click', function(){ go('yoogle.yo'); });
+    b.querySelectorAll('.br-marks [data-u]').forEach(function(x){ x.addEventListener('click', function(){ go(x.getAttribute('data-u')); }); });
+    go('yoogle.yo', false);
+  }
+
   /* ---------- Terminal ---------- */
   function buildTerminal(b, rec){
     b.innerHTML = '<div class="term sel" id="tmOut"></div><form class="term-in" id="tmForm" autocomplete="off"><span>C:\\YO&gt;</span><input id="tmIn" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Command"></form>';
@@ -891,9 +997,10 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     p('YO-OS Terminal [Version 1.80]'); p('Type HELP to see what you can do.'); p('');
     var hist = [], hi = 0;
     var CMD = {
-      help: function(){ ['HELP         this list','LS           list files','LS -A        list ALL files (even hidden ones)','OPEN <name>  open an app (album, player, about, socials, beat, photos)','CAT <file>   read a file','DATE         today','COUNTDOWN    time until Stereo 80','DRIVE        start the night drive','MATRIX       ???','WHOAMI       who are you','CLEAR        clear the screen','EXIT         close the terminal'].forEach(function(l){ p(l); }); },
+      help: function(){ ['help         this list','ls           list files','ls -a        list ALL files (even hidden ones)','open <name>  open an app (album, browser, paint, snake, beat...)','cat <file>   read a file','games        list the games','date         today','countdown    time until Stereo 80','drive        start the night drive','matrix       ???','whoami       who are you','clear        clear the screen','exit         close the terminal','','(capital letters or not, both work)'].forEach(function(l){ p(l); }); },
+      games: function(){ p('nightdrive  snake  beat  paint'); p('type: open snake (or drive for nightdrive)'); },
       ls: function(a){
-        var f = ['Stereo80.app','Player','About.txt','Socials','Beat.exe','Photos','Merch','Contact','Arcade','Trash','hint.txt'];
+        var f = ['Stereo80.app','Welcome.txt','Player','Browser','About.txt','Socials','Arcade','Paint','Photos','Merch','Contact','Trash','hint.txt'];
         if (a === '-a' || a === '-la' || a === '-al'){ f = f.concat(['.vault','.tape','.screensaver']); revealHidden(); }
         p(f.join('    '));
       },
@@ -906,8 +1013,9 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       },
       open: function(a){
         a = (a || '').toLowerCase().replace(/\.(app|exe|txt)$/, '');
-        var map = {album: 'stereo80', stereo80: 'stereo80', player: 'player', about: 'about', socials: 'links', links: 'links', beat: 'beat', photos: 'photos', merch: 'merch', contact: 'mail', arcade: 'games', trash: 'trash'};
+        var map = {album: 'stereo80', stereo80: 'stereo80', player: 'player', browser: 'browser', paint: 'paint', snake: 'snake', welcome: 'welcome', terminal: 'terminal', nightdrive: 'nd', about: 'about', socials: 'links', links: 'links', beat: 'beat', photos: 'photos', merch: 'merch', contact: 'mail', arcade: 'games', trash: 'trash'};
         if (a === '.vault' || a === 'vault') return CMD.vault();
+        if (map[a] === 'nd') return CMD.drive();
         if (map[a]){ p('Opening ' + a + '...'); open(map[a]); } else p('No app called "' + a + '". Try LS.');
       },
       date: function(){ p(new Date().toString()); },
