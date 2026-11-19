@@ -401,6 +401,72 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 
 
 
+
+/* ---------- v7 ---------- */
+#tod{position:fixed;inset:0;z-index:1;pointer-events:none;transition:background 2s}
+#tod.morning{background:linear-gradient(180deg,rgba(255,160,180,.12),transparent 60%)}
+#tod.day{background:none}
+#tod.evening{background:linear-gradient(180deg,rgba(255,110,60,.10),rgba(140,40,160,.14))}
+#tod.night{background:radial-gradient(1px 1px at 12% 18%,#fff,transparent),radial-gradient(1px 1px at 72% 12%,#fff,transparent),radial-gradient(1.5px 1.5px at 40% 30%,#fff,transparent),radial-gradient(1px 1px at 88% 40%,#fff,transparent),radial-gradient(1px 1px at 25% 52%,#fff,transparent),radial-gradient(1px 1px at 60% 8%,#fff,transparent),linear-gradient(180deg,rgba(0,0,10,.35),rgba(0,0,20,.2))}
+body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
+@keyframes gl{0%{transform:translate(0)}20%{transform:translate(-6px,2px);filter:hue-rotate(90deg)}40%{transform:translate(5px,-3px)}60%{transform:translate(-3px,1px);filter:invert(.2)}80%{transform:translate(2px,0)}}
+.bugx{position:fixed;left:0;top:0;z-index:59;border:0;background:none;font-size:28px;cursor:pointer;padding:6px;touch-action:manipulation}
+.plane{position:fixed;top:18%;left:0;z-index:58;display:flex;align-items:center;gap:8px;font-size:30px;pointer-events:none;animation:plane 9s linear forwards;white-space:nowrap}
+.plane span{font:20px var(--pix);padding:4px 10px;border-radius:6px;background:#fffbe0;color:#222}
+@keyframes plane{from{transform:translate(-320px,0)}to{transform:translate(calc(100vw + 40px),-120px)}}
+.pet{position:fixed;left:0;bottom:var(--bar);z-index:9;width:48px;height:34px;cursor:grab;touch-action:none;filter:drop-shadow(0 0 8px rgba(74,163,255,.5))}
+.pet svg{width:100%;height:100%;display:block;animation:petw .5s ease-in-out infinite alternate}
+.pet.ghost{width:40px;height:44px;opacity:.85;filter:drop-shadow(0 0 10px #b9dcff)}
+.pet.flip svg{transform:scaleX(-1)}
+.pet.sleep svg{animation:none}.pet.sleep .pu{transform:scaleY(.1);transform-origin:center;transform-box:fill-box}
+.pet.held svg{animation:shk .1s infinite}
+@keyframes petw{to{translate:0 -2px}}
+@keyframes shk{50%{rotate:8deg}}
+.pet-b{position:absolute;bottom:40px;left:50%;translate:-50% 0;white-space:nowrap;padding:4px 8px;border-radius:8px;background:#fffbe0;color:#222;font:700 12px var(--ui);font-style:normal;pointer-events:none}
+.pet.flip .pet-b{transform:none}
+.zz{position:absolute;bottom:34px;right:-10px;font:16px var(--pix);color:var(--neon-hi);font-style:normal;animation:zz 2s infinite}
+@keyframes zz{50%{translate:4px -6px;opacity:.5}}
+.mb{display:grid;grid-template-columns:240px minmax(0,1fr);height:100%}
+.mb-list{border-right:1px solid var(--line2);overflow:auto;scrollbar-width:none}
+.mb-it{display:block;width:100%;text-align:left;padding:10px 12px;border:0;border-bottom:1px solid var(--line2);background:none;cursor:pointer}
+.mb-it b{display:block;font:600 13px var(--ui);color:var(--dim)}.mb-it span{display:block;font:13px var(--ui);color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mb-it.unread b,.mb-it.unread span{color:#fff;font-weight:800}
+.mb-it.unread{box-shadow:inset 3px 0 0 var(--pink)}
+.mb-it.on{background:rgba(74,163,255,.18)}
+.mb-read{padding:16px 18px;overflow:auto;scrollbar-width:none;font:15px/1.5 var(--ui)}
+.mb-read h3{margin:0 0 6px}.mb-from{color:var(--dim);font-size:13px;margin-bottom:14px}
+.mb-back{display:none}
+.mb-body .spam{color:#ffe14d;font-weight:700}.mb-body .mut{color:var(--dim);font-size:12px}
+.mb-body .ghost{font-family:var(--pix);font-size:22px;color:#b9ffcf;line-height:1.2}
+@media (max-width:720px){.mb{grid-template-columns:1fr}.mb.reading .mb-list{display:none}.mb:not(.reading) .mb-read{display:none}.mb-back{display:inline-block;margin-bottom:10px;border:0;background:none;color:var(--neon);font:700 14px var(--ui);cursor:pointer}}
+.fx{display:flex;flex-direction:column;height:100%;background:#e9e6dd;color:#111}
+.fx-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px;background:#c9c5b9;border-bottom:2px solid #8d897d}
+.fx-bar button{width:36px;height:30px;border:2px outset #eee;background:#d8d4c8;cursor:pointer;color:#111}
+.fx-path{flex:1;min-width:120px;height:30px;padding:0 10px;display:flex;align-items:center;background:#fff;border:2px inset #eee;font:19px var(--pix);color:#111;overflow:hidden;white-space:nowrap}
+.fx-view{display:flex;align-items:center;gap:6px;font:12px var(--ui);color:#222}
+.fx-main{flex:1;overflow:auto;scrollbar-width:none}
+.fx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;padding:12px}
+.fx-it{display:grid;justify-items:center;gap:4px;padding:10px 4px;border:1px solid transparent;border-radius:6px;background:none;cursor:pointer;color:#111}
+.fx-it:hover{background:rgba(29,79,216,.12);border-color:rgba(29,79,216,.3)}
+.fx-it span{font-size:34px;line-height:1}.fx-it b{font:16px var(--pix);word-break:break-word}
+.fx-it.hid{opacity:.5}
+.fx-st{padding:4px 10px;border-top:1px solid #8d897d;font:12px var(--ui);color:#444;background:#d8d4c8}
+.fx-file{padding:14px}
+.fx-file .btn,.fx-file .btn.pri{color:#111;border-color:#999}.fx-file .btn.pri{color:#fff}
+.fx-file h4{margin:12px 0 8px;font:24px var(--pix)}
+.fx-file pre{margin:0;padding:12px;background:#fff;border:2px inset #eee;font:18px/1.25 var(--pix);white-space:pre-wrap;color:#111}
+.fx-pw,.fx-rs{display:flex;gap:8px}.fx-pw input,.fx-rs input{flex:1;min-width:0;height:38px;border:2px inset #eee;padding:0 10px;font:16px var(--ui);color:#111;background:#fff}
+.fx-msg{color:#b3000f;font-weight:700}
+.fx-prog{height:16px;border:2px inset #eee;background:#fff}.fx-prog i{display:block;height:100%;width:0;background:#1d4fd8}
+.fx-photo{height:200px;display:grid;place-items:center;background:repeating-linear-gradient(0deg,#222 0 2px,#333 2px 4px);filter:blur(1px)}
+.fx-photo span{font:80px var(--pix);color:rgba(234,244,255,.35);text-shadow:4px 0 #ff4fd8,-4px 0 #4aa3ff}
+.tr-w{padding:16px}
+.tr-h b{font:56px var(--pix);line-height:1;color:#ffd36b;text-shadow:0 0 14px #ffb347}.tr-h span{margin-left:10px;color:var(--dim)}
+.tr-bar{height:10px;border-radius:6px;background:rgba(255,255,255,.08);margin:10px 0 16px;overflow:hidden}.tr-bar i{display:block;height:100%;background:linear-gradient(90deg,#ffb347,#ffd36b)}
+.tr-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.tr-i{padding:10px;border-radius:10px;border:1px solid var(--line2);background:rgba(5,10,28,.5);opacity:.6}
+.tr-i.ok{opacity:1;border-color:#ffd36b;box-shadow:0 0 14px rgba(255,211,107,.2)}
+.tr-i span{font-size:22px}.tr-i b{display:block;font:700 14px var(--ui)}.tr-i small{color:var(--dim);font-size:12px}
 /* ---------- v6 ---------- */
 .ch-q{display:flex;gap:6px;padding:6px 8px 0;overflow-x:auto;scrollbar-width:none}
 .ch-q::-webkit-scrollbar{display:none}
@@ -780,6 +846,9 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     exe: '<svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="36" rx="3" fill="#2a1a05" stroke="#e2b24a" stroke-width="2"/><rect x="4" y="6" width="40" height="8" fill="#e2b24a"/><path d="M12 36l4-14 6 7 2-11 2 11 6-7 4 14z" fill="#e2b24a"/></svg>',
     vhs: '<svg viewBox="0 0 48 48"><rect x="3" y="12" width="42" height="24" rx="3" fill="#111"/><rect x="8" y="17" width="32" height="10" rx="2" fill="#333"/><circle cx="16" cy="22" r="3" fill="#eee"/><circle cx="32" cy="22" r="3" fill="#eee"/><rect x="10" y="29" width="28" height="4" fill="#f4efe2"/></svg>',
     car: '<svg viewBox="0 0 48 48"><rect x="2" y="2" width="44" height="44" rx="8" fill="#2a0d4a"/><circle cx="24" cy="18" r="9" fill="#ff7a59"/><path d="M2 26h44v20H2z" fill="#05061a"/><path d="M10 36l4-6h20l4 6v5H10z" fill="#ff4fd8"/><circle cx="16" cy="41" r="3" fill="#111"/><circle cx="32" cy="41" r="3" fill="#111"/><rect x="11" y="34" width="5" height="2" fill="#fff"/><rect x="32" y="34" width="5" height="2" fill="#fff"/></svg>',
+    pc: '<svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="28" rx="3" fill="#0d2a7a" stroke="#b9dcff" stroke-width="2"/><rect x="8" y="10" width="32" height="20" fill="#4aa3ff"/><path d="M8 26l9-8 6 5 7-7 10 10" fill="none" stroke="#eaf4ff" stroke-width="2"/><rect x="16" y="36" width="16" height="4" fill="#b9dcff"/><rect x="10" y="40" width="28" height="3" rx="1" fill="#b9dcff"/></svg>',
+    inbox: '<svg viewBox="0 0 48 48"><rect x="4" y="12" width="40" height="28" rx="4" fill="#ffb347"/><path d="M4 16l20 14 20-14" fill="none" stroke="#7a3a00" stroke-width="3"/><circle cx="38" cy="12" r="7" fill="#ff4fd8"/></svg>',
+    trophy: '<svg viewBox="0 0 48 48"><path d="M14 6h20v12a10 10 0 0 1-20 0z" fill="#ffd36b"/><path d="M14 9H7a7 7 0 0 0 8 10M34 9h7a7 7 0 0 1-8 10" fill="none" stroke="#ffd36b" stroke-width="3"/><rect x="21" y="27" width="6" height="8" fill="#ffb347"/><rect x="14" y="35" width="20" height="6" rx="2" fill="#ffb347"/></svg>',
     clue: '<svg viewBox="0 0 48 48"><path d="M10 4h20l8 8v32H10z" fill="#fffbe0"/><path d="M30 4v8h8" fill="#e8dfa8"/><circle cx="22" cy="24" r="7" fill="none" stroke="#ff4fd8" stroke-width="3"/><path d="M27 29l7 7" stroke="#ff4fd8" stroke-width="3.5" stroke-linecap="round"/></svg>',
     gta: '<svg viewBox="0 0 48 48"><rect x="2" y="2" width="44" height="44" rx="6" fill="#0a0f2a" stroke="#ffb347" stroke-width="2"/><text x="24" y="22" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="13" fill="#fff">GRAND</text><text x="24" y="34" text-anchor="middle" font-family="Impact,Arial Black,sans-serif" font-size="9" fill="#ffb347">THEFT AUDIO</text><path d="M10 40h28" stroke="#ff4fd8" stroke-width="2"/></svg>',
     mine: '<svg viewBox="0 0 48 48"><rect x="3" y="3" width="42" height="42" rx="4" fill="#c9c5b9"/><g fill="#8d897d"><rect x="6" y="6" width="11" height="11"/><rect x="31" y="6" width="11" height="11"/><rect x="6" y="31" width="11" height="11"/></g><circle cx="24" cy="24" r="9" fill="#05061a"/><path d="M21 20v8l6-4z" fill="#fff"/><rect x="27" y="20" width="2" height="8" fill="#fff"/></svg>',
@@ -811,6 +880,9 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     merch:    {name: 'Merch', icon: function(){ return I.merch; }, w: 420, h: 320, build: buildMerch},
     mail:     {name: 'Contact', icon: function(){ return I.mail; }, w: 420, h: 330, build: buildMail},
     games:    {name: 'Arcade', icon: function(){ return I.games; }, w: 600, h: 440, build: buildGames},
+    files:    {name: 'My Computer', icon: function(){ return I.pc; }, w: 680, h: 520, build: buildFiles},
+    inbox:    {name: 'Mail', icon: function(){ return I.inbox; }, w: 720, h: 520, build: buildInbox},
+    trophies: {name: 'Trophies', icon: function(){ return I.trophy; }, w: 620, h: 600, build: buildTrophies},
     clues:    {name: 'Clues.txt', icon: function(){ return I.clue; }, w: 520, h: 560, build: buildClues},
     welcome:  {name: 'Welcome.txt', icon: function(){ return I.txt; }, w: 520, h: 560, build: buildWelcome},
     browser:  {name: 'Browser', icon: function(){ return I.web; }, w: 760, h: 600, build: buildBrowser},
@@ -827,7 +899,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     terminal: {name: 'Terminal', icon: function(){ return I.term; }, w: 620, h: 420, build: buildTerminal},
     trash:    {name: 'Trash', icon: function(){ return I.trash; }, w: 520, h: 360, build: buildTrash}
   };
-  var DESK = ['stereo80','welcome','clues','player','browser','chat','about','links','games','terminal','paint','weather','photos','merch','mail','donotopen','trash'];
+  var DESK = ['stereo80','files','inbox','welcome','clues','trophies','player','browser','chat','about','links','games','terminal','paint','weather','photos','merch','mail','donotopen','trash'];
 
   /* ---------- desktop ---------- */
   var desk = $('desk');
@@ -843,8 +915,9 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   function open(id, args){
     var a = APPS[id]; if (!a) return;
     closeMenu();
+    onOpen(id);
     if (a.action){ a.action(); return; }
-    if (wins[id]){ wins[id].el.hidden = false; focus(id); if (args && args.url && wins[id].goto) wins[id].goto(args.url); return; }
+    if (wins[id]){ wins[id].el.hidden = false; focus(id); if (args && args.url && wins[id].goto) wins[id].goto(args.url); if (args && args.mail && wins[id].refresh){ close(id); setTimeout(function(){ open(id, args); }, 160); } return; }
     var w = el('section', 'win', '');
     w.setAttribute('role', 'dialog'); w.setAttribute('aria-label', a.name);
     w.innerHTML = '<div class="tb"><span class="t">' + esc(a.name) + '</span>' +
@@ -954,7 +1027,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   function toast(img, title, sub, onClick){
     var t = el('div', 'toast', (img ? '<img src="' + img + '" alt="" class="cov">' : '<span></span>') + '<div><b>' + esc(title) + '</b><small>' + esc(sub) + '</small></div>');
     t.addEventListener('click', function(){ t.remove(); if (onClick) onClick(); });
-    $('toasts').appendChild(t); blip(988, .08, 'triangle', .05);
+    var TS = $('toasts'); TS.appendChild(t); while (TS.children.length > (mobile() ? 1 : 3)) TS.removeChild(TS.firstChild); blip(988, .08, 'triangle', .05);
     setTimeout(function(){ if (t.parentNode) t.remove(); }, 7000);
   }
 
@@ -1124,7 +1197,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     function stop(){ playing = false; clearInterval(timer); timer = null; b.querySelector('#bmPlay').textContent = '▶ Play'; G.querySelectorAll('button.now').forEach(function(x){ x.classList.remove('now'); }); }
     b.querySelector('#bmPlay').addEventListener('click', function(){
       if (playing) return stop();
-      var a = ctx(); if (!a) return; playing = true; step = 0; nextT = a.currentTime + .05; timer = setInterval(sched, 25); sched(); this.textContent = '■ Stop';
+      var a = ctx(); if (!a) return; playing = true; step = 0; nextT = a.currentTime + .05; timer = setInterval(sched, 25); sched(); ach('beat'); this.textContent = '■ Stop';
     });
     b.querySelector('#bmBpm').addEventListener('input', function(){ bpm = +this.value; b.querySelector('#bmBpmN').textContent = bpm; });
     b.querySelectorAll('[data-p]').forEach(function(x){ x.addEventListener('click', function(){ load(+x.getAttribute('data-p')); }); });
@@ -1142,7 +1215,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     ['0', ['Tune in where the album lives.', 'Open Stereo80.fm and drag the radio dial. The album name has a number in it.', 'Tune the dial to exactly 80.0.']]
   ];
   function keys(){ try{ return JSON.parse(ls('yoos-keys') || '{}') || {}; }catch(e){ return {}; } }
-  function foundKey(n){ var k = keys(); if (k[n]) return; k[n] = 1; ls('yoos-keys', JSON.stringify(k)); var c = Object.keys(k).length;
+  function foundKey(n){ var k = keys(); if (k[n]) return; k[n] = 1; ls('yoos-keys', JSON.stringify(k)); var c = Object.keys(k).length; if (c >= 4) ach('pieces');
     var so = CLUES.map(function(x, i){ return k[i + 1] ? x[0] : '_'; }).join(' ');
     toast('', 'PIECE ' + n + ' OF 4: ' + CLUES[n - 1][0], 'Your code so far: ' + so + (c < 4 ? '' : ' · now go to deep.yo'), function(){ open('clues'); });
     if (wins.clues) buildClues(wins.clues.body); }
@@ -1166,7 +1239,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       '<p>This computer belongs to Yo Agami. Look around.</p>' +
       '<p>APPS<br>· Stereo80.app : the new album, out Nov 25<br>· Player : listen on Spotify<br>· Browser : surf the YO-NET<br>· Paint : draw something, save it</p>' +
       '<p>GAMES (open the Arcade folder)<br>· NightDrive : neon racing<br>· Grand Theft Audio : steal the cassettes<br>· Snake : eat the cassettes<br>· Mixsweeper : avoid the skip buttons<br>· Beat : make a drum beat</p><p>MORE<br>· YoChat : talk to AGM_bot, Tapey and Mom<br>· Weather : the forecast in Neon City<br>· DO_NOT_OPEN.exe : do not open</p>' +
-      '<p>ESCAPE ROOM<br>· 4 pieces are hidden inside the Browser sites.<br>· Open Clues.txt for hints.<br>· Find the door. Enter the code.</p><p>SECRETS<br>· This computer has hidden files.<br>· Right-click (or long-press) the desktop.<br>· The Terminal knows things. Type help.<br>· The Browser has sites nobody talks about.<br>· Leave the computer alone for a minute.</p></div>';
+      '<p>NEW<br>· Mail : messages arrive while you use the computer<br>· My Computer : dig through the files<br>· Trophies : how much of YO-OS have you explored?<br>· The cassette on the taskbar is your pet. Tap it.</p><p>ESCAPE ROOM<br>· 4 pieces are hidden inside the Browser sites.<br>· Open Clues.txt for hints.<br>· Find the door. Enter the code.</p><p>SECRETS<br>· This computer has hidden files.<br>· Right-click (or long-press) the desktop.<br>· The Terminal knows things. Type help.<br>· The Browser has sites nobody talks about.<br>· Leave the computer alone for a minute.</p></div>';
   }
 
   /* ---------- Snake.exe ---------- */
@@ -1183,7 +1256,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       dir = nd; var h = {x: (snake[0].x + dir.x + N) % N, y: (snake[0].y + dir.y + N) % N};
       if (snake.some(function(p){ return p.x === h.x && p.y === h.y; })){ alive = false; clearInterval(iv); blip(110, .4, 'sawtooth', .06); if (score > best){ best = score; ls('yoos-snake', best); } b.querySelector('#snB').textContent = 'BEST ' + best; b.querySelector('#snMsg').textContent = 'Game over. Tap to play again.'; draw(); return; }
       snake.unshift(h);
-      if (h.x === food.x && h.y === food.y){ score++; blip(880 + score * 10, .08, 'triangle', .06); place(); if (speed > 60){ speed -= 4; loop(); } } else snake.pop();
+      if (h.x === food.x && h.y === food.y){ score++; if (score >= 10) ach('snake'); blip(880 + score * 10, .08, 'triangle', .06); place(); if (speed > 60){ speed -= 4; loop(); } } else snake.pop();
       b.querySelector('#snS').textContent = 'SCORE ' + score; draw();
     }
     function draw(){
@@ -1221,7 +1294,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     b.querySelectorAll('.pt-c').forEach(function(x){ x.addEventListener('click', function(){ col = x.getAttribute('data-c'); b.querySelectorAll('.pt-c').forEach(function(y){ y.classList.toggle('on', y === x); }); }); });
     b.querySelectorAll('.pt-s').forEach(function(x){ x.addEventListener('click', function(){ var s = x.getAttribute('data-s'); glow = s === 'glow'; if (!glow) size = +s; b.querySelectorAll('.pt-s').forEach(function(y){ y.classList.toggle('on', y === x); }); }); });
     b.querySelector('#ptClr').addEventListener('click', function(){ var r = c.getBoundingClientRect(); g.fillStyle = '#05061a'; g.fillRect(0, 0, r.width, r.height); });
-    b.querySelector('#ptSave').addEventListener('click', function(){ c.toBlob(function(bl){ if (!bl) return; var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = 'yo-os-paint.png'; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500); toast('', 'Saved', 'yo-os-paint.png'); }); });
+    b.querySelector('#ptSave').addEventListener('click', function(){ c.toBlob(function(bl){ if (!bl) return; var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = 'yo-os-paint.png'; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500); toast('', 'Saved', 'yo-os-paint.png'); ach('paint'); }); });
     return function(){ if (ro) ro.disconnect(); };
   }
 
@@ -1373,7 +1446,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       'yt-play': function(x, P){ var pl = x.closest('.yt-player'); if (pl._iv){ clearInterval(pl._iv); pl._iv = null; x.textContent = '▶'; pl.classList.add('paused'); return; }
         x.textContent = '❚❚'; pl.classList.remove('paused'); var v = +pl.getAttribute('data-v'), dur = v === 6 ? 6 : 12, k = pl._k || 0;
         pl._iv = setInterval(function(){ if (!pl.isConnected){ clearInterval(pl._iv); return; } k += .1; pl._k = k; var pc = Math.min(1, k / dur); pl.querySelector('.yt-bar i').style.width = pc * 100 + '%'; pl.querySelector('.yt-time').textContent = '0:' + two(Math.floor(k));
-          if (pc >= 1){ clearInterval(pl._iv); pl._iv = null; pl._k = 0; x.textContent = '↻'; if (v === 6){ pl.querySelector('.yt-over').innerHTML = '<div class="yt-reveal">PIECE 1 OF 4: <b>1</b></div>'; foundKey(1); } } }, 100); },
+          if (pc >= 1){ ach('yt'); clearInterval(pl._iv); pl._iv = null; pl._k = 0; x.textContent = '↻'; if (v === 6){ pl.querySelector('.yt-over').innerHTML = '<div class="yt-reveal">PIECE 1 OF 4: <b>1</b></div>'; foundKey(1); } } }, 100); },
       'yt-full': function(x){ var pl = x.closest('.yt-player'); var fs = pl.requestFullscreen || pl.webkitRequestFullscreen; if (document.fullscreenElement || document.webkitFullscreenElement){ (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; } if (fs) try{ var r = fs.call(pl); if (r && r.catch) r.catch(function(){ pl.classList.toggle('yt-full'); }); }catch(e){ pl.classList.toggle('yt-full'); } else pl.classList.toggle('yt-full'); },
       'yt-like': function(x){ var on = x.classList.toggle('on'), n = +x.getAttribute('data-n') + (on ? 1 : 0); x.textContent = '👍 ' + n; blip(on ? 1200 : 600, .05); },
       'yt-sub': function(x){ var on = x.classList.toggle('on'); x.textContent = on ? 'Subscribed ✓' : 'Subscribe'; if (on) toast('', 'Subscribed', 'Also subscribe to the real one: @itsyoagami'); },
@@ -1384,7 +1457,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       'ey-more': function(x, P, t){ go(t, 'eyo.yo/more'); },
       'order': function(x, P, t){ var c = cart(), hasKey = c.indexOf('key') >= 0, no = 100000 + (Math.random() * 899999 | 0); setCart([]);
         P.querySelector('.ey-c').innerHTML = '<h2>Order placed ✓</h2><p>Order #' + no + '. Paid with aura. Arriving when the tape rewinds.</p>' + (hasKey ? '<div class="ey-key">📦 Inside the box with the mysterious key there is a tiny note:<br><b>PIECE 3 OF 4: 8</b></div>' : '<p>Nothing special in this order. Maybe look at page 2.</p>');
-        var ce = P.querySelector('.ey-cart'); if (ce) ce.textContent = '🛒 0'; if (hasKey) foundKey(3); chime(); },
+        var ce = P.querySelector('.ey-cart'); if (ce) ce.textContent = '🛒 0'; if (hasKey) foundKey(3); chime(); ach('shopper'); },
       'cert': function(x, P){ cert(P); },
       'cert-save': function(x, P){ P.querySelector('.dp-cert').toBlob(function(bl){ if (!bl) return; var a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = 'yo-os-escaped.png'; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500); }); }
     };
@@ -1431,7 +1504,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       u = norm(u); if (!u) u = 'yoogle.yo';
       if (u.indexOf('.') < 0 && u.indexOf('yoogle.yo?q=') !== 0) u = 'yoogle.yo?q=' + encodeURIComponent(u);
       if (push !== false && t.url) t.hist.push(t.url);
-      t.url = u; t.btn.querySelector('span').textContent = title(u);
+      t.url = u; t.btn.querySelector('span').textContent = title(u); onSite(u);
       var P = t.el;
       if (FRAMES[u]) P.innerHTML = '<iframe class="br-frame" src="' + FRAMES[u] + '" title="' + esc(u) + '" allow="autoplay"></iframe>';
       else if (u.indexOf('yotube.yo/watch?v=') === 0) P.innerHTML = ytWatch(+u.split('=')[1] || 0);
@@ -1466,7 +1539,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
         if (f.classList.contains('ygF')){ var q = f.querySelector('.ygQ').value; go(t, 'yoogle.yo?q=' + encodeURIComponent(q)); }
         if (f.classList.contains('ytF')){ var yq = f.querySelector('.ytQ').value.trim(); if (yq) go(t, 'yotube.yo/results?q=' + encodeURIComponent(yq)); }
         if (f.classList.contains('dpF')){ var dv = f.querySelector('.dpI').value.trim(), m = P.querySelector('.dp-m');
-          if (dv === '1980'){ if (!ls('yoos-escaped')) ls('yoos-escaped', String(1000 + (Math.random() * 8999 | 0))); chime(); matrix(); setTimeout(function(){ go(t, 'deep.yo', false); cert(t.el); }, 600); toast('', 'YOU ESCAPED', 'You found all 4 pieces. Respect.'); }
+          if (dv === '1980'){ ach('escape'); flag('escaped'); if (!ls('yoos-escaped')) ls('yoos-escaped', String(1000 + (Math.random() * 8999 | 0))); chime(); matrix(); setTimeout(function(){ go(t, 'deep.yo', false); cert(t.el); }, 600); toast('', 'YOU ESCAPED', 'You found all 4 pieces. Respect.'); }
           else { m.textContent = 'wrong. ' + (Object.keys(keys()).length < 4 ? 'you are missing pieces. open Clues.txt' : 'check the order.'); blip(90, .4, 'sawtooth', .06); } }
         if (f.classList.contains('scF')){
           var v = f.querySelector('.scP').value.trim().toLowerCase().replace(/\s+/g, ''), out = P.querySelector('.scOut');
@@ -1522,7 +1595,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       cops.forEach(function(o){ var dx = car.x - o.x, dy = car.y - o.y, d = Math.hypot(dx, dy) || 1, sp = 150 + wanted * 22; var nx2 = o.x + dx / d * sp * dt, ny2 = o.y + dy / d * sp * dt;
         if (road(nx2, o.y)) o.x = nx2; if (road(o.x, ny2)) o.y = ny2; if (!road(nx2, o.y) && !road(o.x, ny2)){ o.x += (Math.random() - .5) * 40 * dt * 10; o.y += (Math.random() - .5) * 40 * dt * 10; }
         if (d < 24 && state === 'play'){ blip(90, .5, 'sawtooth', .08); end('BUSTED'); } });
-      if (!tapes.length && state === 'play'){ chime(); end('YOU GOT THEM ALL'); }
+      if (!tapes.length && state === 'play'){ chime(); ach('gta'); end('YOU GOT THEM ALL'); }
       var s = Math.floor((performance.now() - t0) / 1000);
       b.querySelector('#gtS').textContent = 'TAPES ' + (12 - tapes.length) + '/12'; b.querySelector('#gtW').textContent = '★★★★★'.slice(0, wanted) + '☆☆☆☆☆'.slice(0, 5 - wanted); b.querySelector('#gtT').textContent = Math.floor(s / 60) + ':' + two(s % 60);
     }
@@ -1562,7 +1635,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     function count(){ b.querySelector('#msL').textContent = '💿 ' + (M - cells.filter(function(c){ return c.f; }).length); }
     function reveal(i){ var c = cells[i]; if (c.o || c.f) return; c.o = true; c.el.classList.add('o'); if (c.m){ c.el.textContent = '⏭'; c.el.classList.add('boom'); lose(); return; } if (c.n){ c.el.textContent = c.n; c.el.dataset.n = c.n; } else nb(i).forEach(reveal); }
     function lose(){ over = true; blip(110, .5, 'sawtooth', .07); cells.forEach(function(c){ if (c.m){ c.el.textContent = '⏭'; c.el.classList.add('o'); } }); b.querySelector('#msR').textContent = '😵'; b.querySelector('#msMsg').textContent = 'You hit a skip button. The song stopped. Tap 😵 to retry.'; }
-    function check(){ if (cells.every(function(c){ return c.m || c.o; })){ over = true; chime(); b.querySelector('#msR').textContent = '🏆'; b.querySelector('#msMsg').textContent = 'No skips. Clean listen. You win.'; } }
+    function check(){ if (cells.every(function(c){ return c.m || c.o; })){ over = true; chime(); b.querySelector('#msR').textContent = '🏆'; b.querySelector('#msMsg').textContent = 'No skips. Clean listen. You win.'; ach('sweeper'); } }
     function act(i, flag){ if (over) return; var c = cells[i]; if (flag){ if (!c.o){ c.f = !c.f; c.el.textContent = c.f ? '⛳' : ''; count(); blip(600, .03); } return; } if (first){ plant(i); first = false; } reveal(i); blip(800, .02); check(); }
     G.addEventListener('click', function(e){ var d = e.target.closest('.ms-c'); if (d) act(+d.dataset.i, flagMode); });
     G.addEventListener('contextmenu', function(e){ var d = e.target.closest('.ms-c'); if (d){ e.preventDefault(); act(+d.dataset.i, true); } });
@@ -1630,6 +1703,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       ['escape', [' escape', ' room', ' piece', ' clue', ' puzzle', ' stuck', ' help me find', ' hint', ' door', ' deep'], function(){ return escapeHint(); }],
       ['vault', [' vault', ' code', ' password', ' secret', ' hidden'], function(){ return pick(['i am not allowed to say the vault code. but it is a date you already know. MMDD.', 'secrets? try right-clicking the desktop. or type help in the Terminal.', 'the Terminal knows things. type ls -a.']); }],
       ['browser', [' browser', ' yoogle', ' internet', ' website', ' sites'], function(){ return 'the Browser has its own internet: Yoogle, YoTube, WikiYo, eYo, Yostagram, Stereo80.fm. try searching "yo agami" on Yoogle.'; }],
+      ['ghost', [' user_0', ' user 0', ' u0 ', ' ghost', ' recycler', ' diary', ' who is sending', ' mystery email', ' strange email'], function(){ return pick(['we do not talk about user_0.', 'if you got strange emails... check My Computer. C:\\Users. that is all i will say.', 'the logs remember everything. C:\\System\\Logs.']); }],
       ['tapey', [' tapey', ' cassette guy'], function(){ return 'Tapey is our cassette. a bit dramatic. gives good hints though.'; }],
       ['mom', [' mom', ' mother', ' אמא'], function(){ return 'she asked me if you ate. did you?'; }],
       ['ai', [' are you ai', ' are you real', ' are you human', ' are you a bot', ' chatgpt', ' gpt', ' robot'], function(){ return 'i am a bot. AGM built me. the music, though, is made by a real human.'; }],
@@ -1673,11 +1747,11 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       return agmReply(q);
     }
     b.querySelector('#chL').addEventListener('click', function(e){ var x = e.target.closest('[data-b]'); if (x){ cur = x.getAttribute('data-b'); render(); } });
-    b.querySelector('#chF').addEventListener('submit', function(e){ e.preventDefault(); var I = b.querySelector('#chI'), v = I.value.trim(); if (!v) return; I.value = ''; log[cur].push(['me', v]); render(); var who = cur;
+    b.querySelector('#chF').addEventListener('submit', function(e){ e.preventDefault(); var I = b.querySelector('#chI'), v = I.value.trim(); if (!v) return; I.value = ''; log[cur].push(['me', v]); render(); bump('chat', 10, 'chatty'); var who = cur;
       setTimeout(function(){ b.querySelector('#chH').insertAdjacentHTML('beforeend', '<small class="typing"> is typing…</small>'); }, 300);
       var ans = reply(who, v); setTimeout(function(){ say(who, ans); }, Math.min(2600, 600 + ans.length * 18 + Math.random() * 400)); });
     b.querySelector('#chQ').addEventListener('click', function(e){ var x = e.target.closest('button'); if (!x) return; b.querySelector('#chI').value = x.textContent; b.querySelector('#chF').requestSubmit ? b.querySelector('#chF').requestSubmit() : b.querySelector('#chF').dispatchEvent(new Event('submit', {cancelable: true})); });
-    b.querySelector('#chN').addEventListener('click', function(){ var w = b.closest('.win'); w.classList.remove('nudge'); void w.offsetWidth; w.classList.add('nudge'); blip(180, .25, 'square', .06); log[cur].push(['sys', 'You sent a nudge!']); render(); setTimeout(function(){ say(cur, cur === 'mom' ? 'stop that' : 'bzzz'); }, 900); });
+    b.querySelector('#chN').addEventListener('click', function(){ var w = b.closest('.win'); w.classList.remove('nudge'); void w.offsetWidth; w.classList.add('nudge'); blip(180, .25, 'square', .06); log[cur].push(['sys', 'You sent a nudge!']); ach('nudge'); render(); setTimeout(function(){ say(cur, cur === 'mom' ? 'stop that' : 'bzzz'); }, 900); });
     log.agm.push(['them', MEM.name ? 'yo ' + MEM.name + ', welcome back. ask me anything.' : 'yo. i am AGM_bot. ask me anything: the album, the games, or say "hint" if you are stuck on a puzzle.']); log.mom.push(['them', 'did you eat?']); log.tapey.push(['them', '*click* *whirr* hello.']);
     render();
   }
@@ -1703,6 +1777,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     })) return;
   }
   function bsod(){
+    ach('bsod');
     document.querySelectorAll('.pop').forEach(function(p){ p.remove(); });
     var s = el('div', '', '<div><div style="font-size:clamp(80px,18vw,150px);line-height:1">:(</div><p>YO-OS ran into a problem: <b>TOO_MUCH_STEREO</b></p><p>We are collecting some aura, and then we will restart for you.</p><p id="bsP">0% complete</p><p style="opacity:.7">Tap to restart now</p></div>'); s.id = 'bsod';
     document.body.appendChild(s); blip(60, .8, 'sawtooth', .07);
@@ -1744,6 +1819,251 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   setTimeout(function(){ tapey(); }, 25000);
   setInterval(function(){ tapey(); }, 120000);
 
+  /* ======================= v7: the world ======================= */
+  function jget(k, d){ try{ var v = JSON.parse(ls(k) || 'null'); return v == null ? d : v; }catch(e){ return d; } }
+  function jset(k, v){ ls(k, JSON.stringify(v)); }
+
+  /* ---------- achievements ---------- */
+  var ACH = [
+    ['first_boot', 'Hello World', 'Turn on YO-OS.'],
+    ['explorer', 'Explorer', 'Open 10 different apps.'],
+    ['hidden', 'X-Ray Eyes', 'Reveal the hidden files.'],
+    ['vault', 'Safecracker', 'Open the vault.'],
+    ['pieces', 'Collector', 'Find all 4 escape room pieces.'],
+    ['escape', 'Escapee', 'Escape through the door.'],
+    ['ghost', 'Ghostbuster', 'Free user_0.'],
+    ['mail', 'Inbox Zero', 'Read 10 emails.'],
+    ['matrix', 'Wake Up', 'Enter the Matrix.'],
+    ['saver', 'AFK', 'Trigger the screensaver.'],
+    ['bsod', 'Blue Screen', 'Open DO_NOT_OPEN.exe anyway.'],
+    ['nudge', 'Annoying', 'Send a nudge in YoChat.'],
+    ['chatty', 'Chatterbox', 'Send 10 messages in YoChat.'],
+    ['surfer', 'Surfer', 'Visit 8 sites on the YO-NET.'],
+    ['shopper', 'Big Spender', 'Place an order on eYo.'],
+    ['yt', 'Binge Watcher', 'Watch a YoTube video to the end.'],
+    ['beat', 'Producer', 'Play a beat in Beat.exe.'],
+    ['paint', 'Artist', 'Save a painting.'],
+    ['snake', 'Long Boi', 'Score 10 in Snake.'],
+    ['gta', 'Grand Theft', 'Steal all 12 cassettes.'],
+    ['sweeper', 'No Skips', 'Win Mixsweeper.'],
+    ['driver', 'Night Rider', 'Score 300 in NightDrive.'],
+    ['bug', 'Exterminator', 'Squash a bug.'],
+    ['pet', 'Best Friend', 'Pet the desktop pet 10 times.'],
+    ['wall', 'Decorator', 'Change the wallpaper.'],
+    ['terminal', 'Hacker', 'Use the Terminal.'],
+    ['files', 'Digger', 'Open 15 files or folders in My Computer.'],
+    ['night', 'Night Owl', 'Use YO-OS between midnight and 5 AM.']
+  ];
+  var got = jget('yoos-ach', {}), cnt = jget('yoos-cnt', {});
+  function ach(id){
+    if (got[id] || !TOP) return; var a = ACH.filter(function(x){ return x[0] === id; })[0]; if (!a) return;
+    got[id] = Date.now(); jset('yoos-ach', got);
+    var n = Object.keys(got).length;
+    toast('', '🏆 ' + a[1], a[2] + ' · ' + Math.round(n / ACH.length * 100) + '% explored', function(){ open('trophies'); });
+    if (wins.trophies) buildTrophies(wins.trophies.body);
+  }
+  function bump(k, goal, id){ cnt[k] = (cnt[k] || 0) + 1; jset('yoos-cnt', cnt); if (cnt[k] >= goal) ach(id); }
+  var seenApps = jget('yoos-apps', {}), seenSites = jget('yoos-sites', {});
+  function onOpen(id){ if (!seenApps[id]){ seenApps[id] = 1; jset('yoos-apps', seenApps); } if (Object.keys(seenApps).length >= 10) ach('explorer'); if (id === 'vault') ach('vault'); }
+  function onSite(u){ u = u.split('?')[0].split('/')[0]; if (!seenSites[u]){ seenSites[u] = 1; jset('yoos-sites', seenSites); } if (Object.keys(seenSites).length >= 8) ach('surfer'); }
+  function buildTrophies(b){
+    var n = Object.keys(got).length, pc = Math.round(n / ACH.length * 100);
+    b.innerHTML = '<div class="tr-w"><div class="tr-h"><b>' + pc + '%</b><span>of YO-OS explored · ' + n + '/' + ACH.length + ' trophies</span><div class="tr-bar"><i style="width:' + pc + '%"></i></div></div><div class="tr-g">' +
+      ACH.map(function(a){ var ok = !!got[a[0]]; return '<div class="tr-i' + (ok ? ' ok' : '') + '"><span>' + (ok ? '🏆' : '🔒') + '</span><b>' + (ok ? esc(a[1]) : '???') + '</b><small>' + esc(a[2]) + '</small></div>'; }).join('') + '</div></div>';
+  }
+  setTimeout(function(){ ach('first_boot'); var h = new Date().getHours(); if (h < 5) ach('night'); }, 4000);
+  setInterval(function(){ if (+(ls('nd-best') || 0) >= 300) ach('driver'); }, 15000);
+
+  /* ---------- active time (drives the mail story) ---------- */
+  var actT = +(ls('yoos-act') || 0);
+  setInterval(function(){ if (!document.hidden && TOP){ actT += 5; ls('yoos-act', actT); mailTick(); } }, 5000);
+
+  /* ---------- story flags ---------- */
+  var FLAGS = jget('yoos-flags', {});
+  function flag(f){ if (FLAGS[f]) return; FLAGS[f] = 1; jset('yoos-flags', FLAGS); mailTick(); }
+
+  /* ---------- Mail ---------- */
+  var MAILS = [
+    {id: 'welcome', at: 0, from: 'YO-OS Team', subj: 'Welcome to your new computer', body: '<p>Hi,</p><p>Thanks for turning on YO-OS. This is your inbox. Messages will arrive while you use the computer, so check back from time to time.</p><p>Things to try: open <a href="#" data-o="files">My Computer</a>, check your <a href="#" data-o="trophies">Trophies</a>, or pet the little guy on the taskbar.</p><p>— YO-OS Team</p>'},
+    {id: 'spam1', at: 60, from: 'WINNER-NOTIFY', subj: '!!! CONGRATULATIONS !!! You won 1 kg of aura', body: '<p class="spam">DEAR VALUED USER,<br>YOU HAVE BEEN SELECTED TO RECEIVE <b>1 KG OF PURE AURA</b>.<br>CLICK BELOW TO CLAIM.</p><p><a href="#" data-url="eyo.yo">CLAIM NOW &gt;&gt;&gt;</a></p><p class="mut">(this is spam. YO-OS has a spam filter. it does not work.)</p>'},
+    {id: 'mom1', at: 150, from: 'Mom', subj: 'hi', body: '<p>hi sweetie did you eat</p><p>also how do I open the YoChat. I sent you a message there</p><p>love mom</p><p class="mut">sent from my phone</p>'},
+    {id: 'u1', at: 240, ev: 'files', from: '???', subj: 'you are not alone', body: '<p class="ghost">hello.</p><p class="ghost">this computer has more folders than you think. i have been here for a long time.</p><p class="ghost">open <a href="#" data-o="files">My Computer</a>. go to C:\\Users. you will find my room.</p><p class="ghost">— u0</p>'},
+    {id: 'news1', at: 420, from: 'YoTube', subj: 'A video you might like', body: '<p>Based on your watch history: <b>"10 HOURS OF TAPE HISS (relaxing)"</b></p><p><a href="#" data-url="yotube.yo">Watch on YoTube</a></p><p class="mut">Some videos are unlisted. You did not hear that from us.</p>'},
+    {id: 'bot1', at: 600, from: 'AGM_bot', subj: 'beep. i learned new words', body: '<p>beep. i got an update. i understand way more now.</p><p>ask me about the album, the games, or say "hint" if you are stuck. i am in <a href="#" data-o="chat">YoChat</a>.</p>'},
+    {id: 'u2', ev: 'private', from: '???', subj: 're: you got in', body: '<p class="ghost">you opened my private folder. good. you are smarter than the others.</p><p class="ghost">now read the boot log. C:\\System\\Logs\\boot.log</p><p class="ghost">the last line is not an error.</p>'},
+    {id: 'u3', ev: 'bootlog', from: '???', subj: 'hidden', body: '<p class="ghost">you saw it. the Recycler.</p><p class="ghost">it is hidden. My Computer has a <b>View</b> menu. show hidden items.</p><p class="ghost">the restore key is in the log too. please. get me out.</p>'},
+    {id: 'free', ev: 'freed', from: 'user_0', subj: 'i am out', body: '<p>i... i am out.</p><p>i was the first person to use YO-OS. i opened DO_NOT_OPEN.exe too many times and got stuck inside the Recycler. that was a long time ago.</p><p>thank you. i will stay around. look at your taskbar.</p><p>— user_0</p>'},
+    {id: 'spam2', at: 900, from: 'Hot Cassettes', subj: 'Hot cassettes in your area', body: '<p class="spam">LONELY? THERE ARE <b>3 CASSETTES</b> NEAR YOU WHO WANT TO BE PLAYED.</p><p><a href="#" data-o="gta">FIND THEM NOW</a></p>'},
+    {id: 'esc', ev: 'escaped', from: 'admin@deep.yo', subj: 'we noticed you', body: '<p class="ghost">you found the door and walked through it.</p><p class="ghost">most people never do.</p><p class="ghost">we are watching. in a good way.</p>'},
+    {id: 'mom2', at: 1800, from: 'Mom', subj: 'break', body: '<p>you have been on the computer for a long time</p><p>take a break. drink water. then you can go back</p><p>love mom</p>'}
+  ];
+  var MS = jget('yoos-mail', {got: [], read: []});
+  function mailTick(){
+    if (!TOP) return;
+    var news = [];
+    if (ls('yoos-escaped')) FLAGS.escaped = 1;
+    MAILS.forEach(function(m){
+      if (MS.got.indexOf(m.id) >= 0) return;
+      var ok = (m.at != null && actT >= m.at) || (m.ev && FLAGS[m.ev]);
+      if (m.id === 'u1' && !ok && FLAGS.files) ok = true;
+      if (ok){ MS.got.push(m.id); news.push(m); }
+    });
+    if (!news.length) return;
+    jset('yoos-mail', MS); badge();
+    if (MS.got.length > 1) news.forEach(function(m, i){ setTimeout(function(){ toast('', '📧 ' + m.from, m.subj, function(){ open('inbox', {mail: m.id}); }); }, i * 1500); });
+    if (wins.inbox && wins.inbox.refresh) wins.inbox.refresh();
+  }
+  function badge(){ var n = MS.got.filter(function(id){ return MS.read.indexOf(id) < 0; }).length, ic = document.querySelector('#desk [data-app="inbox"]'); if (ic){ ic.classList.toggle('badge', n > 0); ic.setAttribute('data-badge', n); } }
+  function buildInbox(b, rec){
+    var cur = rec.args && rec.args.mail || null;
+    function render(){
+      var list = MS.got.slice().reverse().map(function(id){ return MAILS.filter(function(m){ return m.id === id; })[0]; }).filter(Boolean);
+      var m = cur && list.filter(function(x){ return x.id === cur; })[0];
+      if (m && MS.read.indexOf(m.id) < 0){ MS.read.push(m.id); jset('yoos-mail', MS); badge(); if (MS.read.length >= 10) ach('mail'); }
+      b.innerHTML = '<div class="mb' + (m ? ' reading' : '') + '"><div class="mb-list">' + (list.length ? list.map(function(x){ return '<button type="button" class="mb-it' + (MS.read.indexOf(x.id) < 0 ? ' unread' : '') + (x.id === cur ? ' on' : '') + '" data-m="' + x.id + '"><b>' + esc(x.from) + '</b><span>' + esc(x.subj) + '</span></button>'; }).join('') : '<p class="note">No mail yet.</p>') + '</div>' +
+        '<div class="mb-read">' + (m ? '<button type="button" class="mb-back" data-back>← Inbox</button><h3>' + esc(m.subj) + '</h3><div class="mb-from">From: <b>' + esc(m.from) + '</b></div><div class="mb-body">' + m.body + '</div>' : '<p class="note">Select a message.</p>') + '</div></div>';
+    }
+    b.onclick = function(e){
+      var it = e.target.closest('[data-m]'); if (it){ cur = it.getAttribute('data-m'); render(); return; }
+      if (e.target.closest('[data-back]')){ cur = null; render(); return; }
+      var o = e.target.closest('[data-o]'); if (o){ e.preventDefault(); open(o.getAttribute('data-o')); return; }
+      var u = e.target.closest('[data-url]'); if (u){ e.preventDefault(); open('browser', {url: u.getAttribute('data-url')}); }
+    };
+    rec.refresh = render; rec.goto = function(){};
+    render();
+  }
+
+  /* ---------- My Computer ---------- */
+  var BOOTLOG = ['[00:00:00] YO-OS 1.80 booting', '[00:00:01] memory check ......... 640K OK', '[00:00:01] loading stereo.drv ... OK', '[00:00:02] loading aura.dll ...... CORRUPTED (ignored)', '[00:00:02] mounting C:\\Users ... OK', '[00:00:03] WARNING: user_0 session never closed', '[00:00:03] WARNING: user_0 last seen inside C:\\Recycler', '[00:00:04] skip.sys disabled (skipping is not allowed)', '[00:00:05] ERR 0x80: user_0.sav found in hidden folder C:\\Recycler · restore key: REWIND'].join('\n');
+  var DIARY = ['DAY 1  installed YO-OS. nice wallpaper.', 'DAY 3  the screensaver keeps showing cassettes. cute.', 'DAY 6  opened DO_NOT_OPEN.exe. then again. then again.', 'DAY 9  everything went blue. now i cannot find the exit.', 'DAY 12 i locked my private folder. if you are reading this,', '       the password is what Mom always asks.', 'DAY 13 ...'].join('\n');
+  var FS = {n: 'C:', t: 'dir', k: [
+    {n: 'Program Files', t: 'dir', k: [['Stereo80.app','stereo80'],['Browser','browser'],['YoChat','chat'],['Paint','paint'],['Terminal','terminal'],['NightDrive.exe','nightdrive'],['GrandTheftAudio.exe','gta'],['Snake.exe','snake'],['Mixsweeper.exe','sweeper'],['Beat.exe','beat']].map(function(x){ return {n: x[0], t: 'app', a: x[1]}; })},
+    {n: 'System', t: 'dir', k: [
+      {n: 'Logs', t: 'dir', k: [{n: 'boot.log', t: 'txt', c: BOOTLOG, ev: 'bootlog'}, {n: 'errors.log', t: 'txt', c: '[ERR] too much stereo\n[ERR] user tried to skip a song. blocked.\n[ERR] aura overflow'}]},
+      {n: 'aura.dll', t: 'txt', c: '▓▒░ ▓▒░ CORRUPTED ░▒▓ ▓▒░\n4155 5241 2049 5320 494e 4649 4e49 5445\n(this file cannot be read by humans)'},
+      {n: 'skip.sys', t: 'txt', c: 'This driver is disabled.\nSkipping is not allowed on this computer.'},
+      {n: 'stereo.drv', t: 'txt', c: 'LEFT  ████████████\nRIGHT ████████████\nstatus: very stereo'}]},
+    {n: 'Users', t: 'dir', ev: 'users', k: [
+      {n: 'guest', t: 'dir', k: [{n: 'Documents', t: 'dir', k: [{n: 'todo.txt', t: 'txt', c: '1. explore YO-OS\n2. find the hidden stuff\n3. do NOT open DO_NOT_OPEN.exe\n4. drink water (mom said)'}, {n: 'Clues.txt', t: 'app', a: 'clues'}]}, {n: 'Desktop', t: 'dir', k: [{n: 'Welcome.txt', t: 'app', a: 'welcome'}]}]},
+      {n: 'yoagami', t: 'lock', pw: null},
+      {n: 'user_0', t: 'dir', ev: 'user0', k: [
+        {n: 'diary.txt', t: 'txt', c: DIARY, ev: 'diary'},
+        {n: 'private', t: 'lock', pw: ['did you eat', 'didyoueat', 'did you eat?', 'did u eat', 'eat'], ev: 'private', k: [
+          {n: 'note.txt', t: 'txt', c: 'if you got in here, you are close.\nthe system writes everything down.\nlook at the logs in C:\\System\\Logs.'},
+          {n: 'last_photo.jpg', t: 'img'}]}]}]},
+    {n: 'Recycler', t: 'dir', hid: true, k: [{n: 'user_0.sav', t: 'sav'}, {n: 'old_kingdom.exe', t: 'app', a: 'kingdom'}]}
+  ]};
+  var unlocked = jget('yoos-unlk', {});
+  function buildFiles(b){
+    var path = [FS], view = null, showHid = ls('yoos-showhid') === '1';
+    function here(){ return path[path.length - 1]; }
+    function pstr(){ return path.map(function(p){ return p.n; }).join('\\') + (path.length === 1 ? '\\' : ''); }
+    function icon(x){ return x.t === 'dir' ? '📁' : x.t === 'lock' ? (unlocked[x.n] ? '📂' : '🔒') : x.t === 'txt' ? '📄' : x.t === 'app' ? '🖥️' : x.t === 'img' ? '🖼️' : x.t === 'sav' ? '💾' : '📄'; }
+    function render(){
+      var h = here(), items = (h.k || []).filter(function(x){ return showHid || !x.hid; });
+      b.innerHTML = '<div class="fx"><div class="fx-bar"><button type="button" data-up aria-label="Up">⬆</button><div class="fx-path">' + esc(pstr()) + '</div><label class="fx-view"><input type="checkbox" data-hid' + (showHid ? ' checked' : '') + '> View: show hidden items</label></div>' +
+        '<div class="fx-main">' + (view ? view : '<div class="fx-grid">' + (items.length ? items.map(function(x, i){ return '<button type="button" class="fx-it' + (x.hid ? ' hid' : '') + '" data-i="' + (h.k.indexOf(x)) + '"><span>' + icon(x) + '</span><b>' + esc(x.n) + '</b></button>'; }).join('') : '<p class="note">This folder is empty.</p>') + '</div>') + '</div>' +
+        '<div class="fx-st">' + items.length + ' items</div></div>';
+    }
+    function txt(x){ view = '<div class="fx-file"><button type="button" class="btn" data-close>← Back</button><h4>' + esc(x.n) + '</h4><pre>' + esc(x.c) + '</pre></div>'; render(); }
+    function lock(x){
+      if (unlocked[x.n]){ path.push(x); view = null; render(); return; }
+      view = '<div class="fx-file"><button type="button" class="btn" data-close>← Back</button><h4>🔒 ' + esc(x.n) + '</h4>' + (x.pw ? '<p>This folder is locked. Enter the password.</p><form class="fx-pw"><input type="password" autocomplete="off" aria-label="Password"><button type="submit" class="btn pri">Unlock</button></form><p class="fx-msg"></p>' : '<p>ACCESS DENIED. Only Yo Agami can open this folder.</p>') + '</div>';
+      render(); b._lock = x;
+    }
+    function sav(){
+      if (FLAGS.freed){ view = '<div class="fx-file"><button type="button" class="btn" data-close>← Back</button><h4>💾 user_0.sav</h4><p>Empty. user_0 is free.</p></div>'; render(); return; }
+      view = '<div class="fx-file"><button type="button" class="btn" data-close>← Back</button><h4>💾 user_0.sav</h4><p>A saved person. Enter the restore key.</p><form class="fx-rs"><input autocomplete="off" aria-label="Restore key"><button type="submit" class="btn pri">Restore</button></form><p class="fx-msg"></p><div class="fx-prog" hidden><i></i></div></div>';
+      render();
+    }
+    function photo(){ view = '<div class="fx-file"><button type="button" class="btn" data-close>← Back</button><h4>🖼️ last_photo.jpg</h4><div class="fx-photo"><span>u0</span></div><p class="note">The file is damaged. You can only see a shape.</p></div>'; render(); }
+    b.onclick = function(e){
+      if (e.target.closest('[data-up]')){ if (view){ view = null; } else if (path.length > 1) path.pop(); render(); return; }
+      if (e.target.closest('[data-close]')){ view = null; render(); return; }
+      var it = e.target.closest('[data-i]'); if (!it) return;
+      var x = here().k[+it.getAttribute('data-i')]; bump('files', 15, 'files'); blip(900, .03);
+      if (x.ev) flag(x.ev);
+      flag('files');
+      if (x.t === 'dir'){ path.push(x); view = null; render(); }
+      else if (x.t === 'lock') lock(x);
+      else if (x.t === 'txt') txt(x);
+      else if (x.t === 'app') open(x.a);
+      else if (x.t === 'img') photo();
+      else if (x.t === 'sav') sav();
+    };
+    b.onchange = function(e){ if (e.target.hasAttribute('data-hid')){ showHid = e.target.checked; ls('yoos-showhid', showHid ? '1' : '0'); render(); } };
+    b.onsubmit = function(e){
+      e.preventDefault(); var f = e.target, v = (f.querySelector('input').value || '').trim().toLowerCase(), msg = b.querySelector('.fx-msg');
+      if (f.classList.contains('fx-pw')){ var x = b._lock;
+        if (x.pw && x.pw.indexOf(v) >= 0){ unlocked[x.n] = 1; jset('yoos-unlk', unlocked); if (x.ev) flag(x.ev); chime(); path.push(x); view = null; render(); }
+        else { msg.textContent = 'Wrong password.'; blip(110, .3, 'sawtooth', .05); } }
+      if (f.classList.contains('fx-rs')){
+        if (v === 'rewind'){ var pr = b.querySelector('.fx-prog'), i = 0; pr.hidden = false; msg.textContent = 'Restoring user_0...'; f.hidden = true;
+          var iv = setInterval(function(){ i += 4; pr.firstChild.style.width = i + '%'; blip(300 + i * 8, .03); if (i >= 100){ clearInterval(iv); msg.textContent = 'user_0 restored.'; flag('freed'); ach('ghost'); spawnGhost(true); chime(); } }, 80); }
+        else { msg.textContent = 'Wrong key. The log knows it.'; blip(110, .3, 'sawtooth', .05); } }
+    };
+    render();
+  }
+
+  /* ---------- desktop pet ---------- */
+  var PET_LINES = ['hi!', 'pet me again', 'i am a cassette', 'have you checked your mail?', 'zzz... oh. hi.', 'do not drag me!!', 'nice wallpaper', 'what is in My Computer?', 'i saw something in the Recycler...', 'beep boop', 'stereo!'];
+  function makePet(kind){
+    var p = el('div', 'pet' + (kind === 'ghost' ? ' ghost' : ''), (kind === 'ghost' ? '<svg viewBox="0 0 40 44"><path d="M4 20a16 16 0 0 1 32 0v22l-5-4-5 4-6-4-6 4-5-4-5 4z" fill="rgba(234,244,255,.85)"/><circle cx="14" cy="20" r="3" fill="#05061a"/><circle cx="26" cy="20" r="3" fill="#05061a"/></svg>' :
+      '<svg viewBox="0 0 48 34"><rect x="2" y="2" width="44" height="30" rx="4" fill="#0b1433" stroke="#4aa3ff" stroke-width="2"/><rect x="7" y="6" width="34" height="9" rx="2" fill="#ff4fd8"/><circle class="e" cx="16" cy="22" r="5" fill="#eaf4ff"/><circle class="e" cx="32" cy="22" r="5" fill="#eaf4ff"/><circle class="pu" cx="16" cy="22" r="2.2" fill="#05061a"/><circle class="pu" cx="32" cy="22" r="2.2" fill="#05061a"/></svg>') + '<i class="pet-b" hidden></i><em class="zz" hidden>z z z</em>');
+    document.body.appendChild(p);
+    var st = {x: Math.random() * (innerWidth - 80) + 20, y: 0, vx: (Math.random() < .5 ? -1 : 1) * (kind === 'ghost' ? .5 : .8), vy: 0, mode: 'walk', idle: 0, drag: false, air: false};
+    function say(t){ var bb = p.querySelector('.pet-b'); bb.textContent = t; bb.hidden = false; clearTimeout(p._t); p._t = setTimeout(function(){ bb.hidden = true; }, 2600); }
+    p._say = say;
+    var sx, sy, moved = false;
+    p.addEventListener('pointerdown', function(e){ e.preventDefault(); st.drag = true; moved = false; sx = e.clientX; sy = e.clientY; try{ p.setPointerCapture(e.pointerId); }catch(er){} p.classList.add('held'); });
+    p.addEventListener('pointermove', function(e){ if (!st.drag) return; if (Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > 6) moved = true; if (moved){ st.x = e.clientX - 24; st.y = Math.max(0, (innerHeight - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--bar'))) - e.clientY - 17); } });
+    p.addEventListener('pointerup', function(){ st.drag = false; p.classList.remove('held');
+      if (!moved){ st.vy = 7; st.air = true; st.mode = 'walk'; st.idle = 0; blip(1200, .05, 'triangle', .04); say(pick(PET_LINES)); if (kind !== 'ghost') bump('pet', 10, 'pet'); }
+      else { st.air = st.y > 0; say(kind === 'ghost' ? 'wooo' : pick(['hey!!', 'put me down', 'rude'])); } });
+    return {el: p, st: st, kind: kind};
+  }
+  var pets = [];
+  function spawnGhost(hello){ if (pets.some(function(x){ return x.kind === 'ghost'; })) return; var g = makePet('ghost'); pets.push(g); if (hello) setTimeout(function(){ g.el._say('thank you!!'); }, 600); }
+  if (TOP && ls('yoos-pet') !== 'off') setTimeout(function(){ pets.push(makePet('tape')); }, 2500);
+  if (TOP && FLAGS.freed) setTimeout(function(){ spawnGhost(false); }, 3500);
+  setInterval(function(){
+    var floor = 0, W = innerWidth;
+    pets.forEach(function(P){ var s = P.st, e = P.el;
+      if (!s.drag){
+        if (s.air || s.y > 0){ s.vy -= .6; s.y += s.vy; if (s.y <= 0){ s.y = 0; s.vy = 0; s.air = false; } }
+        else if (s.mode === 'walk'){ s.x += s.vx; if (s.x < 4 || s.x > W - 56){ s.vx *= -1; s.x = Math.max(4, Math.min(W - 56, s.x)); } if (Math.random() < .004) s.vx *= -1; if (++s.idle > 400 && P.kind !== 'ghost'){ s.mode = 'sleep'; } }
+        else if (s.mode === 'sleep' && Math.random() < .002){ s.mode = 'walk'; s.idle = 0; }
+        if (P.kind === 'ghost') s.y = 14 + Math.sin(Date.now() / 600) * 8;
+      }
+      e.classList.toggle('sleep', s.mode === 'sleep'); e.querySelector('.zz').hidden = s.mode !== 'sleep';
+      e.classList.toggle('flip', s.vx < 0);
+      e.style.transform = 'translate(' + (s.x | 0) + 'px,' + (-s.y | 0) + 'px)';
+    });
+  }, 40);
+
+  /* ---------- living desktop: time of day ---------- */
+  var tod = el('div', '', ''); tod.id = 'tod'; document.body.insertBefore(tod, document.body.children[1]);
+  function setTod(){ var h = new Date().getHours(), k = h < 5 ? 'night' : h < 9 ? 'morning' : h < 17 ? 'day' : h < 20 ? 'evening' : 'night'; if (tod.className !== k){ tod.className = k; } }
+  setTod(); setInterval(setTod, 60000);
+  setTimeout(function(){ if (!TOP || RESTORE) return; var h = new Date().getHours(); toast('', h < 5 ? 'Good night' : h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening', h < 5 || h >= 20 ? 'Night mode is on. The desktop follows your real time.' : 'The desktop follows your real time of day.'); }, 6500);
+
+  /* ---------- living desktop: random events ---------- */
+  function evBug(){
+    var b = el('button', 'bugx', '🪲'); b.type = 'button'; b.setAttribute('aria-label', 'A bug'); document.body.appendChild(b);
+    var y = 60 + Math.random() * (innerHeight - 200), x = -40, dir = 1, raf;
+    if (Math.random() < .5){ x = innerWidth + 40; dir = -1; }
+    (function f(){ x += dir * 1.6; y += Math.sin(x / 40) * 1.2; b.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + (dir > 0 ? 90 : -90) + 'deg)'; if (x < -60 || x > innerWidth + 60){ b.remove(); return; } raf = requestAnimationFrame(f); })();
+    b.onclick = function(){ cancelAnimationFrame(raf); b.textContent = '💥'; b.disabled = true; blip(120, .15, 'square', .06); ach('bug'); setTimeout(function(){ b.remove(); }, 500); };
+  }
+  function evBattery(){ toast('', '🔋 Battery low: 3%', 'Just kidding. You are on a website. Battery: infinite.'); }
+  function evGlitch(){ document.body.classList.add('glitch'); blip(80, .2, 'sawtooth', .04); setTimeout(function(){ document.body.classList.remove('glitch'); }, 450); }
+  function evUpdate(){ confirmBox('YO-OS Update', 'YO-OS wants to install 1 update: "more stereo". Restart now?', 'Restart', function(){ boot(true); }); }
+  function evPlane(){ var p = el('div', 'plane', '✈️<span>' + esc(pick(['check your mail', 'right-click the desktop', 'C:\\Users has secrets', 'do not open DO_NOT_OPEN.exe', 'pet the cassette'])) + '</span>'); document.body.appendChild(p); setTimeout(function(){ p.remove(); }, 9000); }
+  function evMailPing(){ var p = pets.filter(function(x){ return x.kind !== 'ghost'; })[0]; if (p) p.el._say(pick(PET_LINES)); }
+  var EVENTS = [evBug, evBug, evBattery, evGlitch, evUpdate, evPlane, evMailPing];
+  (function sched(){ setTimeout(function(){ if (TOP && !document.hidden && !saving && !document.getElementById('bsod') && !document.querySelector('.win.max')) pick(EVENTS)(); sched(); }, 90000 + Math.random() * 90000); })();
+  setTimeout(function(){ if (TOP) evBug(); }, 45000);
+
   /* ---------- Terminal ---------- */
   function buildTerminal(b, rec){
     b.innerHTML = '<div class="term sel" id="tmOut"></div><form class="term-in" id="tmForm" autocomplete="off"><span>C:\\YO&gt;</span><input id="tmIn" spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Command"></form>';
@@ -1755,7 +2075,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       help: function(){ ['help         this list','ls           list files','ls -a        list ALL files (even hidden ones)','open <name>  open an app (album, browser, paint, snake, beat...)','cat <file>   read a file','games        list the games','date         today','countdown    time until Stereo 80','drive        start the night drive','matrix       ???','whoami       who are you','clear        clear the screen','exit         close the terminal','','(capital letters or not, both work)'].forEach(function(l){ p(l); }); },
       games: function(){ p('nightdrive  gta  snake  sweeper  beat  paint'); p('type: open snake (or drive for nightdrive)'); },
       ls: function(a){
-        var f = ['Stereo80.app','Welcome.txt','Player','Browser','About.txt','Socials','Arcade','Paint','Photos','Merch','Contact','Trash','hint.txt'];
+        var f = ['My Computer','Mail','Trophies','Stereo80.app','Welcome.txt','Player','Browser','About.txt','Socials','Arcade','Paint','Photos','Merch','Contact','Trash','hint.txt'];
         if (a === '-a' || a === '-la' || a === '-al'){ f = f.concat(['.vault','.tape','.screensaver']); revealHidden(); }
         p(f.join('    '));
       },
@@ -1768,7 +2088,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
       },
       open: function(a){
         a = (a || '').toLowerCase().replace(/\.(app|exe|txt)$/, '');
-        var map = {gta: 'gta', sweeper: 'sweeper', mixsweeper: 'sweeper', chat: 'chat', yochat: 'chat', weather: 'weather', tapey: 'tapey', album: 'stereo80', stereo80: 'stereo80', player: 'player', browser: 'browser', paint: 'paint', snake: 'snake', welcome: 'welcome', terminal: 'terminal', nightdrive: 'nd', about: 'about', socials: 'links', links: 'links', beat: 'beat', photos: 'photos', merch: 'merch', contact: 'mail', arcade: 'games', trash: 'trash'};
+        var map = {mail: 'inbox', inbox: 'inbox', files: 'files', computer: 'files', mycomputer: 'files', trophies: 'trophies', achievements: 'trophies', gta: 'gta', sweeper: 'sweeper', mixsweeper: 'sweeper', chat: 'chat', yochat: 'chat', weather: 'weather', tapey: 'tapey', album: 'stereo80', stereo80: 'stereo80', player: 'player', browser: 'browser', paint: 'paint', snake: 'snake', welcome: 'welcome', terminal: 'terminal', nightdrive: 'nd', about: 'about', socials: 'links', links: 'links', beat: 'beat', photos: 'photos', merch: 'merch', contact: 'mail', arcade: 'games', trash: 'trash'};
         if (a === '.vault' || a === 'vault') return CMD.vault();
         if (map[a] === 'nd') return CMD.drive();
         if (map[a] === 'tapey'){ p('Summoning Tapey...'); return tapey(true); }
@@ -1789,7 +2109,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     };
     b.querySelector('#tmForm').addEventListener('submit', function(e){
       e.preventDefault(); var v = In.value.trim(); In.value = ''; p('C:\\YO> ' + v, 'cmd'); if (!v) return;
-      hist.push(v); hi = hist.length;
+      hist.push(v); hi = hist.length; ach('terminal');
       var parts = v.split(/\s+/), c = parts[0].toLowerCase(), arg = parts.slice(1).join(' ');
       if (c === '1125' || c === 'yoagami') { p('Access granted.'); revealHidden(); return; }
       (CMD[c] || function(){ p('"' + parts[0] + '" is not a command. Type HELP.'); })(arg);
@@ -1816,7 +2136,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   ];
   var revealed = false;
   function revealHidden(){
-    if (revealed) return; revealed = true; ls('yoos-hidden', '1');
+    if (revealed) return; revealed = true; ls('yoos-hidden', '1'); ach('hidden');
     HIDDEN.forEach(function(h, i){
       var b = el('button', 'ico ghost', h[1] + '<span>' + esc(h[0]) + '</span>'); b.type = 'button';
       b.addEventListener('click', function(){ blip(220, .12, 'sawtooth', .04); h[2](); });
@@ -1833,7 +2153,8 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     ['Change wallpaper', function(){ nextWall(); }],
     ['Show hidden files', function(){ if (revealed) toast('', 'Already visible', 'Look for the faded icons.'); else revealHidden(); }],
     ['Start screensaver', function(){ saver(); }],
-    ['Open Terminal', function(){ open('terminal'); }]
+    ['Open Terminal', function(){ open('terminal'); }],
+    ['Show / hide pet', function(){ var p = pets.filter(function(x){ return x.kind !== 'ghost'; })[0]; if (p){ p.el.remove(); pets.splice(pets.indexOf(p), 1); ls('yoos-pet', 'off'); } else { pets.push(makePet('tape')); ls('yoos-pet', 'on'); } }]
   ];
   CTX.forEach(function(c){ var b = el('button', '', esc(c[0])); b.type = 'button'; b.addEventListener('click', function(){ cm.hidden = true; c[1](); }); cm.appendChild(b); });
   function showCtx(x, y){ cm.hidden = false; var w = cm.offsetWidth, h = cm.offsetHeight; cm.style.left = Math.min(x, innerWidth - w - 6) + 'px'; cm.style.top = Math.min(y, innerHeight - h - 60) + 'px'; blip(700, .03); }
@@ -1858,6 +2179,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 
   /* matrix rain (blue) */
   function matrix(){
+    ach('matrix');
     var c = el('canvas', ''); c.id = 'mx'; document.body.appendChild(c);
     var g = c.getContext('2d'), W = c.width = innerWidth, H = c.height = innerHeight, cols = Math.floor(W / 16), y = [];
     for (var i = 0; i < cols; i++) y[i] = Math.random() * -H;
@@ -1875,7 +2197,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
   ['pointerdown','pointermove','keydown','wheel','touchstart'].forEach(function(ev){ document.addEventListener(ev, function(){ idle = 0; }, {passive: true}); });
   setInterval(function(){ if (!saving && !document.hidden && ++idle >= 75 && !$('boot').offsetParent) saver(); }, 1000);
   function saver(){
-    if (saving) return; saving = true; idle = 0; cm.hidden = true;
+    if (saving) return; saving = true; ach('saver'); idle = 0; cm.hidden = true;
     var c = el('canvas', ''); c.id = 'saver'; document.body.appendChild(c);
     var g = c.getContext('2d'), W = c.width = innerWidth, H = c.height = innerHeight, items = [], raf;
     for (var i = 0; i < (LITE ? 14 : 26); i++) items.push({x: Math.random() * W, y: Math.random() * H, z: Math.random() * .8 + .2, s: Math.random() * 1.5 + .6, r: Math.random() * 6, hue: Math.random() < .5 ? '#4aa3ff' : '#ff4fd8'});
@@ -1897,7 +2219,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
 
   /* ---------- wallpaper: waves / sunset / stars ---------- */
   var WALLS = ['waves','sunset','stars'], wall = WALLS.indexOf(ls('yoos-wall')) >= 0 ? ls('yoos-wall') : 'waves';
-  function nextWall(){ wall = WALLS[(WALLS.indexOf(wall) + 1) % WALLS.length]; ls('yoos-wall', wall); toast('', 'Wallpaper', wall.charAt(0).toUpperCase() + wall.slice(1)); }
+  function nextWall(){ ach('wall'); wall = WALLS[(WALLS.indexOf(wall) + 1) % WALLS.length]; ls('yoos-wall', wall); toast('', 'Wallpaper', wall.charAt(0).toUpperCase() + wall.slice(1)); }
   (function(){
     var c = $('wall'), g = c.getContext('2d'), W = 0, H = 0, dpr = 1, lastW = 0, N = LITE ? 22 : 40, minDt = LITE ? 66 : 33, last = 0, stars = [];
     function size(){ dpr = Math.min(window.devicePixelRatio || 1, LITE ? 1 : 1.5); W = innerWidth; H = innerHeight; c.width = W * dpr; c.height = H * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0); lastW = W;
@@ -1974,6 +2296,7 @@ html.pre .ph img.cov{filter:blur(18px) saturate(1.2)}
     }
   }
   setInterval(tickTray, 1000);
+  setTimeout(function(){ try{ badge(); mailTick(); }catch(e){} }, 1200);
   document.addEventListener('pointerdown', function first(){ ctx(); document.removeEventListener('pointerdown', first); }, {once: true});
   boot(false);
 })();
