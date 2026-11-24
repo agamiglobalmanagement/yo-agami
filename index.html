@@ -2072,7 +2072,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
       if (e.target.closest('[data-close]')){ view = null; render(); return; }
       var it = e.target.closest('[data-i]'); if (!it) return;
       var x = here().k[+it.getAttribute('data-i')]; bump('files', 15, 'files'); blip(900, .03);
-      if (x.ev) flag(x.ev);
+      if (x.ev && x.t !== 'lock') flag(x.ev);
       flag('files');
       if (x.t === 'dir'){ path.push(x); view = null; render(); }
       else if (x.t === 'lock') lock(x);
