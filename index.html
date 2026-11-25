@@ -648,6 +648,22 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
 #bsod p{max-width:640px}
 .cfm{position:fixed;inset:0;z-index:96;display:grid;place-items:center;background:rgba(0,0,0,.4)}
 .cfm-b{width:min(380px,calc(100vw - 24px));background:var(--panel);border:1px solid var(--neon);border-radius:10px;overflow:hidden}
+.tp{padding:14px;display:flex;flex-direction:column;gap:14px}
+.tp-scr{position:relative;aspect-ratio:16/9;background:#0a1aa8;border-radius:10px;overflow:hidden;box-shadow:inset 0 0 60px rgba(0,0,0,.6)}
+.tp-scr:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px);pointer-events:none}
+.tp-st{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.tp-osd{position:absolute;inset:0;font-family:ui-monospace,Menlo,Consolas,monospace;color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.5);letter-spacing:.08em}
+.tp-osd[hidden]{display:none}
+.tp-osd>span{position:absolute;font-size:clamp(12px,3.4vw,18px)}
+.tp-pl{left:5%;top:7%;animation:tpBl 1.2s steps(1) infinite}.tp-sp{right:5%;top:7%}.tp-ct{right:5%;bottom:8%}.tp-dt{left:5%;bottom:8%}
+@keyframes tpBl{50%{opacity:.25}}
+.tp-mid{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center}
+.tp-mid b{font-size:clamp(26px,8vw,44px);letter-spacing:.12em}.tp-mid span{font-size:clamp(12px,3.4vw,16px);opacity:.85}.tp-mid em{font-style:normal;font-size:clamp(11px,3vw,14px);opacity:.6;margin-top:6px}
+.tp-sides{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tp-side{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 12px}
+.tp-side small{display:block;opacity:.55;letter-spacing:.15em;font-size:11px;margin-bottom:6px}
+.tp-side p{margin:5px 0;font-size:14px}.tp-side i{font-style:normal;opacity:.5;margin-right:8px;font-family:ui-monospace,Menlo,monospace}
+.tp-sp-f{width:100%;height:352px;border:0;border-radius:12px;flex:none}
 .tapey{position:fixed;right:14px;bottom:calc(var(--bar) + 14px);z-index:57;display:flex;align-items:flex-end;gap:8px;max-width:min(360px,calc(100vw - 28px));animation:tIn .3s}
 .tp-face svg{width:64px;height:64px;animation:bob 1.4s ease-in-out infinite;filter:drop-shadow(0 0 10px var(--neon))}
 @keyframes bob{50%{transform:translateY(-6px) rotate(-4deg)}}
@@ -927,6 +943,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
     weather:  {name: 'Weather', icon: function(){ return I.wx; }, w: 440, h: 420, build: buildWeather},
     donotopen:{name: 'DO_NOT_OPEN.exe', icon: function(){ return I.warn; }, action: function(){ chaos(); }},
     terminal: {name: 'Terminal', icon: function(){ return I.term; }, w: 620, h: 420, build: buildTerminal},
+    tape:     {name: '.tape', icon: function(){ return I.vhs; }, w: 560, h: 720, build: buildTape},
     trash:    {name: 'Trash', icon: function(){ return I.trash; }, w: 520, h: 360, build: buildTrash}
   };
   var DESK = ['stereo80','files','inbox','welcome','clues','trophies','player','browser','chat','about','links','games','terminal','paint','weather','photos','merch','mail','donotopen','trash'];
@@ -1173,12 +1190,38 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
     return function(){ clearInterval(iv); };
   }
 
+
+  /* ---------- .tape (unlocks on release day) ---------- */
+  var ALBUM = 'https://open.spotify.com/album/3O2k2OAfbMbZL09Cazenkr';
+  function buildTape(b){
+    var A = TRACKS.slice(0, 4), B = TRACKS.slice(4);
+    function side(n, list, o){ return '<div class="tp-side"><small>SIDE ' + n + '</small>' + list.map(function(t, i){ return '<p><i>' + (o + i + 1 < 10 ? '0' : '') + (o + i + 1) + '</i>' + esc(t) + '</p>'; }).join('') + '</div>'; }
+    b.innerHTML = '<div class="tp">' +
+      '<div class="tp-scr"><canvas class="tp-st"></canvas><div class="tp-osd" hidden><span class="tp-pl">PLAY &#9654;</span><span class="tp-sp">SP</span>' +
+      '<div class="tp-mid"><b>STEREO 80</b><span>YO AGAMI</span><em>the full tape</em></div><span class="tp-ct">0:00:00</span><span class="tp-dt">NOV 25 2026</span></div></div>' +
+      '<div class="tp-sides">' + side('A', A, 0) + side('B', B, 4) + '</div>' +
+      '<div class="row" style="justify-content:center;margin:12px 0 4px"><a class="btn pri" href="' + ALBUM + '" target="_blank" rel="noopener">' + svgSp + 'Play Stereo 80</a></div>' +
+      '<p class="note">The tape finished recording. You found it.</p>' +
+      (window.SPOTIFY_EMBED ? '<iframe class="tp-sp-f" title="Stereo 80 on Spotify" src="https://open.spotify.com/embed/album/3O2k2OAfbMbZL09Cazenkr?utm_source=generator&amp;theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' : '') + '</div>';
+    var cv = b.querySelector('.tp-st'), g = cv.getContext('2d'), osd = b.querySelector('.tp-osd'), ct = b.querySelector('.tp-ct'), t0 = performance.now(), raf, iv;
+    cv.width = 160; cv.height = 90;
+    blip(180, .5, 'sawtooth', .03);
+    (function noise(){
+      var d = g.createImageData(160, 90); for (var i = 0; i < d.data.length; i += 4){ var v = Math.random() * 255 | 0; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+      g.putImageData(d, 0, 0);
+      if (performance.now() - t0 < 1300) raf = requestAnimationFrame(noise);
+      else { cv.style.opacity = '.06'; osd.hidden = false; blip(660, .1, 'square', .04); t0 = performance.now();
+        iv = setInterval(function(){ var s = (performance.now() - t0) / 1000 | 0; ct.textContent = '0:' + ('0' + (s / 60 | 0)).slice(-2) + ':' + ('0' + s % 60).slice(-2); }, 500); }
+    })();
+    return function(){ cancelAnimationFrame(raf); clearInterval(iv); };
+  }
+
   function buildPlayer(b){
     var html = '<div class="pad">';
     if (window.SPOTIFY_EMBED) html += '<iframe class="sp-frame" title="Yo Agami on Spotify" src="https://open.spotify.com/embed/artist/18uAUC32k2x89CR8McqT75?utm_source=generator&amp;theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';
     else html += '<div class="empty">Open Yo Agami on Spotify to listen.</div>';
     html += '<div class="row" style="margin-top:14px;justify-content:center"><a class="btn pri" href="' + SP + '" target="_blank" rel="noopener">' + svgSp + 'Open in Spotify</a></div>';
-    html += '<p class="note">Stereo 80 lands here on November 25.</p></div>';
+    html += '<p class="note">' + (isOut() ? 'Stereo 80 is out now.' : 'Stereo 80 lands here on November 25.') + '</p></div>';
     b.innerHTML = html;
   }
 
@@ -1919,6 +1962,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
     ['explorer', 'Explorer', 'Open 10 different apps.'],
     ['hidden', 'X-Ray Eyes', 'Reveal the hidden files.'],
     ['vault', 'Safecracker', 'Open the vault.'],
+    ['tape', 'Rewind', 'Play the .tape.'],
     ['pieces', 'Collector', 'Find all 4 escape room pieces.'],
     ['escape', 'Escapee', 'Escape through the door.'],
     ['ghost', 'Ghostbuster', 'Free user_0.'],
@@ -1954,7 +1998,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
   }
   function bump(k, goal, id){ cnt[k] = (cnt[k] || 0) + 1; jset('yoos-cnt', cnt); if (cnt[k] >= goal) ach(id); }
   var seenApps = jget('yoos-apps', {}), seenSites = jget('yoos-sites', {});
-  function onOpen(id){ if (!seenApps[id]){ seenApps[id] = 1; jset('yoos-apps', seenApps); } if (Object.keys(seenApps).length >= 10) ach('explorer'); if (id === 'vault') ach('vault'); }
+  function onOpen(id){ if (!seenApps[id]){ seenApps[id] = 1; jset('yoos-apps', seenApps); } if (Object.keys(seenApps).length >= 10) ach('explorer'); if (id === 'vault') ach('vault'); if (id === 'tape') ach('tape'); }
   function onSite(u){ u = u.split('?')[0].split('/')[0]; if (!seenSites[u]){ seenSites[u] = 1; jset('yoos-sites', seenSites); } if (Object.keys(seenSites).length >= 8) ach('surfer'); }
   function buildTrophies(b){
     var n = Object.keys(got).length, pc = Math.round(n / ACH.length * 100);
@@ -2173,13 +2217,14 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
         a = (a || '').toLowerCase();
         if (a === 'hint.txt') p('The vault code is the day the tape drops. Four digits. MMDD.');
         else if (a === 'about.txt') p('Yo Agami. Independent artist. New album Stereo 80 on November 25, 2026.');
-        else if (a === '.tape') p('[ static ] ... the tape is still recording. Come back after November 25.');
+        else if (a === '.tape') p(isOut() ? '[ PLAY ] the tape is done. type: open .tape' : '[ static ] ... the tape is still recording. Come back after November 25.');
         else p('File not found: ' + (a || '?'));
       },
       open: function(a){
         a = (a || '').toLowerCase().replace(/\.(app|exe|txt)$/, '');
         var map = {mail: 'inbox', inbox: 'inbox', files: 'files', computer: 'files', mycomputer: 'files', trophies: 'trophies', achievements: 'trophies', gta: 'gta', sweeper: 'sweeper', mixsweeper: 'sweeper', chat: 'chat', yochat: 'chat', weather: 'weather', tapey: 'tapey', album: 'stereo80', stereo80: 'stereo80', player: 'player', browser: 'browser', paint: 'paint', snake: 'snake', welcome: 'welcome', terminal: 'terminal', nightdrive: 'nd', about: 'about', socials: 'links', links: 'links', beat: 'beat', photos: 'photos', merch: 'merch', contact: 'mail', arcade: 'games', trash: 'trash'};
         if (a === '.vault' || a === 'vault') return CMD.vault();
+        if (a === '.tape' || a === 'tape'){ if (!isOut()){ p('[ static ] ... still recording. Come back after November 25.'); return; } p('Inserting .tape ...'); setTimeout(function(){ open('tape'); }, 400); return; }
         if (map[a] === 'nd') return CMD.drive();
         if (map[a] === 'tapey'){ p('Summoning Tapey...'); return tapey(true); }
         if (a === 'kingdom') return CMD.kingdom();
@@ -2221,7 +2266,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
   function ls(k, v){ try{ if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
   var HIDDEN = [
     ['.vault', I.vault, function(){ open('vault'); }],
-    ['.tape', I.vhs, function(){ toast('', '.tape', 'Static... the tape is still recording. Come back after November 25.'); }],
+    ['.tape', I.vhs, function(){ if (isOut()) open('tape'); else toast('', '.tape', 'Static... the tape is still recording. Come back after November 25.'); }],
     ['.screensaver', I.scr, function(){ saver(); }]
   ];
   var revealed = false;
