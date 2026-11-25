@@ -1061,6 +1061,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
     var a = APPS[id]; if (!a) return;
     closeMenu();
     onOpen(id);
+    if (id === 'kingdom' && mobile()){ var fx = el('div', '', ''); fx.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#000;opacity:0;transition:opacity .35s'; document.body.appendChild(fx); requestAnimationFrame(function(){ fx.style.opacity = '1'; }); setTimeout(function(){ location.href = 'kingdom/'; }, 380); setTimeout(function(){ fx.remove(); }, 2500); return; }
     if (a.action){ a.action(); return; }
     if (wins[id]){ wins[id].el.hidden = false; focus(id); if (args && args.url && wins[id].goto) wins[id].goto(args.url); if (args && args.mail && wins[id].refresh){ close(id); setTimeout(function(){ open(id, args); }, 160); } return; }
     var w = el('section', 'win', '');

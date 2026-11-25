@@ -1370,7 +1370,7 @@ h1{white-space:nowrap;font-size:clamp(40px,13vw,140px)}
 <script>try{if(window.top!==window)document.documentElement.classList.add("inframe")}catch(e){}</script><style>html.inframe .back,html.inframe a[href="../"]{display:none!important}</style>
 </head>
 <body>
-<a href="../" style="position:fixed;left:12px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:9000;padding:10px 14px;border-radius:999px;background:#1d4fd8;color:#fff;font:700 14px system-ui,sans-serif;text-decoration:none;box-shadow:0 0 18px rgba(74,163,255,.6)">&larr; Back to YO-OS</a>
+<a href="../" id="yoBack" aria-label="Back to YO-OS" style="position:fixed;left:12px;bottom:calc(86px + env(safe-area-inset-bottom));z-index:9000;padding:8px 12px;border-radius:999px;background:rgba(29,79,216,.92);color:#fff;font:700 13px system-ui,sans-serif;text-decoration:none;box-shadow:0 0 14px rgba(74,163,255,.5);opacity:0;pointer-events:none;transition:opacity .4s">&larr; YO-OS</a><script>(function(){function c(){var b=document.getElementById("yoBack"),i=document.getElementById("intro");if(!b)return;var on=!i||i.style.display==="none"||getComputedStyle(i).display==="none";b.style.opacity=on?"1":"0";b.style.pointerEvents=on?"auto":"none"}document.addEventListener("DOMContentLoaded",function(){var i=document.getElementById("intro");if(i)new MutationObserver(c).observe(i,{attributes:true,attributeFilter:["style","class"]});c()});setInterval(c,1000)})();</script>
 
 
 <canvas id="glitter" aria-hidden="true"></canvas>
