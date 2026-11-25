@@ -849,6 +849,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
   #home:after{content:'';position:absolute;left:50%;top:9px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:rgba(255,255,255,.85);box-shadow:0 0 6px rgba(0,0,0,.6)}
   body.app-open #home{display:block}
   #toasts{top:calc(var(--sb) + 8px);bottom:auto;left:8px;right:8px;width:auto}
+  body.app-open #toasts{top:auto;bottom:calc(30px + env(safe-area-inset-bottom))}
 }
 </style>
 </head>
@@ -1060,6 +1061,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
     var a = APPS[id]; if (!a) return;
     closeMenu();
     onOpen(id);
+    if (id === 'kingdom' && mobile()){ location.href = 'kingdom/'; return; }
     if (a.action){ a.action(); return; }
     if (wins[id]){ wins[id].el.hidden = false; focus(id); if (args && args.url && wins[id].goto) wins[id].goto(args.url); if (args && args.mail && wins[id].refresh){ close(id); setTimeout(function(){ open(id, args); }, 160); } return; }
     var w = el('section', 'win', '');
