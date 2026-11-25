@@ -803,6 +803,54 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
 .sc-h{color:#3a7a3a}
 .sc-ok{margin-top:14px;padding:12px;border:1px dashed #0f0}
 
+
+/* ---------- YO-OS Phone (small screens) ---------- */
+#sb,#home,.hw,#dock{display:none}
+@media (max-width:720px){
+  :root{--sb:calc(30px + env(safe-area-inset-top));--bar:calc(98px + env(safe-area-inset-bottom))}
+  #sb{display:flex;position:fixed;left:0;right:0;top:0;height:var(--sb);padding:env(safe-area-inset-top) 18px 0;z-index:61;align-items:center;justify-content:space-between;font:600 14px var(--ui);color:#fff;background:rgba(4,8,22,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  #sb .sb-r{display:flex;align-items:center;gap:7px;font-size:12px;opacity:.92}
+  #sb .sb-r svg{height:11px;width:auto;fill:#fff}
+  #sb .bat{display:inline-flex;align-items:center;gap:4px}
+  #sb .bat b{display:inline-block;width:22px;height:11px;border:1.5px solid #fff;border-radius:3px;position:relative;padding:1px}
+  #sb .bat b:after{content:'';display:block;height:100%;width:80%;background:#7cf3ff;border-radius:1px}
+  #desk{top:var(--sb);padding:14px 12px 20px;gap:18px 2px}
+  .brand{display:none}
+  .ico{padding:4px 0;gap:6px}
+  .ico svg,.ico img{width:62px;height:62px;padding:11px;box-sizing:border-box;border-radius:17px;background:linear-gradient(160deg,#1f3c8a,#0b1638);border:1px solid rgba(124,190,255,.25);box-shadow:0 6px 16px rgba(0,0,0,.45);filter:none}
+  .ico img{padding:0}
+  .ico span{font:500 12px/1.2 var(--ui);letter-spacing:0;text-shadow:0 1px 4px #000;max-width:78px}
+  .ico span wbr{display:none}
+  #desk .ico[data-app="stereo80"],#desk .ico[data-app="browser"],#desk .ico[data-app="chat"],#desk .ico[data-app="terminal"]{display:none}
+  .hw{display:grid;grid-column:1/-1;grid-template-columns:1fr auto;align-items:center;gap:14px;margin:2px 2px 6px;padding:16px;border-radius:24px;border:1px solid rgba(124,190,255,.25);background:linear-gradient(135deg,rgba(29,79,216,.55),rgba(255,79,216,.25));-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:#fff;text-align:left;cursor:pointer;font-family:var(--ui)}
+  .hw-t{font:700 44px/1 var(--ui);letter-spacing:-.02em}
+  .hw-d{font-size:13px;opacity:.8;margin-top:6px}
+  .hw-a{display:grid;justify-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.08em}
+  .hw-a img{width:86px;height:86px;border-radius:14px;box-shadow:0 8px 20px rgba(0,0,0,.5)}
+  .hw-a span{padding:3px 8px;border-radius:20px;background:rgba(255,79,216,.85)}
+  #bar{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));height:76px;padding:0 10px;border:1px solid rgba(255,255,255,.12);border-radius:28px;background:rgba(14,24,60,.62);justify-content:space-between;transition:transform .25s ease}
+  #tasks,#tray .cd,#tray .clock,.trb.sd{display:none!important}
+  #dock{display:flex;flex:1;justify-content:space-around}
+  #dock button,#start,#ncBtn{width:56px;height:56px;min-width:0;padding:0;border-radius:16px;border:1px solid rgba(124,190,255,.25);background:linear-gradient(160deg,#1f3c8a,#0b1638);display:grid;place-items:center;cursor:pointer}
+  #dock svg,#dock img{width:36px;height:36px;border-radius:8px;filter:none}
+  #dock img{width:56px;height:56px;border-radius:16px}
+  #start{background:linear-gradient(135deg,var(--pink),var(--neon))}
+  #start i{width:auto;height:auto;background:none;font:900 18px var(--ui)}
+  #ncBtn{font-size:22px}
+  #tray{padding:0}
+  body.app-open #bar{transform:translateY(130%)}
+  .win{top:var(--sb)!important;height:calc(100% - var(--sb))!important;border:0}
+  .win .wb{padding-bottom:26px}
+  .tb{justify-content:center;position:relative;background:rgba(9,18,48,.96)}
+  .tb .t{font:600 16px var(--ui);text-align:center}
+  .tb .mn{display:none}
+  .tb .x{position:absolute;right:8px}
+  #home{position:fixed;left:0;right:0;bottom:0;height:calc(24px + env(safe-area-inset-bottom));z-index:62;border:0;background:none;cursor:pointer}
+  #home:after{content:'';position:absolute;left:50%;top:9px;width:134px;height:5px;margin-left:-67px;border-radius:3px;background:rgba(255,255,255,.85);box-shadow:0 0 6px rgba(0,0,0,.6)}
+  body.app-open #home{display:block}
+  #toasts{left:8px;right:8px;width:auto}
+  body.app-open #toasts{bottom:calc(30px + env(safe-area-inset-bottom))}
+}
 </style>
 </head>
 <body>
@@ -814,9 +862,11 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
 <main id="desk" aria-label="Desktop"></main>
 <div id="wins"></div>
 <div id="toasts" aria-live="polite"></div>
+<div id="sb" aria-hidden="true"><span class="sb-t">9:41</span><span class="sb-r">YO-NET <svg viewBox="0 0 17 11"><rect x="0" y="8" width="3" height="3"/><rect x="4.5" y="5.5" width="3" height="5.5"/><rect x="9" y="3" width="3" height="8"/><rect x="13.5" y="0" width="3" height="11"/></svg><span class="bat">80%<b></b></span></span></div>
+<button id="home" type="button" aria-label="Home"></button>
 
 <nav id="bar" aria-label="Taskbar">
-  <button id="start" type="button" aria-haspopup="menu"><i>YO</i><span>Start</span></button>
+  <button id="start" type="button" aria-haspopup="menu"><i>YO</i><span>Start</span></button><div id="dock"></div>
   <div id="tasks"></div>
   <div id="tray"><button class="cd" type="button" id="trayCd" title="Stereo 80 countdown">11.25</button><button type="button" id="ncBtn" class="trb" title="Notifications" aria-label="Notifications">🔔<i id="ncN" hidden>0</i></button><span class="clock" id="clock">12:00</span><button type="button" id="showDesk" class="trb sd" title="Show desktop" aria-label="Show desktop"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 20h8" stroke="currentColor" stroke-width="2"/></svg></button></div>
 </nav>
@@ -983,6 +1033,28 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
   })();
   setTimeout(applyIcons, 0);
 
+  /* ---------- YO-OS Phone: status bar, home widget, dock, home button ---------- */
+  (function(){
+    var sbT = document.querySelector('#sb .sb-t'), hw = el('button', 'hw', ''), dock = $('dock');
+    hw.type = 'button'; hw.setAttribute('aria-label', 'Open Stereo80.app');
+    function hm(d){ var h = d.getHours() % 12 || 12, m = ('0' + d.getMinutes()).slice(-2); return h + ':' + m; }
+    function tick(){
+      var d = new Date(); sbT.textContent = hm(d);
+      hw.innerHTML = '<div><div class="hw-t">' + hm(d) + '</div><div class="hw-d">' + d.toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric'}) + '</div></div>' +
+        '<div class="hw-a"><img src="stereo80.jpg" alt=""><span>' + (isOut() ? 'OUT NOW' : 'NOV 25') + '</span></div>';
+    }
+    tick(); setInterval(tick, 15000);
+    hw.addEventListener('click', function(){ blip(880, .04); open('stereo80'); });
+    desk.insertBefore(hw, desk.firstChild);
+    ['stereo80', 'browser', 'chat', 'terminal'].forEach(function(id){
+      var b = el('button', '', APPS[id].icon()); b.type = 'button'; b.setAttribute('data-app', id); b.setAttribute('aria-label', 'Open ' + APPS[id].name);
+      b.addEventListener('click', function(){ blip(880, .04); open(id); }); dock.appendChild(b);
+    });
+    function sync(){ document.body.classList.toggle('app-open', !!document.querySelector('#wins .win:not([hidden])')); }
+    new MutationObserver(sync).observe($('wins'), {childList: true, subtree: true, attributes: true, attributeFilter: ['hidden']});
+    $('home').addEventListener('click', function(){ document.querySelectorAll('#wins .win').forEach(function(w){ w.hidden = true; w.classList.remove('focus'); }); syncTasks(); blip(520, .04); });
+  })();
+
   /* ---------- window manager ---------- */
   var wins = {}, z = 20, cascade = 0, tasks = $('tasks');
   function open(id, args){
@@ -1132,6 +1204,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
   /* ---------- toasts ---------- */
   function toast(img, title, sub, onClick){
     var d = new Date(); NCH.push({t: title, s: sub, fn: onClick || null, tm: two(d.getHours()) + ':' + two(d.getMinutes())}); if (NCH.length > 30) NCH.shift(); if ($('nc').hidden) ncUnseen++; ncRender();
+    if (mobile() && wins.kingdom && !wins.kingdom.el.hidden) return;
     var t = el('div', 'toast', (img ? '<img src="' + img + '" alt="" class="cov">' : '<span></span>') + '<div><b>' + esc(title) + '</b><small>' + esc(sub) + '</small></div>');
     t.addEventListener('click', function(){ t.remove(); if (onClick) onClick(); });
     var TS = $('toasts'); TS.appendChild(t); while (TS.children.length > (mobile() ? 1 : 3)) TS.removeChild(TS.firstChild); blip(988, .08, 'triangle', .05);
@@ -1943,6 +2016,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
   var tapeyOff = ss('yoos-tapey') === 'off', tapeyEl = null, ti = 0;
   function tapey(force){
     if ((tapeyOff && !force) || tapeyEl || saving || !TOP) return;
+    if (!force && mobile() && document.body.classList.contains('app-open')) return;
     tapeyEl = el('div', 'tapey', '<div class="tp-face">' + I.vhs + '</div><div class="tp-bub"><b>Tapey</b><p>' + esc(TIPS[ti++ % TIPS.length]) + '</p><div class="row"><button type="button" class="btn" data-n>Next tip</button><button type="button" class="btn" data-x>Go away</button></div></div>');
     document.body.appendChild(tapeyEl); blip(1500, .05, 'triangle', .04);
     tapeyEl.querySelector('[data-n]').onclick = function(){ tapeyEl.querySelector('p').textContent = TIPS[ti++ % TIPS.length]; blip(1200, .04); };
@@ -2396,7 +2470,7 @@ body.glitch #desk,body.glitch #wins{animation:gl .45s steps(3)}
         g.fillStyle = s.x > 0 ? '#b9dcff' : '#ffc4f3'; g.fillRect(px, py, sz, sz); });
     }
     function draw(t){ if (wall === 'sunset') sunset(t); else if (wall === 'stars') starfield(); else waves(t); }
-    function loop(t){ requestAnimationFrame(loop); if (document.hidden || saving || t - last < minDt) return; last = t; draw(t); }
+    function loop(t){ requestAnimationFrame(loop); if (document.hidden || saving || t - last < minDt || document.body.classList.contains('app-open')) return; last = t; draw(t); }
     draw(0); requestAnimationFrame(loop);
   })();
 
